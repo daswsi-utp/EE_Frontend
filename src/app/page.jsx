@@ -1,7 +1,9 @@
-export default function Home() {
+import Home from "./home/Home";
+
+export default function Page() {
   return (
     <div className="bg-primary text-[#eee] font-bold">
-      <span>Inicializacion del frontend</span>
+      <Home/>
     </div>
   );
 }

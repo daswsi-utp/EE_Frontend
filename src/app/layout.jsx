@@ -1,8 +1,6 @@
 import { Montserrat_Alternates, Nunito  } from "next/font/google";
 import "./globals.css";
-import Header from "./Components/Header";
-import Home from "./Pages/Home/Home";
-
+import Home from "./home/Home";
 
 
 const nunito = Nunito({
@@ -18,7 +16,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${nunito.className} bg-primary`}
       >
-        <Home/>
+        <main>{children}</main>
       </body>
     </html>
   );
