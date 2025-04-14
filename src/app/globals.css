@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+
+
     /* Colores principales */
     --color-primary: #2dd4bf;        /* Verde bosque: solidez y conexión con la naturaleza */
     --color-secondary: #6ee7b7;      /* Amarillo cálido: energía y optimismo */    
@@ -27,4 +29,8 @@
 
     /* Detalles y bordes */
     --color-border: #D1D5DB;         /* Gris claro: sutil y moderno */
+}
+
+@theme inline{
+    --font-montserrat: var(--font-montserrat-var);
 }
