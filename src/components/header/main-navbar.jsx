@@ -46,7 +46,7 @@ function CustomLink({ href, children }) {
 
 export default function MainNavbar() {
   return (
-    <header className="w-full flex text-text justify-around relative h-[12vh] items-center z-[5] bg-background shadow-xl/2">
+    <header className="w-full flex text-text justify-around h-[12vh] items-center bg-background shadow-xl/2">
       <div className="text-text font-[500] text-[30px] pl-6 flex flex-col justify-center w-[310px]">
         <Link href="/" className="sw-fit cursor-pointer">
           <Logo />
