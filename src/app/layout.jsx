@@ -16,10 +16,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.className} bg-tertiary`}
       >
-        <div className='h-screen w-screen'>
-          <LayoutHeader />
-          <main>{children}</main>
-        </div>
+        <LayoutHeader />
+        {children}      
       </body>
     </html>
   );
