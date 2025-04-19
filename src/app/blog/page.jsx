@@ -3,7 +3,7 @@ import BlogContent from "./BlogContent";
 
 export default async function Page() {
     return (
-        <div>
+        <div className="min-h-screen bg-tertiary">
             <Header/>
             {/*Programar apartir de aqui el contenido de Blog */}
             <BlogContent/>
