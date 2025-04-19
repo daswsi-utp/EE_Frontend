@@ -6,6 +6,10 @@ export default async function Page() {
         <div>
             <Header/>
             {/*Programar apartir de aqui el contenido de productos*/}
+            { /*Prueba*/}
+            
+
+            
             <ProductsContent/>
         </div>
     )
