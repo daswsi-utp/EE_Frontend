@@ -13,7 +13,7 @@ const montserrat = Montserrat_Alternates({
 
 const Header = () => {
     return (
-        <div className='w-full flex text-text justify-around relative h-[12vh] items-center z-[5] bg-background shadow-xl/2'>
+        <div className='w-full flex text-text justify-around relative h-[12vh] items-center z-[5] bg-white shadow-xl/2'>
 
             <div className={`${montserrat.className} text-text font-[500] text-[30px]  pl-6 flex flex-col justify-center w-[310px]`}>
                 <Link href="/" className='sw-fit cursor-pointer'>
@@ -47,7 +47,7 @@ const Header = () => {
                 <button className={`transition-all ease-out duration-300 hover:scale-105 w-[50px] h-[50px] flex justify-center items-center text-[20px] text-text rounded-full cursor-pointer hover:text-hover-text`}>
                     <FaRegUser/>
                 </button>
-                <button className={`transition-all ease-out duration-300 hover:scale-105 w-[50px] h-[50px] flex justify-center items-center text-[27px] text-text rounded-full cursor-pointer hover:text-hover-text`}>
+                <button className={`bg-primary text-white transition-all ease-out duration-300 hover:scale-105 w-[45px] h-[45px] flex justify-center items-center text-[27px] rounded-full cursor-pointer`}>
                     <IoCartOutline/>
                 </button>
                 

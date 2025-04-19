@@ -1,30 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-    /* Colores principales */
-    --color-primary: #2dd4bf;        /* Verde bosque: solidez y conexión con la naturaleza */
-    --color-secondary: #6ee7b7;      /* Amarillo cálido: energía y optimismo */    
-    --color-tertiary: #E8F2F1;      
+    --color-primary: #2dd4bf;
+    --color-secondary: #6ee7b7;
+    --color-tertiary: #E8F2F1;    
+    --color-Quaternary: #64C5B2;       
+    --color-hover-text: #64C5B2;
+    --color-text: #000;
 
-    /* Colores de acento */
-    --color-accent: #38B2AC;         /* Verde azulado: moderno y refrescante */
-    --color-accent-light: #C2F3EF;   /* Versión suave para fondos o hover */
-    --color-accent-dark: #2C7A7B;    /* Versión oscura para resaltar detalles */
+    --color-success: #3FA34D;
+    --color-warning: #EFB700;
+    --color-error: #D64545;         
+}
 
-    /* Fondos y superficies */
-    --color-background: #F8F8F5;     /* Gris verdoso muy claro: limpio y natural */
-    --color-surface: #FFFFFF;        /* Blanco: ideal para tarjetas y contenedores */
-
-    /* Tipografía */
-    --color-text: #2F2F2F;           /* Gris oscuro: legible y elegante */
-    --color-muted-text: #6B7280;     /* Gris neutro para textos secundarios */
-    --color-hover-text: #1E8076;     /* Variante oscura del acento para interacciones */
-
-    /* Estados (para mensajes y validaciones) */
-    --color-success: #3FA34D;        /* Verde éxito: confirmaciones y estados positivos */
-    --color-warning: #EFB700;        /* Amarillo: avisos o advertencias suaves */
-    --color-error: #D64545;          /* Rojo: notificaciones de error */
-
-    /* Detalles y bordes */
-    --color-border: #D1D5DB;         /* Gris claro: sutil y moderno */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
