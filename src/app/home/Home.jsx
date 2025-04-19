@@ -1,6 +1,7 @@
 import Header from '@/app/Components/Header'
 import Bentos from './Bentos'
 import Info from './Info'
+import Carousel from './Carousel'
 
 const Home = () => {
     return (
@@ -8,6 +9,13 @@ const Home = () => {
             <Header />
             <Bentos/>
             <Info/>
+            <section className='h-[70vh] flex flex-col justify-center items-center pb-10'>
+                <span className='text-primary font-[700] text-[35px] block text-center'>
+                    Productos Estrellas
+                </span>
+                <Carousel/>
+            </section>
+            
         </div>
     )
 }

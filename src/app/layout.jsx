@@ -1,7 +1,5 @@
 import { Montserrat_Alternates, Nunito  } from "next/font/google";
 import "./globals.css";
-import Home from "./home/Home";
-
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -21,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${montserrat.className} bg-black text-white`}
+        className={`${montserrat.className} bg-black text-white h-fit`}
       >
         <main>{children}</main>
       </body>
