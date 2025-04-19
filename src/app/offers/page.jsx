@@ -3,69 +3,71 @@ import CountdownTimer from "./components/countdown-timer";
 import { RiDiscountPercentLine } from "react-icons/ri";
 import Newsletter from "./components/newsletter";
 import CardOffer from "./components/card-offer";
+import FlashSale from "./components/flash-sale";
+import OfferCupon from "./components/offer-cupon";
+import BenefitsProducts from "./components/benefits-products";
 
 const PRODUCTS = [
   {
     id: 1,
     name: "Producto Ecológico 1",
     description: "Descripción breve del producto ecológico 1.",
-    price: 50,
+    price: 56,
     oldPrice: 70,
-    discount: 30,
+    discount: 20,
     image: "/Img/ProductosEcologicos2.png",
   },
   {
     id: 2,
     name: "Producto Ecológico 2",
     description: "Descripción breve del producto ecológico 2.",
-    price: 40,
+    price: 48,
     oldPrice: 60,
-    discount: 33,
+    discount: 20,
     image: "/Img/ProductosEcologicos2.png",
   },
   {
     id: 3,
     name: "Producto Ecológico 3",
     description: "Descripción breve del producto ecológico 3.",
-    price: 30,
+    price: 35,
     oldPrice: 50,
-    discount: 40,
+    discount: 30,
     image: "/Img/ProductosEcologicos2.png",
   },
   {
     id: 4,
-    name: "Producto Ecológico 3",
-    description: "Descripción breve del producto ecológico 3.",
-    price: 30,
+    name: "Producto Ecológico 4",
+    description: "Descripción breve del producto ecológico 4.",
+    price: 42.5,
     oldPrice: 50,
-    discount: 40,
+    discount: 15,
     image: "/Img/ProductosEcologicos2.png",
   },
   {
     id: 5,
-    name: "Producto Ecológico 4",
-    description: "Descripción breve del producto ecológico 4.",
-    price: 30,
-    oldPrice: 50,
-    discount: 40,
+    name: "Producto Ecológico 5",
+    description: "Descripción breve del producto ecológico 5.",
+    price: 45,
+    oldPrice: 60,
+    discount: 25,
     image: "/Img/ProductosEcologicos2.png",
-  }
-]
+  },
+];
 
 export default async function Page() {
   return (
     <>
       <div className="container px-4 py-8 mx-auto">
         <section className="relative rounded-3xl overflow-hidden mb-12">
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-700/70 to-teal-500/60 z-10" />
           <img
             src="/Img/ProductosEcologicos.png"
-            alt="Eco-friendly products banner"
+            alt="Eco-products banner"
             width={1200}
             height={500}
             className="object-cover w-full h-[500px]"
           />
-          <div className="relative z-20 p-8 md:p-12 flex flex-col items-center md:items-start text-center md:text-left box-content">
+          <div className="relative z-20 p-8 md:p-12 flex flex-col items-center md:items-start text-center md:text-left bg-gradient-to-t from-teal-600/70 to-teal-500/60">
             <div className="bg-primary p-2 mb-4 rounded-full text-white font-semibold text-sm flex items-center">
               <RiDiscountPercentLine className="inline-block mr-1 text-2xl" />
               Ofertas por tiempo limitado
@@ -86,7 +88,10 @@ export default async function Page() {
                   targetDate={new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)}
                 />
               </div>
-              <a href="#products" className="mt-4 bg-teal-400 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition cursor-pointer">
+              <a
+                href="#products"
+                className="mt-4 bg-teal-400 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition cursor-pointer"
+              >
                 Comprar todas las ofertas
                 <FaArrowDown className="inline-block ml-2 animate-bounce" />
               </a>
@@ -94,8 +99,15 @@ export default async function Page() {
           </div>
         </section>
 
+        <BenefitsProducts />
+
+        <FlashSale />
+
         <section className="mb-16">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4"  id="products">
+          <div
+            className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4"
+            id="products"
+          >
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-teal-900">
                 Ofertas ecológicas destacadas
@@ -113,6 +125,8 @@ export default async function Page() {
         </section>
 
         <Newsletter />
+
+        <OfferCupon />
       </div>
     </>
   );
