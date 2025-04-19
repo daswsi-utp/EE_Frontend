@@ -2,6 +2,7 @@ import Header from '@/app/Components/Header'
 import Bentos from './Bentos'
 import Info from './Info'
 import Carousel from './Carousel'
+import Footer from './Footer'
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
                 </span>
                 <Carousel/>
             </section>
+            <Footer/>
             
         </div>
     )

@@ -12,7 +12,7 @@
     --color-warning: #EFB700;
     --color-error: #D64545;         
 }
-/* tailwind.css o global.css */
+
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
