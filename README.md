@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **Ecommerce Ecológico Frontend 🌱🛒**
 
-## Getting Started
+Este es el repositorio del frontend de **Ecommerce Ecológico**, una tienda en línea desarrollada como parte de un proyecto universitario. El sitio está enfocado en ofrecer productos reciclados y sostenibles de manera fácil y accesible para todos los usuarios. La plataforma está diseñada para promover la sostenibilidad a través de una experiencia de compra amigable con el medio ambiente.
 
-First, run the development server:
+## 🌍 **Sobre el proyecto**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este proyecto busca proporcionar una solución web para que los usuarios compren productos ecológicos, con un diseño limpio, moderno y funcional. El frontend está construido utilizando **Next.js** y **Tailwind CSS**, lo que permite un desarrollo rápido y un diseño responsivo y atractivo.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 **Tecnologías Utilizadas**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Next.js**: Framework de React para la construcción de aplicaciones web con renderizado del lado del servidor y generación de páginas estáticas.
+- **Tailwind CSS**: Framework de CSS que permite diseñar de manera rápida y eficiente con clases utilitarias.
+- **React**: Biblioteca de JavaScript para construir interfaces de usuario interactivas y componibles.
+- **Axios**: Para manejar las peticiones HTTP al backend.
+- **JavaScript**: Lenguaje principal para la lógica de la aplicación.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 **Características principales**
 
-## Learn More
+- **Diseño responsivo**: El sitio se adapta a cualquier dispositivo, brindando una excelente experiencia en móviles, tabletas y escritorios.
+- **Carrito de compras**: Los usuarios pueden agregar productos, modificar cantidades, eliminar ítems y ver el total de la compra en tiempo real.
+- **Navegación intuitiva**: Menú de navegación accesible para todas las secciones importantes del ecommerce, como productos, ofertas, sostenibilidad, etc.
+- **Blog**: Sección dedicada a compartir contenido sobre el estilo de vida sostenible, noticias y consejos ecológicos.
+- **Formulario de login**: Los usuarios pueden registrarse y acceder para gestionar su cuenta y realizar compras.
 
-To learn more about Next.js, take a look at the following resources:
+## 💻 **Instalación**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Sigue estos pasos para correr el proyecto en tu máquina local:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clonar el repositorio**:
 
-## Deploy on Vercel
+   ```bash
+   git clone https://github.com/tu-usuario/ecommerce-ecologico-frontend.git
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Acceder al directorio del proyecto**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   cd ecommerce-ecologico-frontend
+   ```
+
+3. **Instalar las dependencias**:
+
+   ```bash
+   npm install
+   ```
+
+4. **Ejecutar el proyecto**:
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Acceder a la página**: Abre tu navegador y ve a `http://localhost:3000` para ver la aplicación en acción.
+
+
+¡Gracias por visitar el proyecto! 🌿
