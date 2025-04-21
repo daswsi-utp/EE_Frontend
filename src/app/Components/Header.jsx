@@ -61,11 +61,14 @@ const Header = () => {
         </nav>
 
         <div className="flex gap-5 w-[310px] items-center justify-end pr-10">
-          <button
-            className={`transition-all ease-out duration-300 hover:scale-105 w-[50px] h-[50px] flex justify-center items-center text-[20px] text-text rounded-full cursor-pointer hover:text-hover-text`}
-          >
-            <FaRegUser />
-          </button>
+          <Link href="/login">
+            <button
+              className={`transition-all ease-out duration-300 hover:scale-105 w-[50px] h-[50px] flex justify-center items-center text-[20px] text-text rounded-full cursor-pointer hover:text-hover-text`}
+            >
+              <FaRegUser />
+            </button>
+          </Link>
+
           <button
             id="cart-button"
             onClick={toggleCart}
