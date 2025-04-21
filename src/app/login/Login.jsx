@@ -132,13 +132,21 @@ export default function Login() {
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-3">
                   <Link href="/">
                     <button
                       type="button"
                       className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                     >
                       Iniciar sesión
+                    </button>
+                  </Link>
+                  <Link href="/admin">
+                    <button
+                      type="button"
+                      className="w-full flex justify-center py-2 px-4 border border-primary rounded-md shadow-sm text-sm font-medium text-primary bg-white hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                    >
+                      Modo admin
                     </button>
                   </Link>
                 </div>
