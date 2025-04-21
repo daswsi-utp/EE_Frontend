@@ -52,5 +52,30 @@ Sigue estos pasos para correr el proyecto en tu máquina local:
 
 5. **Acceder a la página**: Abre tu navegador y ve a `http://localhost:3000` para ver la aplicación en acción.
 
+## ✅ Requerimientos Funcionales
+
+- **RF01.** Mostrar catálogo de productos ecológicos organizados por categorías.  
+- **RF02.** Implementar búsqueda y filtros por nombre, precio, categoría, impacto ecológico, etc.  
+- **RF03.** Permitir gestión dinámica del carrito de compras (agregar, eliminar, modificar).  
+- **RF04.** Implementar proceso de compra dividido en pasos (checkout).  
+- **RF05.** Registrar e iniciar sesión de usuarios con gestión de perfil.  
+- **RF06.** Permitir calificación y reseñas de productos por parte de usuarios registrados.  
+- **RF07.** Crear panel administrativo para gestión de productos, pedidos y usuarios.  
+- **RF08.** Mostrar módulo de sostenibilidad con datos del impacto de las compras.  
+- **RF09.** Incluir un blog con artículos relacionados a la sostenibilidad.  
+- **RF10.** Enviar notificaciones automáticas por correo electrónico.  
+- **RF11.** Permitir gestión de cupones de descuento por parte del administrador.  
+- **RF12.** Mostrar estado del pedido y seguimiento desde la cuenta del usuario.  
+
+## ✅ Requerimientos No Funcionales
+
+- **RNF01.** Sitio responsive y accesible (cumple con WCAG).  
+- **RNF02.** Tiempo de carga inferior a 3 segundos.  
+- **RNF03.** Cifrado de datos personales y cumplimiento del RGPD.  
+- **RNF04.** Sistema escalable para alto volumen de usuarios y productos.  
+- **RNF05.** Disponibilidad mínima del 99.9%.  
+- **RNF06.** Documentación técnica completa y soporte básico post-lanzamiento.  
+- **RNF07.** Uso de tecnologías sostenibles y alojamiento ecológico.  
+- **RNF08.** Preparado para internacionalización (idiomas y monedas).  
 
 ¡Gracias por visitar el proyecto! 🌿
