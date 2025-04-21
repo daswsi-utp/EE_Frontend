@@ -3,12 +3,15 @@
 import React, { useState } from "react";
 import { Heart, Star } from "lucide-react";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
   };
+
+  const discount = parseInt(product.discount) / 100 || 0;
+  const discountedPrice = (product.price - product.price * discount).toFixed(2);
 
   const RatingStars = ({ rating }) => {
     const fullStars = Math.floor(rating);
@@ -30,7 +33,6 @@ const ProductCard = ({ product }) => {
           />
         ))}
 
-        {/* Definición del gradiente para las estrellas medias */}
         <svg width="0" height="0">
           <defs>
             <linearGradient id="halfStar" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -86,15 +88,11 @@ const ProductCard = ({ product }) => {
 
           <div className="flex items-baseline mb-4">
             <span className="text-xl font-bold text-gray-900">
-              S/. {product.price.toFixed(2)}
+              S/. {discountedPrice}
             </span>
             {product.discount && (
               <span className="ml-2 text-sm text-gray-500 line-through">
-                S/.{" "}
-                {(
-                  product.price /
-                  (1 - parseInt(product.discount) / 100)
-                ).toFixed(2)}
+                S/. {product.price}
               </span>
             )}
           </div>
@@ -109,7 +107,16 @@ const ProductCard = ({ product }) => {
         </div>
 
         <div className="flex gap-2">
-          <button className="cursor-pointer flex-1 bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-md transition-colors">
+          <button
+            className="cursor-pointer flex-1 bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-md transition-colors"
+            onClick={() => {
+              if (product.quantity >= 1) {
+                updateProductQuantity(product.id, product.quantity + 1);
+              } else {
+                addProduct({ ...product, quantity: 1 });
+              }
+            }}
+          >
             Añadir al carrito
           </button>
           <button
