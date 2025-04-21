@@ -5,8 +5,11 @@ import ProductCard from "./ProductCard";
 import FilterSidebar from "./FilterSidebar";
 import ProductsHeader from "./ProductsHeader";
 import { categories, products } from "../data/productData.js";
+import { useProducts } from "../context/ProductContext";
 
 const ProductsContent = () => {
+  const { addProduct, updateProductQuantity } = useProducts();
+
   const [activeFilters, setActiveFilters] = useState({
     categories: [],
     priceRange: [0, 100],
@@ -100,7 +103,12 @@ const ProductsContent = () => {
           {/* Cuadrícula de productos */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                addProduct={addProduct}
+                updateProductQuantity={updateProductQuantity}
+              />
             ))}
           </div>
 
