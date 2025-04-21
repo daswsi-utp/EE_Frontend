@@ -6,6 +6,7 @@ import { IoCartOutline } from "react-icons/io5";
 import React, { useState } from "react";
 import Link from "next/link";
 import CartSidebar from "./CartSidebar";
+import { useProducts } from "../context/ProductContext";
 
 const montserrat = Montserrat_Alternates({
   subsets: ["latin"],
@@ -17,6 +18,7 @@ const montserrat = Montserrat_Alternates({
 const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(3);
+  const { products } = useProducts();
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -52,9 +54,6 @@ const Header = () => {
               <Link href="/blog">Blog</Link>
             </li>
             <li className="transition-all ease-out duration-300 hover:scale-105 hover:text-hover-text">
-              <Link href="/offers">Ofertas</Link>
-            </li>
-            <li className="transition-all ease-out duration-300 hover:scale-105 hover:text-hover-text">
               <Link href="/us">Nosotros</Link>
             </li>
           </ul>
@@ -76,8 +75,8 @@ const Header = () => {
           >
             <IoCartOutline />
             {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {cartItemCount}
+              <span className="absolute -top-1 -right-1 bg-[#ff3131] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center pt-[1px]">
+                {products.length}
               </span>
             )}
           </button>

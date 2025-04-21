@@ -2,17 +2,27 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-const initialProducts = [];
-
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState([]);
+
+  // Cargar productos desde localStorage al iniciar
+  useEffect(() => {
+    const stored = localStorage.getItem("cart-products");
+    if (stored) {
+      setProducts(JSON.parse(stored));
+    }
+  }, []);
+
+  // Guardar en localStorage cada vez que cambien los productos
+  useEffect(() => {
+    localStorage.setItem("cart-products", JSON.stringify(products));
+  }, [products]);
 
   const addProduct = (newProduct) => {
     setProducts((prev) => {
       const existing = prev.find((p) => p.id === newProduct.id);
-
       if (existing) {
         return prev.map((p) =>
           p.id === newProduct.id
@@ -20,7 +30,6 @@ export const ProductProvider = ({ children }) => {
             : p
         );
       }
-
       return [...prev, newProduct];
     });
   };
@@ -30,26 +39,14 @@ export const ProductProvider = ({ children }) => {
     console.log("Producto eliminado con id:", id);
   };
 
-  // Función para actualizar la cantidad de un producto
   const updateProductQuantity = (id, quantity) => {
-    setProducts((prev) => {
-      return prev.map((product) =>
-        product.id === id ? { ...product, quantity: quantity } : product
-      );
-    });
-
-    console.log(
-      "Cantidad actualizada para producto con id:",
-      id,
-      "nueva cantidad:",
-      quantity
+    setProducts((prev) =>
+      prev.map((product) =>
+        product.id === id ? { ...product, quantity } : product
+      )
     );
+    console.log("Cantidad actualizada para producto con id:", id);
   };
-
-  // Mostrar productos actualizados cada vez que cambian
-  useEffect(() => {
-    console.log("Productos actuales:", products);
-  }, [products]);
 
   return (
     <ProductContext.Provider

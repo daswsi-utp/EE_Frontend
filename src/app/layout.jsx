@@ -1,6 +1,7 @@
 import { Montserrat_Alternates, Nunito } from "next/font/google";
 import "./globals.css";
 import { ProductProvider } from "./context/ProductContext";
+import ChatWidget from "./Components/chat/ChatWidget";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${montserrat.className} bg-tertiary text-white h-fit`}>
+        <ChatWidget />
         <ProductProvider>
           <main>{children}</main>
         </ProductProvider>
