@@ -1,13 +1,25 @@
 "use client";
 
-const ChatForm = ({ name, setName, email, setEmail, isSubmitting, onSubmit }) => (
+const ChatForm = ({
+  name,
+  setName,
+  email,
+  setEmail,
+  isSubmitting,
+  onSubmit,
+}) => (
   <div className="p-6">
     <h4 className="text-lg font-medium text-text mb-4">
       Para iniciar el chat, por favor ingresa tus datos:
     </h4>
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-text mb-1">Nombre</label>
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-text mb-1"
+        >
+          Nombre
+        </label>
         <input
           type="text"
           id="name"
@@ -19,7 +31,12 @@ const ChatForm = ({ name, setName, email, setEmail, isSubmitting, onSubmit }) =>
         />
       </div>
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-text mb-1">Correo electrónico</label>
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-text mb-1"
+        >
+          Correo electrónico
+        </label>
         <input
           type="email"
           id="email"
@@ -33,7 +50,7 @@ const ChatForm = ({ name, setName, email, setEmail, isSubmitting, onSubmit }) =>
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-primary text-white py-2 px-4 rounded hover:bg-Quaternary transition-colors duration-300 disabled:opacity-70"
+        className="w-full bg-primary font-[600] text-white py-2 px-4 rounded hover:bg-Quaternary transition-colors duration-300 disabled:opacity-70"
       >
         {isSubmitting ? "Iniciando..." : "Iniciar Chat"}
       </button>

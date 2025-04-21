@@ -5,8 +5,10 @@ import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import React, { useState } from "react";
 import Link from "next/link";
-import CartSidebar from "./CartSidebar";
+import CartSidebar from "./Cart/CartSidebar";
 import { useProducts } from "../context/ProductContext";
+import { CiCalendarDate } from "react-icons/ci";
+import EcoCalendar from "./EcoCalendar/EcoCalendar";
 
 const montserrat = Montserrat_Alternates({
   subsets: ["latin"],
@@ -20,13 +22,19 @@ const Header = () => {
   const [cartItemCount, setCartItemCount] = useState(3);
   const { products } = useProducts();
 
+  const [calendar, setcalendar] = useState(false);
+
+  const toggleCalendar = () => {
+    setcalendar(!calendar);
+  };
+
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
   return (
     <>
-      <div className="w-full flex text-text justify-around relative h-[12vh] items-center z-[5] bg-white shadow-xl/2">
+      <div className="w-full flex text-text justify-around z-[80] relative h-[12vh] items-center  bg-white shadow-xl/2">
         <div
           className={`${montserrat.className} text-text font-[500] text-[30px] pl-6 flex flex-col justify-center w-[310px]`}
         >
@@ -60,6 +68,19 @@ const Header = () => {
         </nav>
 
         <div className="flex gap-5 w-[310px] items-center justify-end pr-10">
+          <div className="relative flex justify-center items-center">
+            <button
+              className="text-black text-[30px] transition-all ease-out duration-300 hover:text-hover-text"
+              onClick={toggleCalendar}
+            >
+              <CiCalendarDate />
+            </button>
+            {calendar && (
+              <div className="absolute right-0 top-[100%] z-[200]">
+                <EcoCalendar />
+              </div>
+            )}
+          </div>
           <Link href="/login">
             <button
               className={`transition-all ease-out duration-300 hover:scale-105 w-[50px] h-[50px] flex justify-center items-center text-[20px] text-text rounded-full cursor-pointer hover:text-hover-text`}
