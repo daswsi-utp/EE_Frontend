@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-import { useProducts } from "../context/ProductContext";
+import { useProducts } from "../../context/ProductContext";
 import CartItem from "./CartItem";
 
 export default function CartSidebar({ isOpen, setIsOpen }) {
@@ -44,7 +44,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
       {/* Sidebar del Carrito */}
       <div
         id="cart-sidebar"
-        className={`text-text fixed top-0 right-0 h-full w-full sm:w-[550px] bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`text-text z-[100] fixed top-0 right-0 h-full w-full sm:w-[550px] bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

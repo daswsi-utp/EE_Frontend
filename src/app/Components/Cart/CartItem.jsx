@@ -1,6 +1,6 @@
 "use client";
 import { Plus, Minus, Trash2 } from "lucide-react";
-import { useProducts } from "../context/ProductContext";
+import { useProducts } from "../../context/ProductContext";
 
 export default function CartItem({ item }) {
   const { updateProductQuantity, removeProduct } = useProducts();

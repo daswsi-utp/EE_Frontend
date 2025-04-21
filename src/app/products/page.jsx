@@ -7,7 +7,6 @@ export default async function Page() {
       <Header />
       {/*Programar apartir de aqui el contenido de productos*/}
       {/*Prueba*/}
-
       <ProductsContent />
     </div>
   );
