@@ -5,7 +5,7 @@ import ProductCarbonFootprint from "./components/product-carbon-footprint";
 
 export default function SustainabilityContent() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-50 via-white to-teal-100">
+    <div className="flex flex-col min-h-screen">
       <HeroSustainability />
       <ProductCarbonFootprint />
       <Certifications />
