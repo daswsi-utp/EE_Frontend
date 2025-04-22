@@ -33,7 +33,7 @@ export default function ProductCarbonFootprint() {
   return (
     <div className="container mx-auto px-4">
       <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        <h2 className="text-4xl font-extrabold text-center mb-14 text-teal-800 drop-shadow-lg tracking-tight">
           Huellas de Carbono de Nuestros Productos
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
