@@ -45,7 +45,7 @@ export default function Certifications() {
     <section className="container mx-auto py-16 px-4 sm:px-6 lg:px-8 bg-eco-forest text-white bg-teal-600 rounded-3xl">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-extrabold text-center mb-14 text-white drop-shadow-lg tracking-tight">
             Nuestros Certificados
           </h2>
           <p className="text-xl max-w-3xl mx-auto opacity-90">
