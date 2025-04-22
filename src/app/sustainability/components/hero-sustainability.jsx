@@ -16,7 +16,7 @@ export default function HeroSustainability() {
           Nuestro compromiso con la <span className="text-white font-extrabold italic">sostenibilidad</span> 
         </h1>
         <p className="text-xl text-white/90 max-w-2xl">
-          En nuestra empresa, nos esforzamos por reducir nuestra huella de
+          En Verde Raiz, nos esforzamos por reducir nuestra huella de
           carbono y promover prácticas sostenibles en todas nuestras
           operaciones. Descubre cómo estamos haciendo la diferencia.  
         </p>
