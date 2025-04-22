@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-primary: #2dd4bf;
   --color-primary-admin: #44a0a0;
-  --color-primary-leve: #2dd4bf;
+  --color-primary-leve: #59f8e31c;
   --color-secondary: #6ee7b7;
   --color-tertiary: #e8f2f1;
-  --color-Quaternary: #64c5b2;
-  --color-hover-text: #64c5b2;
+  --color-Quaternary: #8ee2d2;
+  --color-hover-text: #bce3dc;
   --color-text: #000;
 
   --color-success: #3fa34d;
@@ -35,7 +35,6 @@
 }
 
 .scroll-container {
-  overflow: auto;
   scrollbar-width: none;
 }
 

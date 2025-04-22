@@ -1,66 +1,93 @@
-import { BsStars } from 'react-icons/bs';
+'use client';
 
-const Header_Admin = ({ name }) => {
+import Link from 'next/link';
+import { useState, useRef, useEffect } from 'react';
+import { FiSearch, FiLogOut } from 'react-icons/fi';
+import { HiOutlineUserCircle, HiOutlineCog, HiOutlineLockClosed } from 'react-icons/hi';
+
+const Header_Admin = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="bg-white shadow-md h-[10vh]">
-      <div className="px-10 py-4 flex justify-between items-center">
+      <div className="px-10 flex justify-between items-center h-full">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-[#40a99b] rounded-full flex items-center justify-center text-[23px] pl-[1px]">
-            <BsStars />
-          </div>
           <p className="text-xl font-bold text-gray-800">Panel Administrativo</p>
-          <span className="text-gray-500 text-[16px]">{name}</span>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-10 text-black">
           <div className="relative">
             <input
               type="text"
               placeholder="Buscar..."
-              className="pl-8 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#40a99b] focus:border-transparent"
+              className="pl-9 pr-4 py-2 rounded-lg border text-[15px] w-[25vw] border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#40a99b] focus:border-transparent"
             />
-            <div className="absolute left-2 top-2.5">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
+            <div className="absolute left-2 top-2.5 text-gray-400">
+              <FiSearch className="h-5 w-5" />
             </div>
           </div>
 
           <div className="flex items-center space-x-2">
-            <div className="relative">
-              <button className="p-1 rounded-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#40a99b]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                  />
-                </svg>
-              </button>
-              <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
-            </div>
+            <div className="relative h-[10vh] flex" ref={dropdownRef}>
+              <div
+                className="flex items-center bg-primary-leve px-5 space-x-4 cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+                onClick={toggleDropdown}
+              >
+                <div className="flex items-center">
+                  <img src="./usuario.jpg" alt="Avatar" className="h-10 w-10 rounded-full" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-gray-900">Mateo Elian</span>
+                  <span className="text-[12px] font-medium text-gray-600">ADMIN GENERAL</span>
+                </div>
+              </div>
 
-            <div className="flex items-center space-x-3">
-              <span className="text-sm font-medium text-gray-700">Mateo Elian</span>
-              <img src="./usuario.jpg" alt="Avatar" className="h-9 w-9 rounded-full" />
+              {isOpen && (
+                <div className="absolute right-0 top-[89%] mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                  <div className="px-4 py-3 border-b border-gray-100 select-none">
+                    <p className="text-sm font-medium text-primary">¡Bienvenido!</p>
+                  </div>
+                  <Link
+                    href="#"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors"
+                  >
+                    <HiOutlineUserCircle className="h-5 w-5 mr-3 text-gray-400" />
+                    Mi Cuenta
+                  </Link>
+                  <Link
+                    href="#"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors"
+                  >
+                    <HiOutlineCog className="h-5 w-5 mr-3 text-gray-400" />
+                    Configuración
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors"
+                  >
+                    <FiLogOut className="h-5 w-5 mr-3 text-gray-400" />
+                    Cerrar sesión
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -62,9 +62,10 @@ const Sidebar = () => {
       </div>
 
       {/* MENÚ */}
-      <div className="flex flex-col gap-3 py-6 px-5 h-[79vh] w-full overflow-x-hidden scroll-container">
-        <ItemMenu Icono={MdDashboardCustomize} nombre="Dashboard" togle={toggle} />
-        <ItemMenu Icono={MdProductionQuantityLimits} nombre="Productos" togle={toggle} />
+      <div className="flex flex-col gap-[10px] py-6 px-5 pt-4 h-[90vh] w-full overflow-x-hidden scroll-container ">
+        <span className={`${toggle ? '' : 'opacity-0'}`}>Navegacion</span>
+        <ItemMenu Icono={MdDashboardCustomize} nombre="Dashboard" togle={toggle} url="/admin" />
+        <ItemMenu Icono={MdProductionQuantityLimits} nombre="Productos" togle={toggle} url="/admin/productos" />
         <ItemMenu Icono={MdCategory} nombre="Categorías" togle={toggle} />
         <ItemMenu Icono={MdInventory} nombre="Stock" togle={toggle} />
         <ItemMenu Icono={BsClipboardData} nombre="Pedidos" togle={toggle} />
@@ -78,23 +79,6 @@ const Sidebar = () => {
         <ItemMenu Icono={GrUserWorker} nombre="Empleados" togle={toggle} />
         <ItemMenu Icono={BsBarChartLine} nombre="Reportes" togle={toggle} />
         <ItemMenu Icono={TbReportSearch} nombre="Estadísticas" togle={toggle} />
-        <ItemMenu Icono={MdSettings} nombre="Configuración" togle={toggle} />
-      </div>
-
-      {/* USUARIO */}
-      <div className="relative flex items-center justify-between border-t border-gray-200 px-5 py-3 h-[11vh] bottom-0 w-full">
-        <div className="flex gap-3 items-center">
-          <img src="./usuario.jpg" alt="usuario" className="rounded-lg w-[45px] h-[45px]" />
-          <div className={`${toggle ? 'block' : 'hidden'} text-nowrap`}>
-            <p className="text-[14px] font-semibold">Mateo Elian</p>
-            <p className="text-[12px] opacity-80">Admin General</p>
-          </div>
-        </div>
-        {toggle && (
-          <Link href="/login">
-            <MdOutlineExitToApp className="text-[24px] opacity-85 cursor-pointer" />
-          </Link>
-        )}
       </div>
     </div>
   );
