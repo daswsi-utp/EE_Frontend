@@ -4,6 +4,8 @@ import SectionTitle from '../Components/common/SectionTitle'
 import ImageCard from '../Components/common/ImageCard'
 import ContentSection from '../Components/common/ContentSection'
 import Timeline from '../Components/timeline/Timeline'
+import Footer from '../home/Footer';
+
 
 const montserrat = Montserrat_Alternates({
   subsets: ['latin'],
@@ -59,6 +61,7 @@ const UsContent = () => {
           </p>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }
