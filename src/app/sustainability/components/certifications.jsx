@@ -42,7 +42,7 @@ const CERTIFICATES = [
 
 export default function Certifications() {
   return (
-    <section className="container mx-auto py-16 px-4 sm:px-6 lg:px-8 bg-eco-forest text-white bg-teal-600 rounded-3xl">
+    <section className="container mx-auto py-16 px-4 sm:px-6 lg:px-8 text-white bg-teal-600 rounded-3xl mb-16">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-extrabold text-center mb-14 text-white drop-shadow-lg tracking-tight">
