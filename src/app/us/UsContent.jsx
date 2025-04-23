@@ -30,7 +30,7 @@ const UsContent = () => {
 
         <ContentSection
           title="Nuestra Historia"
-          imageComponent={<ImageCard src="/Img/Crecer.png" alt="Nuestro propósito ecológico" />}
+          imageComponent={<ImageCard src="./Img/Crecer.png" alt="Nuestro propósito ecológico" />}
         >
           <p>
             EcoVida surgió en el año 2018, impulsada por una visión clara y esperanzadora: contribuir activamente a la construcción de un planeta más limpio y saludable, empezando por cambiar los hábitos cotidianos de las personas. Lo que inicialmente fue una modesta tienda ubicada en un pequeño local de Lima, dedicada exclusivamente a la venta de productos biodegradables, pronto se convirtió en el punto de partida de una revolución verde.
@@ -45,7 +45,7 @@ const UsContent = () => {
         <ContentSection
           title="Lo que creemos"
           imageLeft
-          imageComponent={<ImageCard src="/Img/Dar.jpg" alt="Productos sostenibles" />}
+          imageComponent={<ImageCard src="./Img/Dar.jpg" alt="Productos sostenibles" />}
         >
           <p>
             En EcoVida estamos convencidos de que el verdadero cambio empieza en los pequeños actos del día a día, dentro de nuestros propios hogares. Creemos que cada elección consciente, desde reutilizar una botella hasta optar por una bolsa compostable, suma en la construcción de un futuro más sostenible. Nos motiva profundamente la idea de que es posible consumir de manera responsable sin renunciar a la calidad, la funcionalidad ni al estilo. Nos inspiran aquellas personas que buscan vivir en armonía con el planeta, tomando decisiones que reflejan un compromiso real con el bienestar del entorno y de las generaciones futuras.
