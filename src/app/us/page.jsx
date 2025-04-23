@@ -1,3 +1,4 @@
+//page.jsx
 import Header from "../Components/Header";
 import UsContent from "./UsContent";
 
