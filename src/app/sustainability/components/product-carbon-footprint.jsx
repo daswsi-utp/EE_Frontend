@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
-import { ProductCarbonCard } from "./product-carbon-card";
+import { ProductCarbonCard } from './product-carbon-card';
 
 const ECO_PRODUCTS = [
   {
-    name: "Botella de Bambú Eco-friendly",
-    image: "/Img/producto1.jpg",
+    name: 'Botella de Bambú Eco-friendly',
+    image: './Img/producto1.jpg',
     carbonFootprint: 12,
-    savings: 45
+    savings: 45,
   },
   {
-    name: "Cepillos de Dientes de Bambú (Pack x4)",
-    image: "/Img/producto2.jpg",
+    name: 'Cepillos de Dientes de Bambú (Pack x4)',
+    image: './Img/producto2.jpg',
     carbonFootprint: 8,
-    savings: 60
+    savings: 60,
   },
   {
-    name: "Set de Bolsas Reutilizables para Compras",
-    image: "/Img/producto3.jpg",
+    name: 'Set de Bolsas Reutilizables para Compras',
+    image: './Img/producto3.jpg',
     carbonFootprint: 15,
-    savings: 35
+    savings: 35,
   },
   {
-    name: "Papel Higiénico de Bambú (12 rollos)",
-    image: "/Img/producto4.jpg",
+    name: 'Papel Higiénico de Bambú (12 rollos)',
+    image: './Img/producto4.jpg',
     carbonFootprint: 10,
-    savings: 50
-  }
+    savings: 50,
+  },
 ];
 
 export default function ProductCarbonFootprint() {
@@ -37,8 +37,8 @@ export default function ProductCarbonFootprint() {
           Huellas de Carbono de Nuestros Productos
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Descubre cómo nuestros productos ayudan a reducir la huella de
-          carbono y contribuyen a un futuro más sostenible.
+          Descubre cómo nuestros productos ayudan a reducir la huella de carbono y contribuyen a un futuro más
+          sostenible.
         </p>
       </div>
 
