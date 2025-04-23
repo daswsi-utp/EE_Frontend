@@ -1,9 +1,9 @@
-import ProductosContent from './ProductosContent';
+import ChatSoporteContent from './ChatSoporteContent';
 
 export default function Page() {
   return (
     <div className="border border-black text-black">
-      <ProductosContent />
+      <ChatSoporteContent />
     </div>
   );
 }

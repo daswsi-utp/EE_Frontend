@@ -38,7 +38,7 @@ const Sidebar = () => {
       <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200  w-full h-[10vh] relative">
         <div className="flex items-center gap-2">
           <img
-            src="./logo.png"
+            src="../Img/logo.png"
             alt="logo"
             className={`w-[50px] transition-opacity duration-200 ${toggle ? 'opacity-100' : 'opacity-0'}`}
           />
@@ -66,19 +66,17 @@ const Sidebar = () => {
         <span className={`${toggle ? '' : 'opacity-0'}`}>Navegacion</span>
         <ItemMenu Icono={MdDashboardCustomize} nombre="Dashboard" togle={toggle} url="/admin" />
         <ItemMenu Icono={MdProductionQuantityLimits} nombre="Productos" togle={toggle} url="/admin/productos" />
-        <ItemMenu Icono={MdCategory} nombre="Categorías" togle={toggle} />
-        <ItemMenu Icono={MdInventory} nombre="Stock" togle={toggle} />
-        <ItemMenu Icono={BsClipboardData} nombre="Pedidos" togle={toggle} />
-        <ItemMenu Icono={MdPeopleAlt} nombre="Clientes" togle={toggle} />
-        <ItemMenu Icono={BiSolidLeaf} nombre="Sostenibilidad" togle={toggle} />
-        <ItemMenu Icono={PiNotePencilFill} nombre="Blog" togle={toggle} />
-        <ItemMenu Icono={MdOutlinePolicy} nombre="Nosotros" togle={toggle} />
-        <ItemMenu Icono={BsChatSquareDotsFill} nombre="Chat Soporte" togle={toggle} />
-        <ItemMenu Icono={MdMarkEmailUnread} nombre="Correos" togle={toggle} />
-        <ItemMenu Icono={FaCalendar} nombre="Calendario" togle={toggle} />
-        <ItemMenu Icono={GrUserWorker} nombre="Empleados" togle={toggle} />
-        <ItemMenu Icono={BsBarChartLine} nombre="Reportes" togle={toggle} />
-        <ItemMenu Icono={TbReportSearch} nombre="Estadísticas" togle={toggle} />
+        <ItemMenu Icono={MdCategory} nombre="Categorías" togle={toggle} url="/admin/categorias" />
+        <ItemMenu Icono={BsClipboardData} nombre="Pedidos" togle={toggle} url="/admin/pedidos" />
+        <ItemMenu Icono={MdPeopleAlt} nombre="Clientes" togle={toggle} url="/admin/clientes" />
+        <ItemMenu Icono={BiSolidLeaf} nombre="Sostenibilidad" togle={toggle} url="/admin/sostenibilidad" />
+        <ItemMenu Icono={PiNotePencilFill} nombre="Blog" togle={toggle} url="/admin/blog" />
+        <ItemMenu Icono={MdOutlinePolicy} nombre="Nosotros" togle={toggle} url="/admin/nosotros" />
+        <ItemMenu Icono={BsChatSquareDotsFill} nombre="Chat Soporte" togle={toggle} url="/admin/chat-soporte" />
+        <ItemMenu Icono={FaCalendar} nombre="Calendario" togle={toggle} url="/admin/calendario" />
+        <ItemMenu Icono={GrUserWorker} nombre="Empleados" togle={toggle} url="/admin/empleados" />
+        <ItemMenu Icono={BsBarChartLine} nombre="Reportes" togle={toggle} url="/admin/reportes" />
+        <ItemMenu Icono={TbReportSearch} nombre="Estadísticas" togle={toggle} url="/admin/estadisticas" />
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
-import ProductosContent from './ProductosContent';
+import EstadísticasContent from './EstadísticasContent';
 
 export default function Page() {
   return (
     <div className="border border-black text-black">
-      <ProductosContent />
+      <EstadísticasContent />
     </div>
   );
 }
