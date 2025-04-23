@@ -32,12 +32,7 @@ const CERTIFICATES = [
     name: "Carbono Neutro",
     description: "Compensación total de emisiones de carbono.",
     icon: <CloudSun className="w-8 h-8 text-blue-300" />,
-  },
-  {
-    name: "1% Para el Planeta",
-    description: "Donación del 1% de las ventas para causas ambientales.",
-    icon: <HeartHandshake className="w-8 h-8 text-blue-500" />,
-  },
+  }
 ];
 
 export default function Certifications() {
@@ -54,7 +49,7 @@ export default function Certifications() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center">
           {CERTIFICATES.map((cert, index) => (
             <div
               key={index}
