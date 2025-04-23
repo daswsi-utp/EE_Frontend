@@ -27,7 +27,7 @@ const Header_Admin = () => {
   }, []);
 
   return (
-    <header className="bg-white shadow-md h-[10vh]">
+    <header className="bg-white shadow-2xl h-[10vh]">
       <div className="px-10 flex justify-between items-center h-full">
         <div className="flex items-center space-x-3">
           <p className="text-xl font-bold text-gray-800">Panel Administrativo</p>
@@ -52,7 +52,7 @@ const Header_Admin = () => {
                 onClick={toggleDropdown}
               >
                 <div className="flex items-center">
-                  <img src="./usuario.jpg" alt="Avatar" className="h-10 w-10 rounded-full" />
+                  <img src="../Img/usuario.jpg" alt="Avatar" className="h-10 w-10 rounded-full" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-gray-900">Mateo Elian</span>

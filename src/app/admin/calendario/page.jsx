@@ -1,9 +1,9 @@
-import ProductosContent from './ProductosContent';
+import CalendarioContent from './CalendarioContent';
 
 export default function Page() {
   return (
     <div className="border border-black text-black">
-      <ProductosContent />
+      <CalendarioContent />
     </div>
   );
 }
