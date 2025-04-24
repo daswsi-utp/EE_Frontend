@@ -1,5 +1,11 @@
+import WhatsAppChat from './WhatsAppChat';
+
 const ChatSoporteContent = () => {
-  return <div>añadir contenido aqui</div>;
+  return (
+    <div>
+      <WhatsAppChat />
+    </div>
+  );
 };
 
 export default ChatSoporteContent;
