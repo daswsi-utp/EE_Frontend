@@ -2,7 +2,7 @@ import CalendarioContent from './CalendarioContent';
 
 export default function Page() {
   return (
-    <div className="border border-black text-black">
+    <div className="text-black overflow-y-auto h-[90vh]">
       <CalendarioContent />
     </div>
   );
