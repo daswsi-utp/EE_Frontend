@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import Image from '@/app/components/BaseImage';
 
 export default function Login() {
   const [formData, setFormData] = useState({

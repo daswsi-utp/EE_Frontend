@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { Montserrat_Alternates } from "next/font/google";
-import { FaRegUser } from "react-icons/fa";
-import { IoCartOutline } from "react-icons/io5";
-import React, { useState } from "react";
-import Link from "next/link";
-import CartSidebar from "./Cart/CartSidebar";
-import { useProducts } from "../context/ProductContext";
-import { CiCalendarDate } from "react-icons/ci";
-import EcoCalendar from "./EcoCalendar/EcoCalendar";
+import { Montserrat_Alternates } from 'next/font/google';
+import { FaRegUser } from 'react-icons/fa';
+import { IoCartOutline } from 'react-icons/io5';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import CartSidebar from './Cart/CartSidebar';
+import { useProducts } from '../context/ProductContext';
+import { CiCalendarDate } from 'react-icons/ci';
+import EcoCalendar from './EcoCalendar/EcoCalendar';
 
 const montserrat = Montserrat_Alternates({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
-  display: "swap",
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  display: 'swap',
 });
 
 const Header = () => {
@@ -49,9 +49,7 @@ const Header = () => {
         </div>
 
         <nav className="flex items-center px-10 py-2 rounded-full">
-          <ul
-            className={`${montserrat.className} font-[600] text-text text-[16px] tracking-wide flex gap-8`}
-          >
+          <ul className={`${montserrat.className} font-[600] text-text text-[16px] tracking-wide flex gap-8`}>
             <li className="transition-all ease-out duration-300 hover:scale-105 hover:text-hover-text">
               <Link href="/products">Productos</Link>
             </li>

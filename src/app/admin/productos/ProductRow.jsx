@@ -1,5 +1,5 @@
 import { Edit, Trash2 } from 'lucide-react';
-import Image from 'next/image';
+import Image from '@/app/components/BaseImage';
 
 const ProductRow = ({ product, handleEdit, handleDelete }) => {
   return (

@@ -4,7 +4,7 @@ import SectionTitle from './common/SectionTitle';
 import ContentSection from './common/ContentSection';
 import Timeline from './timeline/Timeline';
 import Footer from '../home/Footer';
-import Image from 'next/image';
+import Image from '@/app/components/BaseImage';
 
 const montserrat = Montserrat_Alternates({
   subsets: ['latin'],

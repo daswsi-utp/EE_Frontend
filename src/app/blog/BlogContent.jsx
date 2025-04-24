@@ -5,7 +5,7 @@ import BlogHeader from './BlogHeader';
 import BlogFilterSidebar from './BlogFilterSidebar';
 import BlogGridCard from './BlogGridCard';
 import posts from '../data/blogPosts';
-import Image from 'next/image';
+import Image from '@/app/components/BaseImage';
 const categories = [...new Set(posts.map((post) => post.category))];
 
 const BlogContent = () => {

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/app/components/BaseImage';
 import React from 'react';
 
 const Card = ({ url, titule, context }) => {

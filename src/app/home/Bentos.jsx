@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/app/components/BaseImage';
 import React from 'react';
 
 const Bentos = () => {
@@ -18,10 +18,10 @@ const Bentos = () => {
           <div className="z-10 absolute h-full w-full bg-linear-to-r from-black to-transparent rounded-lg opacity-85"></div>
           <Image
             className="absolute bottom-0 right-0"
-            width={500}
-            height={500}
             src="/Img/Bote.png"
             alt="Bote de Basura"
+            width={500}
+            height={500}
           />
           <div className="z-20 relative h-full w-[40%] ml-12 text-[1.2rem] text-white flex justify-center items-center">
             <p>Tu estilo de vida también puede salvar el planeta.</p>

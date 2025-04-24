@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { FaAnglesRight, FaAnglesLeft } from 'react-icons/fa6';
 import { products } from '../data/productData';
-import Image from 'next/image';
+import Image from '@/app/components/BaseImage';
 
 const Carousel = () => {
   const scrollRef = useRef(null);
