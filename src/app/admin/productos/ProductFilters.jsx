@@ -15,7 +15,6 @@ const ProductFilters = ({ searchTerm, setSearchTerm, categoryFilter, setCategory
           <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
         </div>
       </div>
-
       <div className="flex items-center gap-4 w-full md:w-auto">
         <div className="relative w-full md:w-40">
           <select

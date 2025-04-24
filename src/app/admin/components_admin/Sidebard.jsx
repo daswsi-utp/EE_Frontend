@@ -20,9 +20,7 @@ import { BiSolidLeaf } from 'react-icons/bi';
 import { TbReportSearch } from 'react-icons/tb';
 import { PiNotePencilFill } from 'react-icons/pi';
 import { useState } from 'react';
-import Link from 'next/link';
 import ItemMenu from './ItemMenu';
-import Image from 'next/image';
 
 const Sidebar = () => {
   const [toggle, setToggle] = useState(true);
@@ -70,14 +68,10 @@ const Sidebar = () => {
         <ItemMenu Icono={MdCategory} nombre="Categorías" togle={toggle} url="/admin/categorias" />
         <ItemMenu Icono={BsClipboardData} nombre="Pedidos" togle={toggle} url="/admin/pedidos" />
         <ItemMenu Icono={MdPeopleAlt} nombre="Clientes" togle={toggle} url="/admin/clientes" />
-        <ItemMenu Icono={BiSolidLeaf} nombre="Sostenibilidad" togle={toggle} url="/admin/sostenibilidad" />
-        <ItemMenu Icono={PiNotePencilFill} nombre="Blog" togle={toggle} url="/admin/blog" />
-        <ItemMenu Icono={MdOutlinePolicy} nombre="Nosotros" togle={toggle} url="/admin/nosotros" />
         <ItemMenu Icono={BsChatSquareDotsFill} nombre="Chat Soporte" togle={toggle} url="/admin/chat-soporte" />
         <ItemMenu Icono={FaCalendar} nombre="Calendario" togle={toggle} url="/admin/calendario" />
         <ItemMenu Icono={GrUserWorker} nombre="Empleados" togle={toggle} url="/admin/empleados" />
         <ItemMenu Icono={BsBarChartLine} nombre="Reportes" togle={toggle} url="/admin/reportes" />
-        <ItemMenu Icono={TbReportSearch} nombre="Estadísticas" togle={toggle} url="/admin/estadisticas" />
       </div>
     </aside>
   );
