@@ -2,6 +2,16 @@
 
 Este es el repositorio del frontend de **Ecommerce Ecológico**, una tienda en línea desarrollada como parte de un proyecto universitario. El sitio está enfocado en ofrecer productos reciclados y sostenibles de manera fácil y accesible para todos los usuarios. La plataforma está diseñada para promover la sostenibilidad a través de una experiencia de compra amigable con el medio ambiente.
 
+## 👥 **Equipo Scrum**
+
+| Nombre | Usuario GitHub | Rol |
+|--------|---------------|-----|
+| Marlon Diego Lupaca Mendoza | MarlonLupaca | Scrum Master |
+| Luis Fernando Alatta Torres | LuisAlatta | Developer |
+| Jhonatan Alex Ccapa Mamani | Alex001-hiro | Developer |
+| Jordie Roque Yauli | roke | Developer |
+| Rodrigo Gabriel Martinez Quispe | rodrigomartinez99 | Developer |
+
 ## 🌍 **Sobre el proyecto**
 
 Este proyecto busca proporcionar una solución web para que los usuarios compren productos ecológicos, con un diseño limpio, moderno y funcional. El frontend está construido utilizando **Next.js** y **Tailwind CSS**, lo que permite un desarrollo rápido y un diseño responsivo y atractivo.
@@ -60,22 +70,31 @@ Sigue estos pasos para correr el proyecto en tu máquina local:
 - **RF04.** Implementar proceso de compra dividido en pasos (checkout).  
 - **RF05.** Registrar e iniciar sesión de usuarios con gestión de perfil.  
 - **RF06.** Permitir calificación y reseñas de productos por parte de usuarios registrados.  
-- **RF07.** Crear panel administrativo para gestión de productos, pedidos y usuarios.  
+- **RF07.** Crear panel administrativo para gestión de productos, pedidos y usuarios.
 - **RF08.** Mostrar módulo de sostenibilidad con datos del impacto de las compras.  
 - **RF09.** Incluir un blog con artículos relacionados a la sostenibilidad.  
 - **RF10.** Enviar notificaciones automáticas por correo electrónico.  
 - **RF11.** Permitir gestión de cupones de descuento por parte del administrador.  
-- **RF12.** Mostrar estado del pedido y seguimiento desde la cuenta del usuario.  
+- **RF12.** Mostrar estado del pedido y seguimiento desde la cuenta del usuario.
+- **RF13.** Implementar calendario interactivo de eventos y actividades ecológicas organizadas por la empresa.
+- **RF14.** Proporcionar sistema de chat en vivo para soporte al cliente.
+- **RF15.** Ampliar el panel administrativo con módulos para:
+  - **RF15.1.** Gestión de inventario y alertas de stock.
+  - **RF15.2.** Análisis de ventas y reportes estadísticos.
+  - **RF15.3.** Gestión de eventos y actividades en el calendario.
+  - **RF15.4.** Administración de comentarios y reseñas.
+  - **RF15.5.** Control de usuarios y niveles de acceso.
+- **RF16.** Implementar sistema de fidelización con puntos por compras sostenibles.
+- **RF17.** Crear sección de preguntas frecuentes (FAQ) categorizada por temas.
 
 ## ✅ Requerimientos No Funcionales
 
-- **RNF01.** Sitio responsive y accesible (cumple con WCAG).  
-- **RNF02.** Tiempo de carga inferior a 3 segundos.  
-- **RNF03.** Cifrado de datos personales y cumplimiento del RGPD.  
+- **RNF01.** Sitio responsive y accesible.  
+- **RNF02.** Tiempo de carga rapida.  
+- **RNF03.** Cifrado de datos personales.  
 - **RNF04.** Sistema escalable para alto volumen de usuarios y productos.  
 - **RNF05.** Disponibilidad mínima del 99.9%.  
 - **RNF06.** Documentación técnica completa y soporte básico post-lanzamiento.  
-- **RNF07.** Uso de tecnologías sostenibles y alojamiento ecológico.  
-- **RNF08.** Preparado para internacionalización (idiomas y monedas).  
+- **RNF07.** Uso de tecnologías sostenibles.
 
 ¡Gracias por visitar el proyecto! 🌿
