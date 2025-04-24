@@ -1,39 +1,35 @@
-import { Recycle, Droplets, Sun, TreePine } from "lucide-react";
+import { Recycle, Droplets, Sun, TreePine } from 'lucide-react';
 
 const SUSTAINABILITY_CONTENT = [
   {
-    title: "Materiales reciclados",
+    title: 'Materiales reciclados',
     percentage: 87,
-    description:
-      "de nuestros productos están hechos de materiales reciclados o renovables",
+    description: 'de nuestros productos están hechos de materiales reciclados o renovables',
     icon: <Recycle className="w-8 h-8 text-teal-600 mr-3" />,
   },
   {
-    title: "Energía renovable",
+    title: 'Energía renovable',
     percentage: 75,
-    description:
-      "de nuestra producción utiliza energía renovable para minimizar la huella de carbono",
+    description: 'de nuestra producción utiliza energía renovable para minimizar la huella de carbono',
     icon: <Sun className="w-8 h-8 text-teal-600 mr-3" />,
   },
   {
-    title: "Compensación de carbono",
+    title: 'Compens. de CO₂',
     percentage: 100,
-    description:
-      "de nuestras emisiones de carbono son compensadas mediante proyectos de reforestación",
+    description: 'de nuestras emisiones de carbono son compensadas mediante proyectos de reforestación',
     icon: <TreePine className="w-8 h-8 text-teal-600 mr-3" />,
   },
   {
-    title: "Agua responsable",
+    title: 'Agua responsable',
     percentage: 65,
-    description:
-      "de nuestra producción implementa prácticas de conservación del agua",
+    description: 'de nuestra producción implementa prácticas de conservación del agua',
     icon: <Droplets className="w-8 h-8 text-teal-600 mr-3" />,
   },
 ];
 
 export default function EnvironmentalImpact() {
   return (
-    <section className="container mx-auto px-4 py-10 mb-16">
+    <section className="container mx-auto px-18 py-10 mb-16">
       <h2 className="text-4xl font-extrabold text-center mb-14 text-teal-800 drop-shadow-lg tracking-tight">
         Nuestro impacto ambiental
       </h2>
@@ -45,22 +41,13 @@ export default function EnvironmentalImpact() {
           >
             <div className="flex items-center mb-4 z-10">
               {item.icon}
-              <span className="text-lg font-semibold text-teal-700 tracking-wide">
-                {item.title}
-              </span>
+              <span className="text-lg font-semibold text-teal-700 tracking-wide">{item.title}</span>
             </div>
-            <p className="text-5xl font-black mb-3 text-teal-800 drop-shadow-sm z-10">
-              {item.percentage}%
-            </p>
+            <p className="text-5xl font-black mb-3 text-teal-800 drop-shadow-sm z-10">{item.percentage}%</p>
             <div className="w-full bg-teal-100 rounded-full h-4 mb-3 z-10">
-              <div
-                className="bg-teal-400 h-4 rounded-full shadow-md"
-                style={{ width: `${item.percentage}%` }}
-              ></div>
+              <div className="bg-teal-400 h-4 rounded-full shadow-md" style={{ width: `${item.percentage}%` }}></div>
             </div>
-            <p className="text-base text-gray-600 text-center z-10">
-              {item.description}
-            </p>
+            <p className="text-base text-gray-600 text-center z-10">{item.description}</p>
           </div>
         ))}
       </div>

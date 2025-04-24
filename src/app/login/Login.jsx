@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -21,12 +22,12 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
-      router.push("/productos");
+      router.push('/productos');
     } catch (err) {
-      setError("Credenciales incorrectas. Por favor intenta de nuevo.");
+      setError('Credenciales incorrectas. Por favor intenta de nuevo.');
     }
   };
 
@@ -43,15 +44,11 @@ export default function Login() {
                 </p>
               </div>
             </Link>
-            <p className="mt-6 text-center text-3xl font-extrabold text-gray-700">
-              Inicia sesión en tu cuenta
-            </p>
+            <p className="mt-6 text-center text-3xl font-extrabold text-gray-700">Inicia sesión en tu cuenta</p>
             <p className="mt-2 text-center text-sm text-gray-600">
-              ¿No tienes una cuenta?{" "}
+              ¿No tienes una cuenta?{' '}
               <Link href="/register">
-                <span className="font-medium text-primary hover:text-secondary cursor-pointer">
-                  Regístrate
-                </span>
+                <span className="font-medium text-primary hover:text-secondary cursor-pointer">Regístrate</span>
               </Link>
             </p>
           </div>
@@ -66,10 +63,7 @@ export default function Login() {
 
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Correo electrónico
                   </label>
                   <div className="mt-1">
@@ -87,10 +81,7 @@ export default function Login() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                     Contraseña
                   </label>
                   <div className="mt-1">
@@ -115,10 +106,7 @@ export default function Login() {
                       type="checkbox"
                       className="h-4 w-4 text-secondary focus:ring-primary border-gray-300 rounded"
                     />
-                    <label
-                      htmlFor="remember-me"
-                      className="ml-2 block text-sm text-gray-900"
-                    >
+                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                       Recordarme
                     </label>
                   </div>
@@ -154,7 +142,7 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <img src="./Img/login_ee.svg" alt="login" className="w-[500px]" />
+        <Image width={500} height={500} src="/Img/login_ee.svg" alt="login" className="w-[500px]" />
       </div>
     </>
   );

@@ -31,7 +31,7 @@ const ECO_PRODUCTS = [
 
 export default function ProductCarbonFootprint() {
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto  px-25">
       <div className="text-center mb-16">
         <h2 className="text-4xl font-extrabold text-center mb-14 text-teal-800 drop-shadow-lg tracking-tight">
           Huellas de Carbono de Nuestros Productos

@@ -1,38 +1,31 @@
-import {
-  BadgeCheck,
-  Leaf,
-  Globe,
-  Handshake,
-  CloudSun,
-  HeartHandshake,
-} from "lucide-react";
+import { BadgeCheck, Leaf, Globe, Handshake, CloudSun, HeartHandshake } from 'lucide-react';
 
 const CERTIFICATES = [
   {
-    name: "Certificado B Corp",
-    description: "Compromiso con el impacto social y ambiental positivo.",
+    name: 'Certificado B Corp',
+    description: 'Compromiso con el impacto social y ambiental positivo.',
     icon: <BadgeCheck className="w-8 h-8 text-green-300" />,
   },
   {
-    name: "Consejo de Administración Forestal",
-    description: "Gestión responsable de los bosques del mundo.",
+    name: 'Consejo de Administración Forestal',
+    description: 'Gestión responsable de los bosques del mundo.',
     icon: <Leaf className="w-8 h-8 text-green-400" />,
   },
   {
-    name: "Norma Global de Textiles Orgánicos",
-    description: "Certificación de textiles ecológicos y sostenibles.",
+    name: 'Norma Global de Textiles Orgánicos',
+    description: 'Certificación de textiles ecológicos y sostenibles.',
     icon: <Globe className="w-8 h-8 text-green-500" />,
   },
   {
-    name: "Certificado de Comercio Justo",
-    description: "Apoyo a condiciones laborales y comerciales justas.",
+    name: 'Certificado de Comercio Justo',
+    description: 'Apoyo a condiciones laborales y comerciales justas.',
     icon: <Handshake className="w-8 h-8 text-yellow-400" />,
   },
   {
-    name: "Carbono Neutro",
-    description: "Compensación total de emisiones de carbono.",
+    name: 'Carbono Neutro',
+    description: 'Compensación total de emisiones de carbono.',
     icon: <CloudSun className="w-8 h-8 text-blue-300" />,
-  }
+  },
 ];
 
 export default function Certifications() {
@@ -44,8 +37,7 @@ export default function Certifications() {
             Nuestros Certificados
           </h2>
           <p className="text-xl max-w-3xl mx-auto opacity-90">
-            Nos enorgullece cumplir y superar los estándares de sostenibilidad
-            de la industria.
+            Nos enorgullece cumplir y superar los estándares de sostenibilidad de la industria.
           </p>
         </div>
 

@@ -5,7 +5,7 @@ import { customerInfo } from './data';
 
 const ChatHeader = () => {
   return (
-    <div className="bg-primary-admin p-4 flex justify-between items-center h-[9vh] text-white">
+    <div className="bg-teal-50 p-4 flex justify-between items-center h-[9vh] text-black">
       <div className="flex items-center">
         <button className="mr-2 md:hidden">
           <ArrowLeft size={20} />
@@ -18,7 +18,7 @@ const ChatHeader = () => {
             <h2 className="font-medium">{customerInfo.name}</h2>
             <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-800">Prioridad Alta</span>
           </div>
-          <div className="flex items-center text-xs text-white">
+          <div className="flex items-center text-xs text-black">
             <span>Pedido #{customerInfo.currentOrder.orderNumber}</span>
             <span className="mx-1">•</span>
             <span>En conversación</span>

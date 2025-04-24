@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { FiSearch, FiLogOut } from 'react-icons/fi';
@@ -52,7 +53,13 @@ const Header_Admin = () => {
                 onClick={toggleDropdown}
               >
                 <div className="flex items-center">
-                  <img src="./Img/usuario.jpg" alt="Avatar" className="h-10 w-10 rounded-full" />
+                  <Image
+                    src="/Img/usuario.jpg"
+                    width={500}
+                    height={500}
+                    alt="Avatar"
+                    className="h-10 w-10 rounded-full"
+                  />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-gray-900">Mateo Elian</span>

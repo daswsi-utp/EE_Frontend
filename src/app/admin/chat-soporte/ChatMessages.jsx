@@ -13,9 +13,9 @@ const ChatMessages = ({ messages }) => {
             >
               <p>{msg.text}</p>
               <div className="text-right mt-1 flex justify-end items-center">
-                <span className="text-xs text-gray-300 mr-1">{msg.time}</span>
+                <span className="text-xs text-gray-600 mr-1">{msg.time}</span>
                 {msg.sender === 'me' && (
-                  <svg className="w-3 h-3 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
                   </svg>
                 )}
