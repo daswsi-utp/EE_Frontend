@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Heart, Star } from 'lucide-react';
-import Image from '@/app/components/BaseImage';
+import Image from 'next/image';
 
 const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -43,9 +43,7 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
   return (
     <div className="w-full max-w-sm h-[585px] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-xl">
       <div className="relative h-64 bg-gray-100 overflow-hidden">
-        <Image
-          width={500}
-          height={500}
+        <img
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"

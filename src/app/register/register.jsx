@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from '@/app/components/BaseImage';
+import Image from 'next/image';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -41,7 +41,7 @@ export default function Register() {
   return (
     <>
       <div className="h-[100vh] bg-[#f0e9e9] flex justify-center items-center">
-        <Image width={500} height={500} src="./Img/register.svg" alt="Registro" className="w-[600px]" />
+        <img src="./Img/register.svg" alt="Registro" className="w-[600px]" />
         <div className="flex flex-col justify-center w-[40%]">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <Link href="/">

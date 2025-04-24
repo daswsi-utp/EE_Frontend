@@ -4,7 +4,7 @@ export const categories = ['Baño', 'Cocina', 'Energía', 'Limpieza', 'Cuidado p
 export const products = [
   {
     id: 1,
-    image: '/Img/producto4.jpg',
+    image: './Img/producto4.jpg',
     name: 'Botella de Bambú Eco-friendly',
     description:
       'Botella elegante hecha de bambú sostenible con interior de acero inoxidable, tapa de rosca, y una capacidad de 500ml. Ideal para mantener tus bebidas a la temperatura deseada.',
@@ -18,7 +18,7 @@ export const products = [
   },
   {
     id: 2,
-    image: '/Img/producto2.jpg',
+    image: './Img/producto2.jpg',
     name: 'Cepillos de Dientes de Bambú (Pack x4)',
     description:
       'Pack de 4 cepillos de dientes con mango de bambú y cerdas suaves biodegradables. Perfecto para toda la familia, con diferentes colores para identificar cada uno.',
@@ -32,7 +32,7 @@ export const products = [
   },
   {
     id: 3,
-    image: '/Img/producto3.jpg',
+    image: './Img/producto3.jpg',
     name: 'Set de Bolsas Reutilizables para Compras',
     description:
       'Conjunto de 5 bolsas de malla transpirable en diferentes tamaños para frutas, verduras y alimentos a granel. Resistentes y lavables a máquina.',
@@ -46,7 +46,7 @@ export const products = [
   },
   {
     id: 4,
-    image: '/Img/producto1.jpg',
+    image: './Img/producto1.jpg',
     name: 'Papel Higiénico de Bambú (12 rollos)',
     description:
       'Pack de 12 rollos de papel higiénico ultra-suave fabricado con 100% bambú sin químicos blanqueadores. Suave con tu piel y con el planeta.',
@@ -60,7 +60,7 @@ export const products = [
   },
   {
     id: 5,
-    image: '/Img/producto5.jpg',
+    image: './Img/producto5.jpg',
     name: 'Detergente Ecológico Concentrado',
     description:
       'Detergente líquido biodegradable en botella de vidrio recargable, con aceites esenciales naturales. Eficaz incluso en agua fría para ahorrar energía.',
@@ -74,7 +74,7 @@ export const products = [
   },
   {
     id: 6,
-    image: '/Img/producto6.jpg',
+    image: './Img/producto6.jpg',
     name: 'Taza de Café de Fibra de Arroz',
     description:
       'Vaso para bebidas calientes fabricado con fibra de arroz y resina natural, con tapa de silicona reutilizable. Resistente al calor y apto para microondas.',
@@ -88,7 +88,7 @@ export const products = [
   },
   {
     id: 7,
-    image: '/Img/producto7.jpg',
+    image: './Img/producto7.jpg',
     name: 'Panel Solar Portátil USB',
     description:
       'Cargador solar compacto con puerto USB para dispositivos pequeños, ideal para excursiones y emergencias. Incluye batería de respaldo integrada.',
@@ -102,7 +102,7 @@ export const products = [
   },
   {
     id: 8,
-    image: '/Img/producto8.jpg',
+    image: './Img/producto8.jpg',
     name: 'Jabonera de Corcho Natural',
     description:
       'Jabonera elegante hecha de corcho natural que absorbe el agua y mantiene el jabón seco. Duradera y resistente al moho.',
@@ -116,7 +116,7 @@ export const products = [
   },
   {
     id: 9,
-    image: '/Img/producto1.jpg',
+    image: './Img/producto1.jpg',
     name: 'Set de Cubiertos de Bambú Portátil',
     description:
       'Juego completo de cubiertos reutilizables de bambú con estuche de tela. Incluye cuchillo, tenedor, cuchara y pajita con cepillo limpiador.',
@@ -130,7 +130,7 @@ export const products = [
   },
   {
     id: 10,
-    image: '/Img/producto2.jpg',
+    image: './Img/producto2.jpg',
     name: 'Difusor de Aceites Esenciales de Cerámica',
     description:
       'Difusor artesanal de cerámica para aceites esenciales con luz LED de bajo consumo. Fabricado a mano con materiales sostenibles.',
@@ -144,7 +144,7 @@ export const products = [
   },
   {
     id: 11,
-    image: '/Img/producto3.jpg',
+    image: './Img/producto3.jpg',
     name: 'Champú Sólido Natural',
     description:
       'Champú en barra sin sulfatos ni conservantes artificiales. Equivale a tres botellas de champú líquido, reduciendo residuos plásticos.',
@@ -158,7 +158,7 @@ export const products = [
   },
   {
     id: 12,
-    image: '/Img/producto4.jpg',
+    image: './Img/producto4.jpg',
     name: 'Esponja Vegetal Konjac',
     description:
       'Esponja 100% vegetal para limpieza facial, elaborada con raíz de konjac. Suave, biodegradable y libre de toxinas.',
@@ -172,7 +172,7 @@ export const products = [
   },
   {
     id: 13,
-    image: '/Img/producto4.jpg',
+    image: './Img/producto4.jpg',
     name: 'Esponja Vegetal Konjac',
     description:
       'Esponja 100% vegetal para limpieza facial, elaborada con raíz de konjac. Suave, biodegradable y libre de toxinas.',
@@ -186,7 +186,7 @@ export const products = [
   },
   {
     id: 14,
-    image: '/Img/producto4.jpg',
+    image: './Img/producto4.jpg',
     name: 'Esponja Vegetal Konjac',
     description:
       'Esponja 100% vegetal para limpieza facial, elaborada con raíz de konjac. Suave, biodegradable y libre de toxinas.',
@@ -200,7 +200,7 @@ export const products = [
   },
   {
     id: 15,
-    image: '/Img/producto4.jpg',
+    image: './Img/producto4.jpg',
     name: 'Esponja Vegetal Konjac',
     description:
       'Esponja 100% vegetal para limpieza facial, elaborada con raíz de konjac. Suave, biodegradable y libre de toxinas.',

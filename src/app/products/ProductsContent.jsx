@@ -6,7 +6,7 @@ import FilterSidebar from './FilterSidebar';
 import ProductsHeader from './ProductsHeader';
 import { categories, products } from '../data/productData.js';
 import { useProducts } from '../context/ProductContext';
-import Image from '@/app/components/BaseImage';
+import Image from 'next/image';
 
 const ProductsContent = () => {
   const { addProduct, updateProductQuantity } = useProducts();
@@ -54,13 +54,7 @@ const ProductsContent = () => {
   return (
     <div className="max-w-7xl mx-auto py-8 px-4">
       <div className="relative mb-8 rounded-xl overflow-hidden h-64">
-        <Image
-          src="/Img/banner-eco.jpg"
-          width={500}
-          height={500}
-          alt="Productos ecológicos"
-          className="w-full h-full object-cover bg-center"
-        />
+        <img src="./Img/banner-eco.jpg" alt="Productos ecológicos" className="w-full h-full object-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent flex items-center">
           <div className="ml-10 max-w-lg">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 text-shadow-lg/20">Productos Ecológicos</h1>
