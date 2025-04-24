@@ -24,7 +24,7 @@ export default function TablesParameters({ columns, data, multiHeader }) {
                             rowSpan={cell.rowSpan}
                             style={{
                               ...cell.style,
-                              backgroundColor: "aquamarine", // Color verde agua
+                              backgroundColor: "aquamarine", 
                             }}
                             className="text-center align-middle border-b border-black p-2"
                           >
@@ -43,7 +43,7 @@ export default function TablesParameters({ columns, data, multiHeader }) {
                               )}
                               className="text-center align-middle border-b border-black p-2"
                               style={{
-                                backgroundColor: "aquamarine", // Color verde agua
+                                backgroundColor: "aquamarine", 
                               }}
                             />
                           )}
@@ -57,7 +57,7 @@ export default function TablesParameters({ columns, data, multiHeader }) {
                         key={col.field}
                         className="text-center align-middle border-b border-black p-2"
                         style={{
-                          backgroundColor: "aquamarine", // Color verde agua
+                          backgroundColor: "aquamarine", 
                         }}
                       >
                         {col.headerName}
