@@ -29,7 +29,7 @@ const Sidebar = () => {
   const handleToggle = () => setToggle(!toggle);
 
   return (
-    <div
+    <aside
       className={` text-white transition-all duration-200 h-screen bg-primary-admin flex flex-col items-start ${
         toggle ? 'w-[250px]' : 'w-[85px]'
       }`}
@@ -78,7 +78,7 @@ const Sidebar = () => {
         <ItemMenu Icono={BsBarChartLine} nombre="Reportes" togle={toggle} url="/admin/reportes" />
         <ItemMenu Icono={TbReportSearch} nombre="Estadísticas" togle={toggle} url="/admin/estadisticas" />
       </div>
-    </div>
+    </aside>
   );
 };
 

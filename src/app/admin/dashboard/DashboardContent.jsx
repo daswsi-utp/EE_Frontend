@@ -10,7 +10,7 @@ import { salesData, productData, pieColors, notificaciones, proximasActividades 
 
 const DashboardContent = () => {
   return (
-    <div className="p-8 py-6 bg-gray-100 min-h-screen">
+    <div className="p-8 py-6 bg-tertiary min-h-screen">
       {/* Cabecera del Dashboard */}
       <DashboardHeader />
 
