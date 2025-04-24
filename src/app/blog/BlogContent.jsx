@@ -5,11 +5,13 @@ import BlogHeader from './BlogHeader';
 import BlogFilterSidebar from './BlogFilterSidebar';
 import BlogGridCard from './BlogGridCard';
 import posts from '../data/blogPosts';
+const categories = [...new Set(posts.map((post) => post.category))];
 
 const BlogContent = () => {
   const [filters, setFilters] = useState({
     search: '',
     tags: [],
+    categories: [],
   });
 
   const handleFilterChange = (newFilters) => {
@@ -20,6 +22,8 @@ const BlogContent = () => {
     const matchesSearch = filters.search === '' || post.title.toLowerCase().includes(filters.search.toLowerCase());
     const matchesTags =
       filters.tags.length === 0 || filters.tags.some((tag) => post.tags?.includes(tag)); // si usas tags
+    const matchesCategory =
+      filters.categories.length === 0 || filters.categories.includes(post.category);  
     return matchesSearch && matchesTags;
   });
 
@@ -56,7 +60,8 @@ const BlogContent = () => {
         {/* Barra lateral de filtros + header */}
         <aside className="lg:w-64 flex-shrink-0">
           <BlogHeader total={filteredPosts.length} />
-          <BlogFilterSidebar filters={filters} onFilterChange={handleFilterChange} />
+          <BlogFilterSidebar  categories={categories}  onFilterChange={(selectedCategories) =>
+              setFilters((prev) => ({ ...prev, categories: selectedCategories }))  }/>
         </aside>
 
         {/* Cuadrícula de entradas */}

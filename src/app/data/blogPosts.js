@@ -4,6 +4,7 @@ const posts = [
       image: "/images/guia-nuevos.jpg",
       title: "Guía para nuevos compradores",
       summary: "Descubre los primeros pasos para unirte al consumo ecológico.",
+      category: "Guías",
       content: `
         Comprar ecológico no es solo una tendencia, es un compromiso con el planeta y las futuras generaciones.
 
@@ -28,18 +29,21 @@ const posts = [
       image: "/images/motivacion.jpg",
       title: "Motivación para adoptar lo ecológico",
       summary: "Historias e ideas que inspiran a cambiar hábitos.",
+      category: "Motivación",
     },
     {
       slug: "comentarios-compradores",
       image: "/images/comentarios.jpg",
       title: "Comentarios de compradores",
       summary: "Conoce la experiencia de quienes ya dieron el paso.",
+      category: "Testimonios",
     },
     {
       slug: "impacto-productos",
       image: "/images/impacto.jpg",
       title: "El impacto de tus elecciones",
       summary: "Cómo tu compra puede mejorar el planeta.",
+      category: "Impacto",
     },
   ];
   
