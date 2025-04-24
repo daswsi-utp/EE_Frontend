@@ -22,7 +22,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${montserrat.className} bg-tertiary text-white h-fit`}>
         <ProductProvider>
-          <main>{children}</main>
+          <main>
+            <ChatWidget />
+            {children}
+          </main>
         </ProductProvider>
       </body>
     </html>
