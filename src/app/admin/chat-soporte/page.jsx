@@ -1,9 +1,9 @@
-import ChatSoporteContent from './ChatSoporteContent';
+import EcommerceSupportChat from './EcommerceSupportChat';
 
 export default function Page() {
   return (
-    <div className="border border-black text-black">
-      <ChatSoporteContent />
+    <div className="text-black overflow-y-auto h-[90vh]">
+      <EcommerceSupportChat />
     </div>
   );
 }

@@ -1,9 +1,11 @@
-import Home from "./home/Home";
+import ChatWidget from './Components/chat/ChatWidget';
+import Home from './home/Home';
 
 export default function Page() {
   return (
     <div className="text-[#eee] font-bold">
-      <Home/>
+      <ChatWidget />
+      <Home />
     </div>
   );
 }

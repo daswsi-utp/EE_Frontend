@@ -27,7 +27,7 @@ const Header_Admin = () => {
   }, []);
 
   return (
-    <header className="bg-white shadow-2xl h-[10vh]">
+    <header className="bg-white shadow-2xl h-[10vh] ">
       <div className="px-10 flex justify-between items-center h-full">
         <div className="flex items-center space-x-3">
           <p className="text-xl font-bold text-gray-800">Panel Administrativo</p>
