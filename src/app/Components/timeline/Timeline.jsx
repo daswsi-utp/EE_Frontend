@@ -7,7 +7,6 @@ const Timeline = ({ events }) => (
       Nuestra Evolución
     </h2>
 
-    {/* Línea base */}
     <div className="absolute top-1/2 left-0 w-full border-t border-gray-300 z-0" />
 
     <div className="overflow-x-auto">

@@ -2,10 +2,8 @@ import React from 'react';
 
 const TimelineItem = ({ year, title, description }) => (
   <div className="relative group">
-    {/* Círculo */}
     <div className="w-6 h-6 bg-green-600 rounded-full mx-auto transition-transform duration-300 group-hover:scale-125" />
 
-    {/* Tarjeta */}
     <div
       className={`
         mt-4
