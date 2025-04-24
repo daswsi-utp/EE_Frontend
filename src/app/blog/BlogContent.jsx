@@ -24,7 +24,7 @@ const BlogContent = () => {
       filters.tags.length === 0 || filters.tags.some((tag) => post.tags?.includes(tag)); // si usas tags
     const matchesCategory =
       filters.categories.length === 0 || filters.categories.includes(post.category);  
-    return matchesSearch && matchesTags;
+    return matchesSearch && matchesTags && matchesCategory;
   });
 
   return (
@@ -77,7 +77,7 @@ const BlogContent = () => {
               <p className="text-lg text-gray-600">No se encontraron publicaciones que coincidan.</p>
               <button
                 className="mt-4 bg-primary hover:bg-secondary text-white font-bold py-2 px-6 rounded-md transition-colors"
-                onClick={() => setFilters({ search: '', tags: [] })}
+                onClick={() => setFilters({ search: '', tags: [], categories: [] })}
               >
                 Borrar filtros
               </button>
