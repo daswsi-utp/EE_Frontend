@@ -37,7 +37,7 @@ const CalendarGrid = ({ currentMonth, selectedDate, setSelectedDate, events }) =
           } ${isToday ? 'font-bold' : ''}`}
         >
           <span
-            className={`inline-block w-6 h-6 rounded-full text-sm flex items-center justify-center ${
+            className={`inline-block w-6 h-6 rounded-full text-sm items-center justify-center ${
               isSelected ? 'bg-teal-600 text-white' : ''
             }`}
           >
