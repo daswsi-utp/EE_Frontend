@@ -1,4 +1,4 @@
-import posts from "@/data/blogPosts";
+import posts from '../../data/blogPosts';
 
 export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));

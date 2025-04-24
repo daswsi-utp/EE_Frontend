@@ -1,10 +1,10 @@
 const posts = [
     {
       slug: "guia-nuevos-compradores",
-      image: "/images/guia-nuevos.jpg",
-      title: "Guía para nuevos compradores",
-      summary: "Descubre los primeros pasos para unirte al consumo ecológico.",
-      category: "Guías",
+      image: "./Img/producto_estrella.jpg",
+      title: "Producto en Tendencia",
+      summary: "Conoce al producto mas economico y cotizado.",
+      category: "Novedades",
       content: `
         Comprar ecológico no es solo una tendencia, es un compromiso con el planeta y las futuras generaciones.
 
@@ -26,24 +26,24 @@ const posts = [
     },
     {
       slug: "motivacion-ecologica",
-      image: "/images/motivacion.jpg",
-      title: "Motivación para adoptar lo ecológico",
-      summary: "Historias e ideas que inspiran a cambiar hábitos.",
-      category: "Motivación",
+      image: "./Img/hitos.png",
+      title: "Hitos de la empresa",
+      summary: "Historias de logros alcanzados por la empresa.",
+      category: "Hitos",
     },
     {
       slug: "comentarios-compradores",
-      image: "/images/comentarios.jpg",
-      title: "Comentarios de compradores",
-      summary: "Conoce la experiencia de quienes ya dieron el paso.",
-      category: "Testimonios",
+      image: "./Img/noticias.jpg",
+      title: "Noticias",
+      summary: "Noticias relevantes del mundo ecológico.",
+      category: "Noticias",
     },
     {
       slug: "impacto-productos",
-      image: "/images/impacto.jpg",
-      title: "El impacto de tus elecciones",
-      summary: "Cómo tu compra puede mejorar el planeta.",
-      category: "Impacto",
+      image: "./Img/ISO.jpg",
+      title: "ISO 14001",
+      summary: "Certificación alcanzada por prácticas de medio ambiente.",
+      category: "Hitos",
     },
   ];
   

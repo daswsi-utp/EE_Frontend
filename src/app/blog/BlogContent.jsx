@@ -32,16 +32,16 @@ const BlogContent = () => {
       {/* Encabezado tipo banner */}
       <div className="relative mb-8 rounded-xl overflow-hidden h-64">
         <img
-          src="/images/blog-header.jpg"
+          src="./Img/Ecologia.jpg"
           alt="Blog ecológico"
           className="w-full h-full object-cover bg-center"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent flex items-center">
-          <div className="ml-10 max-w-lg">
+          <div className="p-6">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 text-shadow-lg/20">
               Nuestro Blog Ecológico
             </h1>
-            <p className="text-white/90 mb-6 font-[500] text-shadow-lg/20">
+            <p className="text-white/90 font-[500] text-shadow-lg/20">
               Inspírate con guías, consejos e historias para un estilo de vida más sostenible.
             </p>
           </div>
@@ -66,7 +66,7 @@ const BlogContent = () => {
 
         {/* Cuadrícula de entradas */}
         <main className="flex-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredPosts.map((post) => (
               <BlogGridCard key={post.slug} post={post} />
             ))}
