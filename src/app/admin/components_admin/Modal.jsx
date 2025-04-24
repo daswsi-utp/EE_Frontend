@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import ButtonAdaptable from './ButtonAdaptable'; // Asumiendo que el componente ButtonAdaptable está en el mismo directorio
+import ButtonAdaptable from './ButtonAdaptable'; 
 
 const ModalConfirmacion = ({ 
   isOpen, 
@@ -10,7 +10,6 @@ const ModalConfirmacion = ({
   title = 'Confirmación', 
   ...props 
 }) => {
-  // Si el modal está cerrado, no renderizamos nada
   if (!isOpen) return null;
 
   return (

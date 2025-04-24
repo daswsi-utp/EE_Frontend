@@ -1,4 +1,3 @@
-// components/common/SectionTitle.jsx
 import React from 'react';
 
 const SectionTitle = ({ children, className = '' }) => (

@@ -1,8 +1,11 @@
-'use client'; 
+'use client';
 import React, { useState } from "react";
 import TablesParameters from "../admin/components_admin/TableGeneral";
-import ButtonAdaptable from "../admin/components_admin/ButtonAdaptable"; // Asegúrate de que la ruta sea correcta
-import ModalConfirmacion from "../admin/components_admin/Modal"; // Ruta correcta del modal
+import ButtonAdaptable from "../admin/components_admin/ButtonAdaptable"; 
+import ModalConfirmacion from "../admin/components_admin/Modal"; 
+import { notify } from "../admin/components_admin/Notify";  
+import { ToastContainer } from "react-toastify";  
+import SearchBar from '../admin/components_admin/SearchBar'; 
 
 export default function TablesPage() {
   const tablesData = [
@@ -16,6 +19,10 @@ export default function TablesPage() {
       data: [
         { id: 1, name: "Ana", age: 25 },
         { id: 2, name: "Luis", age: 30 },
+        { id: 3, name: "Carlos", age: 22 },
+        { id: 4, name: "Laura", age: 28 },
+        { id: 5, name: "Marta", age: 32 },
+        { id: 6, name: "Juan", age: 40 },
       ],
     },
     {
@@ -29,6 +36,8 @@ export default function TablesPage() {
       data: [
         { code: "P01", product: "Camiseta", price: "$15", stock: 120 },
         { code: "P02", product: "Pantalón", price: "$30", stock: 85 },
+        { code: "P03", product: "Chaqueta", price: "$50", stock: 40 },
+        { code: "P04", product: "Zapatos", price: "$40", stock: 60 },
       ],
     },
     {
@@ -42,6 +51,7 @@ export default function TablesPage() {
         { course: "React", teacher: "Elena", duration: 40 },
         { course: "Node.js", teacher: "Carlos", duration: 35 },
         { course: "Python", teacher: "Sofía", duration: 45 },
+        { course: "JavaScript", teacher: "Juan", duration: 50 },
       ],
     },
     {
@@ -73,113 +83,124 @@ export default function TablesPage() {
     },
   ];
 
-  // Estado para manejar la apertura y cierre de los modales
-  const [isModalOpen, setIsModalOpen] = useState(null); // null es cuando no hay modal abierto
+  const [isModalOpen, setIsModalOpen] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); 
 
-  // Función para abrir el modal
   const openModal = (modalType) => {
     setIsModalOpen(modalType);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setIsModalOpen(null);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query); 
+  };
+
+  const getFilteredData = (tableData) => {
+    if (!searchQuery) return tableData; 
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    return tableData.filter((row) =>
+      Object.values(row).some((value) =>
+        String(value).toLowerCase().includes(lowerCaseQuery)
+      )
+    );
+  };
+
   return (
-    <div className="container py-4">
-      <h1 className="mb-4">Ejemplos de Tablas</h1>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg">
+        <h1 className="text-center text-2xl font-semibold mb-4">Ejemplos de Tablas</h1>
 
-      {/* Aquí añadimos una sección para mostrar las variantes de los botones */}
-      <section className="mb-8">
-        <h2 className="mb-4">Variantes de Botones</h2>
-        
-        <div className="space-y-4">
-          {/* Botón Aceptar (Primary) */}
-          <ButtonAdaptable
-            label="Aceptar"
-            onClick={() => openModal("accept")}
-            variant="primary"
-            size="md"
+        <ToastContainer />  
+
+        {/* Sección de Botones */}
+        <section className="mb-8 text-center">
+          <h2 className="text-xl font-semibold mb-4">Variantes de Botones</h2>
+          
+          <div className="space-y-1">
+            {/* Botón Aceptar (Primary) */}
+            <ButtonAdaptable
+              label="Aceptar"
+              onClick={() => openModal("accept")}
+              variant="primary"
+              size="md"
+            />
+
+            {/* Botón Cancelar (Cancel) */}
+            <ButtonAdaptable
+              label="Cancelar"
+              onClick={() => openModal("cancel")}
+              variant="cancel"
+              size="md"
+            />
+
+            {/* Botón de Éxito (Success) */}
+            <ButtonAdaptable
+              label="Éxito"
+              onClick={() => openModal("success")}
+              variant="success"
+              size="md"
+            />
+
+            {/* Botón de Peligro (Danger) */}
+            <ButtonAdaptable
+              label="Peligro"
+              onClick={() => openModal("danger")}
+              variant="danger"
+              size="md"
+            />
+
+            {/* Botón de Notificación */}
+            <ButtonAdaptable
+              label="Noticificación"
+              onClick={() => openModal("Notificacion correctamente realizada")}
+              variant="primary"
+              size="md"
+            />
+          </div>
+        </section>
+
+        {/* Sección de Búsqueda */}
+        <section className="mb-8 text-center">
+          <h2 className="text-xl font-semibold mb-4">Búsqueda Global</h2>
+          <SearchBar onSearch={handleSearch} /> 
+        </section>
+
+        {/* Modales */}
+        {isModalOpen && (
+          <ModalConfirmacion
+            isOpen={isModalOpen !== null}
+            onClose={closeModal}
+            onConfirm={() => {
+              console.log(`Acción ${isModalOpen} confirmada`);
+              notify(
+                `Acción ${isModalOpen} realizada con éxito.`,
+                isModalOpen === "accept" ? "default" :
+                isModalOpen === "cancel" ? "error" :
+                isModalOpen === "success" ? "default" :
+                isModalOpen === "danger" ? "error" :
+                isModalOpen === "newAction" ? "default" : "default"
+              );
+              closeModal();
+            }}
+            message={`¿Estás seguro de que deseas realizar esta acción?`}
+            title={`Confirmación: ${isModalOpen.charAt(0).toUpperCase() + isModalOpen.slice(1)}`}
           />
+        )}
 
-          {/* Botón Cancelar (Cancel) */}
-          <ButtonAdaptable
-            label="Cancelar"
-            onClick={() => openModal("cancel")}
-            variant="cancel"
-            size="md"
-          />
-
-          {/* Botón de éxito (Success) */}
-          <ButtonAdaptable
-            label="Éxito"
-            onClick={() => openModal("success")}
-            variant="success"
-            size="md"
-          />
-
-          {/* Botón de peligro (Danger) */}
-          <ButtonAdaptable
-            label="Peligro"
-            onClick={() => openModal("danger")}
-            variant="danger"
-            size="md"
-          />
-
-          {/* Botón de Check */}
-          <ButtonAdaptable
-            label="Confirmar"
-            onClick={() => openModal("check")}
-            icon="check"
-            variant="success"
-            size="md"
-          />
-
-          {/* Botón de X */}
-          <ButtonAdaptable
-            label="Cerrar"
-            onClick={() => openModal("close")}
-            icon="x"
-            variant="danger"
-            size="md"
-          />
-
-          {/* Botón de Retroceder */}
-          <ButtonAdaptable
-            label="Retroceder"
-            onClick={() => openModal("back")}
-            icon="back"
-            variant="secondary"
-            size="md"
-          />
-        </div>
-      </section>
-
-      {/* Modales */}
-      {isModalOpen && (
-        <ModalConfirmacion
-          isOpen={isModalOpen !== null}
-          onClose={closeModal}
-          onConfirm={() => {
-            console.log(`Acción ${isModalOpen} confirmada`);
-            closeModal();
-          }}
-          message={`¿Estás seguro de que deseas ${isModalOpen === "accept" ? "aceptar" : 
-            isModalOpen === "cancel" ? "cancelar" :
-            isModalOpen === "success" ? "marcar como éxito" :
-            isModalOpen === "danger" ? "eliminar" : "realizar la acción"}?`}
-          title={isModalOpen.charAt(0).toUpperCase() + isModalOpen.slice(1)}
-        />
-      )}
-
-      {/* Renderizando las tablas */}
-      {tablesData.map((table, index) => (
-        <div key={index} className="mb-5">
-          <h4>{table.title}</h4>
-          <TablesParameters columns={table.columns} data={table.data} />
-        </div>
-      ))}
+        {/* Renderizar las tablas con los datos filtrados */}
+        {tablesData.map((table, index) => (
+          <div key={index} className="mb-5">
+            <h4 className="text-xl font-semibold">{table.title}</h4>
+            <TablesParameters 
+              columns={table.columns} 
+              data={getFilteredData(table.data)} 
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

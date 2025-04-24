@@ -1,4 +1,3 @@
-// components/common/ContentSection.jsx
 import React from 'react';
 
 const ContentSection = ({ 
