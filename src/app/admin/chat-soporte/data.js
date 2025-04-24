@@ -91,7 +91,7 @@ export const allChats = [
 export const customerInfo = {
   name: 'María López',
   email: 'maria.lopez@email.com',
-  phone: '+34 612 345 678',
+  phone: '945 234 567',
   customerSince: 'Marzo 2023',
   totalOrders: 8,
   lastPurchase: '15 abril, 2025',
@@ -100,10 +100,10 @@ export const customerInfo = {
     date: '18 abril, 2025',
     status: 'En proceso',
     items: [
-      { product: 'Vestido Floral Verano', sku: 'VF-2325', price: '€49.99', quantity: 1 },
-      { product: 'Sandalias Elegantes', sku: 'SE-1245', price: '€35.50', quantity: 1 },
+      { product: 'Papel de bambu', sku: 'VF-2325', price: 'S/. 49,99', quantity: 1 },
+      { product: 'Sandalias Eco', sku: 'SE-1245', price: 'S/. 35,50', quantity: 1 },
     ],
-    total: '€85.49',
+    total: 'S/. 85,49',
     shipping: 'Estándar (3-5 días)',
   },
 };
