@@ -38,7 +38,7 @@ const Sidebar = () => {
       <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200  w-full h-[10vh] relative">
         <div className="flex items-center gap-2">
           <img
-            src="./../Img/logo.png"
+            src="./Img/logo.png"
             alt="logo"
             className={`w-[50px] transition-opacity duration-200 ${toggle ? 'opacity-100' : 'opacity-0'}`}
           />
