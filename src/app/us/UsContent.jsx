@@ -73,7 +73,13 @@ const UsContent = () => {
           imageLeft
           imageComponent={
             <div className="rounded-lg overflow-hidden shadow-lg">
-              <Image src="/Img/Dar.jpg" alt="Productos sostenibles" width={600} height={400} className="object-cover" />
+              <Image
+                src="./Img/Dar.jpg"
+                alt="Productos sostenibles"
+                width={600}
+                height={400}
+                className="object-cover"
+              />
             </div>
           }
         >

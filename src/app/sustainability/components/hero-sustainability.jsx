@@ -3,7 +3,7 @@ export default function HeroSustainability() {
     <section className="relative w-full h-[50vh] overflow-hidden mb-16 pl-12">
       <div className="absolute inset-0 bg-gradient-to-r from-teal-700/80 to-teal-500/80 z-10" />
       <img
-        src="/Img/Background.jpg"
+        src="./Img/Background.jpg"
         alt="Nature landscape"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
