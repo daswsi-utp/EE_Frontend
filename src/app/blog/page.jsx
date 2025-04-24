@@ -5,7 +5,6 @@ export default async function Page() {
     return (
         <div className="min-h-screen bg-tertiary">
             <Header/>
-            {/*Programar apartir de aqui el contenido de Blog */}
             <BlogContent/>
         </div>
     )
