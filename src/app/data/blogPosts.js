@@ -1,8 +1,8 @@
 const posts = [
   {
     slug: 'guia-nuevos-compradores',
-    image: '/Img/producto_estrella.jpg',
-    image1: '/Img/producto4.jpg',
+    image: './Img/producto_estrella.jpg',
+    image1: './Img/producto4.jpg',
     title: 'Producto en Tendencia',
     summary: 'Conoce al producto mas economico y cotizado.',
     category: 'Novedades',
@@ -16,8 +16,8 @@ const posts = [
   },
   {
     slug: 'motivacion-ecologica',
-    image: '/Img/hitos.png',
-    image1: '/Img/huella.jpg',
+    image: './Img/hitos.png',
+    image1: './Img/huella.jpg',
     title: 'Hitos de la empresa',
     summary: 'Historias de logros alcanzados por la empresa.',
     category: 'Hitos',
@@ -30,8 +30,8 @@ const posts = [
   },
   {
     slug: 'comentarios-compradores',
-    image: '/Img/noticias.jpg',
-    image1: '/Img/paris.png',
+    image: './Img/noticias.jpg',
+    image1: './Img/paris.png',
     title: 'Noticias',
     summary: 'Noticias relevantes del mundo ecológico.',
     category: 'Noticias',
@@ -44,8 +44,8 @@ const posts = [
   },
   {
     slug: 'impacto-productos',
-    image: '/Img/ISO.jpg',
-    image1: '/Img/iso_blog.png',
+    image: './Img/ISO.jpg',
+    image1: './Img/iso_blog.png',
     title: 'ISO 14001',
     summary: 'Certificación alcanzada por prácticas de medio ambiente.',
     category: 'Hitos',

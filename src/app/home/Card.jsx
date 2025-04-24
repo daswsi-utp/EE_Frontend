@@ -4,7 +4,7 @@ import React from 'react';
 const Card = ({ url, titule, context }) => {
   return (
     <div className="w-[280px] rounded-lg overflow-hidden shadow-md h-[545px] bg-white">
-      <img className="w-full" src={`/Img/${url}`} alt={titule} />
+      <img className="w-full" src={`./Img/${url}`} alt={titule} />
       <div className="text-black px-6 pt-3 pb-5 flex flex-col gap-2 justify-between h-[355px]">
         <div className="mb-2">
           <p className="text-Quaternary font-[800] text-[20px] mb-2 mt-1">{titule}</p>
