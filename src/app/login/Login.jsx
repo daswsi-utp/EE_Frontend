@@ -142,7 +142,7 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <Image width={500} height={500} src="/Img/login_ee.svg" alt="login" className="w-[500px]" />
+        <img src="./Img/login_ee.svg" alt="login" className="w-[500px]" />
       </div>
     </>
   );
