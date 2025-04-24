@@ -1,4 +1,5 @@
-import React from "react";
+import Image from '@/app/components/BaseImage';
+import React from 'react';
 
 const Bentos = () => {
   return (
@@ -10,17 +11,17 @@ const Bentos = () => {
         >
           <div className="z-10 absolute h-full w-full bg-linear-to-r from-black to-transparent rounded-lg opacity-70"></div>
           <div className="z-20 relative flex justify-center items-center h-full w-full pl-20">
-            <p className="text-white text-[3.5rem]">
-              Transforma tu vida con productos 100% ecológicos
-            </p>
+            <p className="text-white text-[3.5rem]">Transforma tu vida con productos 100% ecológicos</p>
           </div>
         </div>
         <div className="col-span-2 row-span-2 col-start-1 row-start-5 rounded-lg overflow-hidden relative transition-transform duration-500 hover:scale-[1.05]">
           <div className="z-10 absolute h-full w-full bg-linear-to-r from-black to-transparent rounded-lg opacity-85"></div>
-          <img
+          <Image
             className="absolute bottom-0 right-0"
-            src="./Img/Bote.png"
+            src="/Img/Bote.png"
             alt="Bote de Basura"
+            width={500}
+            height={500}
           />
           <div className="z-20 relative h-full w-[40%] ml-12 text-[1.2rem] text-white flex justify-center items-center">
             <p>Tu estilo de vida también puede salvar el planeta.</p>
@@ -30,7 +31,7 @@ const Bentos = () => {
           className="relative row-span-3 col-start-5 row-start-1 rounded-lg bg-no-repeat bg-centertransition-transform duration-500 hover:scale-[1.05]"
           style={{
             backgroundImage: "url('./Img/plastico.jpg')",
-            backgroundSize: "230px",
+            backgroundSize: '230px',
           }}
         >
           <div className="z-10 absolute h-full w-full bg-linear-to-b from-black to-transparent rounded-lg opacity-70"></div>

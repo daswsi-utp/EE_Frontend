@@ -1,4 +1,5 @@
 import { Edit, Trash2 } from 'lucide-react';
+import Image from '@/app/components/BaseImage';
 
 const ProductRow = ({ product, handleEdit, handleDelete }) => {
   return (
@@ -6,9 +7,11 @@ const ProductRow = ({ product, handleEdit, handleDelete }) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10 relative">
-            <img
+            <Image
               className="h-10 w-10 rounded-md object-cover"
-              src={product.image || '/api/placeholder/40/40'}
+              width={500}
+              height={500}
+              src={product.image}
               alt={product.name}
             />
             {product.isNew && (

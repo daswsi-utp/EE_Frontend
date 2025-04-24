@@ -22,6 +22,7 @@ import { PiNotePencilFill } from 'react-icons/pi';
 import { useState } from 'react';
 import Link from 'next/link';
 import ItemMenu from './ItemMenu';
+import Image from 'next/image';
 
 const Sidebar = () => {
   const [toggle, setToggle] = useState(true);
@@ -37,8 +38,10 @@ const Sidebar = () => {
       {/* LOGO */}
       <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200  w-full h-[10vh] relative">
         <div className="flex items-center gap-2">
-          <img
-            src="./Img/logo.png"
+          <Image
+            src="/Img/logo.png"
+            width={500}
+            height={500}
             alt="logo"
             className={`w-[50px] transition-opacity duration-200 ${toggle ? 'opacity-100' : 'opacity-0'}`}
           />

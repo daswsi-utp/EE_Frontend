@@ -60,7 +60,7 @@ const ChatInput = ({ onSend }) => {
           </button>
         </div>
         <button
-          className="ml-2 p-2 bg-primary-admin rounded-full hover:bg-teal-300 text-white flex items-center justify-center"
+          className="ml-2 p-2 bg-teal-50 rounded-full hover:bg-teal-300 text-black flex items-center justify-center"
           onClick={handleSend}
         >
           <SendHorizontal size={20} />

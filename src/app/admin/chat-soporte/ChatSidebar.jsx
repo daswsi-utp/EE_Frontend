@@ -6,8 +6,8 @@ import { allChats, getPriorityColor, getStatusBadge } from './data';
 const ChatSidebar = ({ activeChat, setActiveChat }) => {
   return (
     <div className="border-r bg-tertiary flex flex-col overflow-y-auto h-[90vh] w-[25vw]">
-      <div className="bg-primary-admin p-4 flex justify-between items-center h-[9vh]">
-        <div className="flex items-center text-white">
+      <div className="bg-teal-50 p-4 flex justify-between items-center h-[9vh]">
+        <div className="flex items-center text-black">
           <ShoppingBag size={20} className="mr-2" />
           <h1 className="text-xl font-bold">Soporte Tienda</h1>
         </div>

@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { FaAnglesRight, FaAnglesLeft } from 'react-icons/fa6';
 import { products } from '../data/productData';
+import Image from '@/app/components/BaseImage';
 
 const Carousel = () => {
   const scrollRef = useRef(null);
@@ -56,7 +57,13 @@ const Carousel = () => {
             className="w-[250px] h-[350px] flex-shrink-0 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200"
           >
             <div className="relative h-40 bg-gray-100">
-              <img src={product.image} alt={product.name} className="w-full h-full object-cover object-center" />
+              <Image
+                width={500}
+                height={500}
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover object-center"
+              />
               {product.discount && (
                 <div className="absolute top-2 right-2 bg-red-400 text-white text-xs font-bold px-2 py-1 rounded">
                   -{product.discount}

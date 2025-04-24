@@ -1,17 +1,18 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from '@/app/components/BaseImage';
 
 export default function Register() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -23,24 +24,24 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Las contraseñas no coinciden");
+      setError('Las contraseñas no coinciden');
       return;
     }
 
     try {
-      router.push("/login?registered=true");
+      router.push('/login?registered=true');
     } catch (err) {
-      setError("Error al registrar. Por favor intenta de nuevo.");
+      setError('Error al registrar. Por favor intenta de nuevo.');
     }
   };
 
   return (
     <>
       <div className="h-[100vh] bg-[#f0e9e9] flex justify-center items-center">
-        <img src="./Img/register.svg" alt="Registro" className="w-[600px]" />
+        <Image width={500} height={500} src="./Img/register.svg" alt="Registro" className="w-[600px]" />
         <div className="flex flex-col justify-center w-[40%]">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <Link href="/">
@@ -51,15 +52,11 @@ export default function Register() {
                 </p>
               </div>
             </Link>
-            <p className="mt-2 text-center text-3xl font-extrabold text-gray-900">
-              Crea tu cuenta
-            </p>
+            <p className="mt-2 text-center text-3xl font-extrabold text-gray-900">Crea tu cuenta</p>
             <p className="mt-2 text-center text-sm text-gray-600">
-              ¿Ya tienes una cuenta?{" "}
+              ¿Ya tienes una cuenta?{' '}
               <Link href="/login">
-                <span className="font-medium text-primary hover:text-secondary cursor-pointer">
-                  Inicia sesión
-                </span>
+                <span className="font-medium text-primary hover:text-secondary cursor-pointer">Inicia sesión</span>
               </Link>
             </p>
           </div>
@@ -74,10 +71,7 @@ export default function Register() {
 
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                     Nombre completo
                   </label>
                   <div className="mt-1">
@@ -95,10 +89,7 @@ export default function Register() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Correo electrónico
                   </label>
                   <div className="mt-1">
@@ -116,10 +107,7 @@ export default function Register() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                     Contraseña
                   </label>
                   <div className="mt-1">
@@ -137,10 +125,7 @@ export default function Register() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="confirmPassword"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                     Confirmar contraseña
                   </label>
                   <div className="mt-1">
@@ -165,11 +150,8 @@ export default function Register() {
                     required
                     className="h-4 w-4 text-secondary focus:ring-primary border-gray-300 rounded"
                   />
-                  <label
-                    htmlFor="terms"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Acepto los{" "}
+                  <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+                    Acepto los{' '}
                     <Link href="/terms">
                       <span className="font-medium text-secondary hover:text-primary cursor-pointer">
                         términos y condiciones
