@@ -5,7 +5,7 @@ import BlogHeader from './BlogHeader';
 import BlogFilterSidebar from './BlogFilterSidebar';
 import BlogGridCard from './BlogGridCard';
 import posts from '../data/blogPosts';
-import Image from '@/app/components/BaseImage';
+import Image from 'next/image';
 const categories = [...new Set(posts.map((post) => post.category))];
 
 const BlogContent = () => {
@@ -30,8 +30,8 @@ const BlogContent = () => {
     <div className="max-w-7xl mx-auto py-8 px-4">
       {/* Encabezado tipo banner */}
       <div className="relative mb-8 rounded-xl overflow-hidden h-64">
-        <Image
-          src="/Img/Ecologia.jpg"
+        <img
+          src="./Img/Ecologia.jpg"
           width={500}
           height={500}
           alt="Blog ecológico"

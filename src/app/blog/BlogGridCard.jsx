@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import Image from '@/app/components/BaseImage';
+import Image from 'next/image';
 
 const BlogGridCard = ({ post }) => {
   const router = useRouter();
@@ -17,9 +17,7 @@ const BlogGridCard = ({ post }) => {
       className="cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
     >
       <div className="relative h-52 overflow-hidden">
-        <Image
-          width={500}
-          height={500}
+        <img
           src={post.image}
           alt={post.title}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"

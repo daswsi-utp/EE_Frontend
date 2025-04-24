@@ -53,13 +53,7 @@ const Header_Admin = () => {
                 onClick={toggleDropdown}
               >
                 <div className="flex items-center">
-                  <Image
-                    src="/Img/usuario.jpg"
-                    width={500}
-                    height={500}
-                    alt="Avatar"
-                    className="h-10 w-10 rounded-full"
-                  />
+                  <img src="./../Img/usuario.jpg" alt="Avatar" className="h-10 w-10 rounded-full" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-gray-900">Mateo Elian</span>

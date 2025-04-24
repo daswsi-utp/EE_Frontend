@@ -4,7 +4,7 @@ import SectionTitle from './common/SectionTitle';
 import ContentSection from './common/ContentSection';
 import Timeline from './timeline/Timeline';
 import Footer from '../home/Footer';
-import Image from '@/app/components/BaseImage';
+import Image from 'next/image';
 
 const montserrat = Montserrat_Alternates({
   subsets: ['latin'],
@@ -47,13 +47,7 @@ const UsContent = () => {
           title="Nuestra Historia"
           imageComponent={
             <div className="rounded-lg overflow-hidden shadow-lg">
-              <Image
-                src="/Img/Crecer.png"
-                alt="Nuestro propósito ecológico"
-                width={600}
-                height={400}
-                className="object-cover"
-              />
+              <img src="./Img/Crecer.png" alt="Nuestro propósito ecológico" className="object-cover" />
             </div>
           }
         >
