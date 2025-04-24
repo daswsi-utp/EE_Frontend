@@ -8,17 +8,11 @@ export default function TablesParameters({ columns, data, multiHeader }) {
           <div
             className="table-responsive w-100"
             style={{
-              maxHeight: "400px", 
+              maxHeight: "400px",
             }}
           >
-            <table className="table table-hover table-sm mb-0">
-              <thead
-                className="border-bottom"
-                style={{
-                  backgroundColor: "transparent", 
-                  color: "var(--primary-color)", 
-                }}
-              >
+            <table className="table table-hover table-sm mb-0 border border-black rounded-lg shadow-lg bg-white text-black">
+              <thead className="border-b border-black rounded-t-lg">
                 {multiHeader ? (
                   <>
                     {multiHeader.rows.map((row, rowIndex) => (
@@ -28,8 +22,11 @@ export default function TablesParameters({ columns, data, multiHeader }) {
                             key={cellIndex}
                             colSpan={cell.colSpan}
                             rowSpan={cell.rowSpan}
-                            style={cell.style}
-                            className="text-center align-middle"
+                            style={{
+                              ...cell.style,
+                              backgroundColor: "aquamarine", // Color verde agua
+                            }}
+                            className="text-center align-middle border-b border-black p-2"
                           >
                             {cell.label}
                           </th>
@@ -40,14 +37,14 @@ export default function TablesParameters({ columns, data, multiHeader }) {
                             0
                           ) < columns.length && (
                             <th
-                              colSpan={
-                                columns.length -
-                                row.reduce(
-                                  (acc, cell) => acc + (cell.colSpan ?? 1),
-                                  0
-                                )
-                              }
-                              className="text-center align-middle"
+                              colSpan={columns.length - row.reduce(
+                                (acc, cell) => acc + (cell.colSpan ?? 1),
+                                0
+                              )}
+                              className="text-center align-middle border-b border-black p-2"
+                              style={{
+                                backgroundColor: "aquamarine", // Color verde agua
+                              }}
                             />
                           )}
                       </tr>
@@ -58,8 +55,10 @@ export default function TablesParameters({ columns, data, multiHeader }) {
                     {columns.map((col) => (
                       <th
                         key={col.field}
-                        className="text-center align-middle"
-                        style={col.headerStyle}
+                        className="text-center align-middle border-b border-black p-2"
+                        style={{
+                          backgroundColor: "aquamarine", // Color verde agua
+                        }}
                       >
                         {col.headerName}
                       </th>
@@ -74,11 +73,7 @@ export default function TablesParameters({ columns, data, multiHeader }) {
                     {columns.map((col) => (
                       <td
                         key={col.field}
-                        className="text-center align-middle"
-                        style={{
-                          padding: "2px",
-                          minWidth: "100px", 
-                        }}
+                        className="text-center align-middle p-2 min-w-[100px]"
                       >
                         {col.renderCell ? col.renderCell(row) : row[col.field]}
                       </td>
