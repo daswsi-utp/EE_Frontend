@@ -2,7 +2,7 @@ import PedidosContent from './PedidosContent';
 
 export default function Page() {
   return (
-    <div className="border border-black text-black">
+    <div className="text-black overflow-y-auto h-[90vh]">
       <PedidosContent />
     </div>
   );
