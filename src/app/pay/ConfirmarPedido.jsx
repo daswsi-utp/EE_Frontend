@@ -34,19 +34,19 @@ const ConfirmarPedido = ({
         <div className="space-y-2">
           <div className="flex justify-between">
             <span>Subtotal:</span>
-            <span>${subtotal.toFixed(2)}</span>
+            <span>S/. {subtotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
             <span>Impuestos:</span>
-            <span>${impuestos.toFixed(2)}</span>
+            <span>S/. {impuestos.toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
             <span>Envío:</span>
-            <span>${envio.toFixed(2)}</span>
+            <span>S/. {envio.toFixed(2)}</span>
           </div>
           <div className="flex justify-between font-bold pt-2 border-t border-gray-200">
             <span>Total:</span>
-            <span>${total.toFixed(2)}</span>
+            <span>S/. {total.toFixed(2)}</span>
           </div>
         </div>
       </div>

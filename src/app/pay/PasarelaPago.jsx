@@ -1,4 +1,5 @@
 'use client';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 import ProgressBar from './ProgressBar';
 import ResumenCompra from './ResumenCompra';
 import FormularioDireccion from './FormularioDireccion';
@@ -11,9 +12,12 @@ import InformacionPagoBancaMovil from './InformacionPagoBancaMovil';
 import InformacionPagoPaypal from './InformacionPagoPaypal';
 import ConfirmarPedido from './ConfirmarPedido';
 import MensajeExitoPago from './MensajeExitoPago';
+import { useProducts } from '../context/ProductContext';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const PasarelaPago = () => {
+  const { products } = useProducts();
   const [paso, setPaso] = useState(1);
   const [metodoPago, setMetodoPago] = useState('yape');
   const [formularioTarjeta, setFormularioTarjeta] = useState({ numero: '', nombre: '', fechaExp: '', cvv: '' });
@@ -21,12 +25,7 @@ const PasarelaPago = () => {
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
 
-  const productosDePrueba = [
-    { id: 1, nombre: 'Camiseta Premium', precio: 29.99, cantidad: 2 },
-    { id: 2, nombre: 'Zapatillas Deportivas', precio: 89.99, cantidad: 1 },
-  ];
-
-  const subtotal = productosDePrueba.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
+  const subtotal = products.reduce((total, producto) => total + producto.price * producto.quantity, 0);
   const impuestos = subtotal * 0.16;
   const envio = 4.99;
   const total = subtotal + impuestos + envio;
@@ -61,21 +60,20 @@ const PasarelaPago = () => {
   }
 
   return (
-    <div className="fixed inset-0 bg-white min-h-screen">
-      <div className="container mx-auto py-6 px-4">
-        <div className="flex flex-col h-full">
+    <div className="fixed inset-0 bg-tertiary min-h-screen px-10">
+      <div className="absolute top-0 left-0 w-[50px] h-[35px] flex justify-center items-center bg-teal-600 text-white text-[20px]">
+        <Link href="/" className="p-1 px-3">
+          <FaArrowLeftLong />
+        </Link>
+      </div>
+      <div className="container mx-auto py-6 px-4 ">
+        <div className="flex flex-col h-full ">
           <ProgressBar paso={paso} onPasoChange={handleCambioPaso} />
 
-          <div className="md:flex md:gap-8">
-            <ResumenCompra
-              productos={productosDePrueba}
-              subtotal={subtotal}
-              impuestos={impuestos}
-              envio={envio}
-              total={total}
-            />
+          <div className="md:flex md:gap-8 ">
+            <ResumenCompra productos={products} subtotal={subtotal} impuestos={impuestos} envio={envio} total={total} />
 
-            <div className="md:w-3/5 bg-white p-6 rounded-lg shadow-sm">
+            <div className="md:w-3/5 bg-white p-6 rounded-lg shadow-sm h-[75vh] overflow-y-auto">
               {paso === 1 && (
                 <FormularioDireccion
                   direccion={direccion}

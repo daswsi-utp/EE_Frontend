@@ -6,7 +6,7 @@ const ProgressBar = ({ paso, onPasoChange }) => {
           {/* Línea de progreso */}
           <div className="absolute top-4 left-0 right-0 h-0.5 bg-gray-200">
             <div
-              className="h-0.5 bg-teal-600 transition-all duration-300"
+              className="h-0.5 bg-teal-600 transition-all duration-300 "
               style={{ width: paso === 1 ? '0%' : paso === 2 ? '50%' : '100%' }}
             ></div>
           </div>
