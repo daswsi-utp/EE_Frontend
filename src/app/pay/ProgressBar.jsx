@@ -1,4 +1,3 @@
-// components/pago/ProgressBar.js
 const ProgressBar = ({ paso, onPasoChange }) => {
   return (
     <div className="mb-12 pt-4">
