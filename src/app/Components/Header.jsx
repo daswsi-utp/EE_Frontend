@@ -90,11 +90,11 @@ const Header = () => {
           <button
             id="cart-button"
             onClick={toggleCart}
-            className={`bg-primary text-white transition-all ease-out duration-300 hover:scale-105 w-[45px] h-[45px] flex justify-center items-center text-[27px] rounded-full cursor-pointer relative`}
+            className={`bg-primary/80 text-white transition-all ease-out duration-300 hover:scale-105 w-[45px] h-[45px] flex justify-center items-center text-[27px] rounded-full cursor-pointer relative`}
           >
             <IoCartOutline />
             {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#ff3131] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center pt-[1px]">
+              <span className="absolute -top-1 -right-1 bg-[#fa4646] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center pt-[1px]">
                 {products.length}
               </span>
             )}

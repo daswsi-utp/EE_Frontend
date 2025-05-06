@@ -3,7 +3,7 @@ import Home from './home/Home';
 
 export default function Page() {
   return (
-    <div className="text-[#eee] font-bold">
+    <div className="text-black font-bold">
       <Home />
     </div>
   );

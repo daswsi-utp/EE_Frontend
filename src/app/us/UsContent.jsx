@@ -4,7 +4,6 @@ import SectionTitle from './common/SectionTitle';
 import ContentSection from './common/ContentSection';
 import Timeline from './timeline/Timeline';
 import Footer from '../home/Footer';
-import Image from 'next/image';
 
 const montserrat = Montserrat_Alternates({
   subsets: ['latin'],
@@ -41,7 +40,7 @@ const UsContent = () => {
   return (
     <div className={`${montserrat.className} bg-white text-black font-sans`}>
       <section className="max-w-[1280px] mx-auto px-6 py-16">
-        <h1 className="text-4xl font-bold text-center mb-12 text-green-700">Sobre Nosotros</h1>
+        <h1 className="text-4xl font-bold text-center mb-12 text-primary">Sobre Nosotros</h1>
 
         <ContentSection
           title="Nuestra Historia"
@@ -73,13 +72,7 @@ const UsContent = () => {
           imageLeft
           imageComponent={
             <div className="rounded-lg overflow-hidden shadow-lg">
-              <Image
-                src="./Img/Dar.jpg"
-                alt="Productos sostenibles"
-                width={600}
-                height={400}
-                className="object-cover"
-              />
+              <img src="./Img/Dar.jpg" alt="Productos sostenibles" width={600} height={400} className="object-cover" />
             </div>
           }
         >

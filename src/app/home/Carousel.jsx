@@ -38,7 +38,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="w-full flex px-9 py-6 border justify-center items-center">
+    <div className="w-full flex px-10 py-6 justify-center items-center">
       <div className="flex justify-center items-center">
         <button
           onClick={() => scroll('left')}
@@ -50,7 +50,7 @@ const Carousel = () => {
         </button>
       </div>
 
-      <div ref={scrollRef} className="flex gap-4 overflow-x-hidden scroll-smooth no-scrollbar mx-5 border py-2">
+      <div ref={scrollRef} className="flex gap-4 overflow-x-hidden scroll-smooth no-scrollbar mx-5 py-2">
         {products.map((product) => (
           <div
             key={product.id}

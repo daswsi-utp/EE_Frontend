@@ -1,8 +1,9 @@
-"use client";
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
-import { useProducts } from "../../context/ProductContext";
-import CartItem from "./CartItem";
+'use client';
+import { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
+import { useProducts } from '../../context/ProductContext';
+import CartItem from './CartItem';
+import Link from 'next/link';
 
 export default function CartSidebar({ isOpen, setIsOpen }) {
   const { products } = useProducts();
@@ -11,8 +12,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
 
   const calculateTotal = () => {
     const total = products.reduce((sum, item) => {
-      const discountedPrice =
-        item.price - (item.price * parseInt(item.discount)) / 100;
+      const discountedPrice = item.price - (item.price * parseInt(item.discount)) / 100;
       return parseFloat((sum + discountedPrice * item.quantity).toFixed(2));
     }, 0);
 
@@ -22,21 +22,16 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
   // Cerrar el carrito al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const cart = document.getElementById("cart-sidebar");
-      const cartButton = document.getElementById("cart-button");
+      const cart = document.getElementById('cart-sidebar');
+      const cartButton = document.getElementById('cart-button');
 
-      if (
-        isOpen &&
-        cart &&
-        !cart.contains(event.target) &&
-        !cartButton?.contains(event.target)
-      ) {
+      if (isOpen && cart && !cart.contains(event.target) && !cartButton?.contains(event.target)) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, setIsOpen]);
 
   return (
@@ -45,7 +40,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
       <div
         id="cart-sidebar"
         className={`text-text z-[100] fixed top-0 right-0 h-full w-full sm:w-[550px] bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+          isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="flex flex-col h-full">
@@ -57,10 +52,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
                 {products.length}
               </span>
             </h2>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:text-gray-200"
-            >
+            <button onClick={() => setIsOpen(false)} className="text-white hover:text-gray-200">
               <X className="h-6 w-6" />
             </button>
           </div>
@@ -69,12 +61,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
           <div className="flex-1 overflow-y-auto p-4 bg-tertiary">
             {products.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-gray-500">
-                <svg
-                  className="h-16 w-16 mb-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg className="h-16 w-16 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -106,12 +93,15 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
                 <span>Total:</span>
                 <span>S/. {calculateTotal()}</span>
               </div>
-              <button className="w-full bg-primary hover:bg-secondary text-white py-3 px-4 rounded-md font-medium transition-colors">
-                Finalizar Compra
-              </button>
+              <Link
+                href="/pay"
+                className="block text-center cursor-pointer w-full bg-primary hover:bg-secondary text-white py-3 px-4 rounded-md font-medium transition-colors"
+              >
+                Continuar con el pago
+              </Link>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full border border-primary text-primary hover:bg-tertiary py-2 px-4 rounded-md font-medium mt-2 transition-colors"
+                className="cursor-pointer w-full border border-primary text-primary hover:bg-tertiary py-2 px-4 rounded-md font-medium mt-2 transition-colors"
               >
                 Seguir Comprando
               </button>
@@ -121,12 +111,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
       </div>
 
       {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-[#0000005b] z-40"
-          onClick={() => setIsOpen(false)}
-        ></div>
-      )}
+      {isOpen && <div className="fixed inset-0 bg-[#0000005b] z-40" onClick={() => setIsOpen(false)}></div>}
     </>
   );
 }
