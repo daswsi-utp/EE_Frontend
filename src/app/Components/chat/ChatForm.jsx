@@ -1,23 +1,11 @@
-"use client";
+'use client';
 
-const ChatForm = ({
-  name,
-  setName,
-  email,
-  setEmail,
-  isSubmitting,
-  onSubmit,
-}) => (
-  <div className="p-6">
-    <h4 className="text-lg font-medium text-text mb-4">
-      Para iniciar el chat, por favor ingresa tus datos:
-    </h4>
-    <form onSubmit={onSubmit} className="space-y-4">
+const ChatForm = ({ name, setName, email, setEmail, isSubmitting, onSubmit }) => (
+  <div className="p-6 bg-tertiary ">
+    <p className="text-lg font-medium text-text mb-4">Para iniciar el chat, por favor ingresa tus datos:</p>
+    <form onSubmit={onSubmit} className="space-y-4 bg-tertiary">
       <div>
-        <label
-          htmlFor="name"
-          className="block text-sm font-medium text-text mb-1"
-        >
+        <label htmlFor="name" className="block text-sm font-medium text-text mb-1">
           Nombre
         </label>
         <input
@@ -31,10 +19,7 @@ const ChatForm = ({
         />
       </div>
       <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-text mb-1"
-        >
+        <label htmlFor="email" className="block text-sm font-medium text-text mb-1">
           Correo electrónico
         </label>
         <input
@@ -52,7 +37,7 @@ const ChatForm = ({
         disabled={isSubmitting}
         className="w-full bg-primary font-[600] text-white py-2 px-4 rounded hover:bg-Quaternary transition-colors duration-300 disabled:opacity-70"
       >
-        {isSubmitting ? "Iniciando..." : "Iniciar Chat"}
+        {isSubmitting ? 'Iniciando...' : 'Iniciar Chat'}
       </button>
     </form>
   </div>

@@ -7,14 +7,12 @@ import SelectorMetodoPago from './SelectorMetodoPago';
 import FormularioTarjetaCredito from './FormularioTarjetaCredito';
 import InformacionPagoYape from './InformacionPagoYape';
 import InformacionPagoPlin from './InformacionPagoPlin';
-import InformacionPagoTunki from './InformacionPagoTunki';
-import InformacionPagoBancaMovil from './InformacionPagoBancaMovil';
-import InformacionPagoPaypal from './InformacionPagoPaypal';
 import ConfirmarPedido from './ConfirmarPedido';
 import MensajeExitoPago from './MensajeExitoPago';
 import { useProducts } from '../context/ProductContext';
 import { useState } from 'react';
 import Link from 'next/link';
+import InformacionPagoEfectivo from './InformacionPagoEfectivo';
 
 const PasarelaPago = () => {
   const { products } = useProducts();
@@ -26,9 +24,8 @@ const PasarelaPago = () => {
   const [exito, setExito] = useState(false);
 
   const subtotal = products.reduce((total, producto) => total + producto.price * producto.quantity, 0);
-  const impuestos = subtotal * 0.16;
   const envio = 4.99;
-  const total = subtotal + impuestos + envio;
+  const total = subtotal + envio;
 
   const handleCambioPaso = (nuevoPaso) => {
     setPaso(nuevoPaso);
@@ -71,9 +68,9 @@ const PasarelaPago = () => {
           <ProgressBar paso={paso} onPasoChange={handleCambioPaso} />
 
           <div className="md:flex md:gap-8 ">
-            <ResumenCompra productos={products} subtotal={subtotal} impuestos={impuestos} envio={envio} total={total} />
+            <ResumenCompra productos={products} subtotal={subtotal} envio={envio} total={total} />
 
-            <div className="md:w-3/5 bg-white p-6 rounded-lg shadow-sm h-[75vh] overflow-y-auto">
+            <div className="md:w-3/5 bg-white p-6 rounded-lg shadow-sm h-[75vh] overflow-y-auto py-8 px-10">
               {paso === 1 && (
                 <FormularioDireccion
                   direccion={direccion}
@@ -83,29 +80,30 @@ const PasarelaPago = () => {
               )}
 
               {paso === 2 && (
-                <div className="space-y-4">
-                  <SelectorMetodoPago metodoPago={metodoPago} onMetodoPagoChange={handleCambioMetodoPago} />
-                  {metodoPago === 'tarjeta' && (
-                    <FormularioTarjetaCredito
-                      formularioTarjeta={formularioTarjeta}
-                      onTarjetaChange={handleInputTarjeta}
-                    />
-                  )}
-                  {metodoPago === 'yape' && <InformacionPagoYape />}
-                  {metodoPago === 'plin' && <InformacionPagoPlin />}
-                  {metodoPago === 'tunki' && <InformacionPagoTunki />}
-                  {metodoPago === 'bancaMovil' && <InformacionPagoBancaMovil />}
-                  {metodoPago === 'paypal' && <InformacionPagoPaypal />}
-                  <div className="mt-6 flex space-x-4">
+                <div className="space-y-4 flex flex-col justify-between h-full overflow-y-auto">
+                  <div>
+                    <SelectorMetodoPago metodoPago={metodoPago} onMetodoPagoChange={handleCambioMetodoPago} />
+                    {metodoPago === 'tarjeta' && (
+                      <FormularioTarjetaCredito
+                        formularioTarjeta={formularioTarjeta}
+                        onTarjetaChange={handleInputTarjeta}
+                      />
+                    )}
+                    {metodoPago === 'yape' && <InformacionPagoYape />}
+                    {metodoPago === 'plin' && <InformacionPagoPlin />}
+                    {metodoPago === 'pagoefectivo' && <InformacionPagoEfectivo total={total} />}
+                  </div>
+
+                  <div className="flex space-x-4 justify-end pr-10">
                     <button
                       onClick={() => handleCambioPaso(1)}
-                      className="w-1/3 bg-gray-200 text-gray-800 py-3 px-4 rounded-lg font-medium hover:bg-gray-300 transition duration-200"
+                      className="w-fit bg-gray-200 text-gray-800 py-2 px-6 rounded-lg font-medium hover:bg-gray-300 transition duration-200"
                     >
                       Atrás
                     </button>
                     <button
                       onClick={() => handleCambioPaso(3)}
-                      className="w-2/3 bg-teal-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-teal-700 transition duration-200"
+                      className="w-fit bg-teal-600 text-white py-2 px-6 rounded-lg font-medium hover:bg-teal-700 transition duration-200"
                     >
                       Continuar
                     </button>
@@ -118,7 +116,6 @@ const PasarelaPago = () => {
                   direccion={direccion}
                   metodoPago={metodoPago}
                   subtotal={subtotal}
-                  impuestos={impuestos}
                   envio={envio}
                   total={total}
                   formularioTarjeta={formularioTarjeta}

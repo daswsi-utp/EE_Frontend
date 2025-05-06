@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const MensajeExitoPago = () => {
   return (
     <div className="fixed inset-0 bg-white min-h-screen flex items-center justify-center">
@@ -24,9 +26,12 @@ const MensajeExitoPago = () => {
               <span>#AB12345678</span>
             </div>
           </div>
-          <button className="w-full bg-teal-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-teal-700 transition duration-200">
+          <Link
+            href="/"
+            className="w-full bg-teal-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-teal-700 transition duration-200"
+          >
             Volver a la tienda
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const TimelineItem = ({ year, title, description }) => (
   <div className="relative group">
-    <div className="w-6 h-6 bg-green-600 rounded-full mx-auto transition-transform duration-300 group-hover:scale-125" />
+    <div className="w-6 h-6 bg-primary rounded-full mx-auto transition-transform duration-300 group-hover:scale-125" />
 
     <div
       className={`
@@ -16,7 +16,7 @@ const TimelineItem = ({ year, title, description }) => (
         group-hover:-translate-y-2 group-hover:shadow-xl
       `}
     >
-      <h3 className="text-green-700 font-semibold text-lg">{year}</h3>
+      <h3 className="text-primary font-semibold text-lg">{year}</h3>
       <p className="font-bold text-gray-800">{title}</p>
       <p className="text-sm text-gray-600">{description}</p>
     </div>

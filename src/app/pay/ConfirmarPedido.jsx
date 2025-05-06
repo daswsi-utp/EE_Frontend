@@ -1,90 +1,134 @@
+import { useState, useEffect } from 'react';
+import { IoClipboardOutline } from 'react-icons/io5';
+import { IoLocationOutline } from 'react-icons/io5';
+import { MdPayment } from 'react-icons/md';
+import { RiShoppingBagLine } from 'react-icons/ri';
+
 const ConfirmarPedido = ({
-  direccion,
-  metodoPago,
-  subtotal,
-  impuestos,
-  envio,
-  total,
-  formularioTarjeta,
+  direccion = { calle: '', ciudad: '', codigoPostal: '', pais: '' },
+  metodoPago = '',
+  subtotal = 0,
+  envio = 0,
+  total = 0,
+  formularioTarjeta = { numero: '' },
   onBack,
   onConfirm,
-  cargando,
+  cargando = false,
 }) => {
+  const [animateTotal, setAnimateTotal] = useState(false);
+
+  useEffect(() => {
+    setAnimateTotal(true);
+    const timer = setTimeout(() => setAnimateTotal(false), 500);
+    return () => clearTimeout(timer);
+  }, [total]);
+
+  const tieneDireccionValida =
+    direccion && direccion.calle && direccion.ciudad && direccion.codigoPostal && direccion.pais;
+
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold mb-4">Confirmar tu pedido</h2>
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Dirección de envío</h3>
-        <p>{direccion.calle}</p>
-        <p>
-          {direccion.ciudad}, {direccion.codigoPostal}, {direccion.pais}
+    <div className="bg-white shadow-lg rounded-2xl p-6 space-y-6 border border-gray-200 transition-all hover:shadow-xl">
+      <p className="text-2xl font-bold text-teal-700 border-b pb-2 flex items-center">
+        <IoClipboardOutline className="mr-2" />
+        Confirmar tu pedido
+      </p>
+
+      <div className="space-y-2">
+        <p className="text-lg font-semibold text-gray-800 flex items-center">
+          <IoLocationOutline className="text-2xl mr-1 text-teal-700" />
+          Dirección de envío
         </p>
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Método de pago</h3>
-        <p className="font-medium">{metodoPago === 'tarjeta' ? 'Tarjeta de crédito' : metodoPago}</p>
-        {metodoPago === 'tarjeta' && (
-          <p className="text-sm text-gray-600">
-            Tarjeta terminada en ****-****-****-{formularioTarjeta.numero.slice(-4)}
-          </p>
+        {tieneDireccionValida ? (
+          <div className="pl-7 space-y-1 text-gray-700">
+            <p>{direccion.calle}</p>
+            <p>
+              {direccion.ciudad}, {direccion.codigoPostal}, {direccion.pais}
+            </p>
+          </div>
+        ) : (
+          <p className="pl-7 text-amber-600 italic">Dirección no disponible</p>
         )}
       </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Resumen del pedido</h3>
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span>Subtotal:</span>
+
+      <div className="space-y-2">
+        <p className="text-lg font-semibold text-gray-800 flex items-center">
+          <MdPayment className="text-2xl mr-1 text-teal-700" />
+          Método de pago
+        </p>
+        {metodoPago ? (
+          <div className="pl-7">
+            <p className="font-medium text-gray-700">
+              {metodoPago === 'tarjeta'
+                ? 'Tarjeta de crédito'
+                : metodoPago === 'efectivo'
+                ? 'Pago en efectivo'
+                : metodoPago === 'transferencia'
+                ? 'Transferencia bancaria'
+                : metodoPago}
+            </p>
+            {metodoPago === 'tarjeta' && formularioTarjeta?.numero && (
+              <p className="text-sm text-gray-500">Tarjeta terminada en **** {formularioTarjeta.numero.slice(-4)}</p>
+            )}
+          </div>
+        ) : (
+          <p className="pl-7 text-amber-600 italic">Método de pago no seleccionado</p>
+        )}
+      </div>
+
+      <div className="space-y-3">
+        <p className="text-lg font-semibold text-gray-800 flex items-center">
+          <RiShoppingBagLine className="text-2xl mr-1 text-teal-700" />
+          Resumen del pedido
+        </p>
+        <div className="pl-7 space-y-2 text-gray-700">
+          <div className="flex justify-between items-center">
+            <span>Subtotal</span>
             <span>S/. {subtotal.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between">
-            <span>Impuestos:</span>
-            <span>S/. {impuestos.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Envío:</span>
+          <div className="flex justify-between items-center">
+            <span>Envío</span>
             <span>S/. {envio.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between font-bold pt-2 border-t border-gray-200">
-            <span>Total:</span>
+          <div
+            className={`flex justify-between font-bold pt-3 border-t border-gray-200 text-gray-900 ${
+              animateTotal ? 'text-teal-600 transform scale-105 transition-all' : 'transition-all'
+            }`}
+          >
+            <span>Total</span>
             <span>S/. {total.toFixed(2)}</span>
           </div>
         </div>
       </div>
-      <div className="mt-6 flex space-x-4">
+
+      <div className=" flex flex-col sm:flex-row gap-4 justify-end items-center">
         <button
           onClick={onBack}
-          className="w-1/3 bg-gray-200 text-gray-800 py-3 px-4 rounded-lg font-medium hover:bg-gray-300 transition duration-200"
           disabled={cargando}
+          className=" bg-gray-100 text-gray-800 py-2 px-4 rounded-xl font-medium hover:bg-gray-200 transition-all hover:shadow-md disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-gray-300"
+          aria-label="Volver atrás"
         >
-          Atrás
+          <span className="flex items-center justify-center">Atrás</span>
         </button>
         <button
           onClick={onConfirm}
-          className="w-2/3 bg-teal-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-teal-700 transition duration-200 disabled:bg-teal-400"
-          disabled={cargando}
+          className=" bg-teal-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-teal-700 transition-all hover:shadow-md disabled:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          aria-label="Confirmar pedido y proceder al pago"
         >
           {cargando ? (
-            <div className="flex items-center justify-center">
-              <svg
-                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C4 0 0 4 0 12s4 12 12 12v-4a8 8 0 01-8-8z"
-                ></path>
-              </svg>
+            <div className="flex items-center justify-center space-x-2">
               <span>Procesando...</span>
             </div>
           ) : (
-            <span>Confirmar y pagar</span>
+            <span className="flex items-center justify-center">Confirmar y pagar</span>
           )}
         </button>
       </div>
+
+      {(!tieneDireccionValida || !metodoPago) && (
+        <p className="text-amber-600 text-sm mt-2 text-center">
+          Por favor, completa todos los datos necesarios antes de confirmar.
+        </p>
+      )}
     </div>
   );
 };
