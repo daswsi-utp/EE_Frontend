@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Heart, Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -64,7 +65,12 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
         <div>
           <div className="text-xs font-semibold text-green-600 uppercase tracking-wide mb-1">{product.category}</div>
 
-          <p className="font-bold text-lg text-gray-800 mb-2 hover:text-primary transition-colors">{product.name}</p>
+          <Link
+            href={`/viewproducts/${product.id}`}
+            className="font-bold text-lg text-gray-800 mb-2 hover:text-primary transition-colors"
+          >
+            {product.name}
+          </Link>
 
           <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
 

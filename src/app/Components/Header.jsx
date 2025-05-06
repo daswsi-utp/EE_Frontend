@@ -39,12 +39,14 @@ const Header = () => {
           className={`${montserrat.className} text-text font-[500] text-[30px] pl-6 flex flex-col justify-center w-[310px]`}
         >
           <Link href="/" className="sw-fit cursor-pointer">
-            <p className="h-[30px]">
-              <span className="font-[700] text-primary">V</span>erde
-            </p>
-            <p>
-              <span className="font-[700] text-secondary">R</span>aíz
-            </p>
+            <h1>
+              <p className="h-[30px]">
+                <span className="font-[700] text-primary">V</span>erde
+              </p>
+              <p>
+                <span className="font-[700] text-secondary">R</span>aíz
+              </p>
+            </h1>
           </Link>
         </div>
 
