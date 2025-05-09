@@ -5,6 +5,7 @@ import { FaAnglesRight, FaAnglesLeft } from 'react-icons/fa6';
 import { products } from '../data/productData';
 import { useProducts } from '../context/ProductContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Carousel = () => {
   const { addProduct, updateProductQuantity } = useProducts();
@@ -73,18 +74,22 @@ const Carousel = () => {
             </div>
 
             <div className="p-4">
-              <p className="font-semibold text-[16px] text-primary truncate">{product.name}</p>
+              <Link href={`/viewproducts/${product.id}`}>
+                <p className="font-semibold text-[16px] text-primary transition-all duration-500 hover:text-secondary truncate">
+                  {product.name}
+                </p>
+              </Link>
 
               <div className="mt-1">
                 <RatingStars rating={product.rating} />
               </div>
 
               <div className="mt-2 flex items-baseline">
-                <span className="text-[18px] font-[600] text-gray-900">S/. {product.price.toFixed(2)}</span>
+                <span className="text-[18px] font-[600] text-gray-900">
+                  S/. {(product.price - product.price * (parseInt(product.discount) / 100)).toFixed(2)}
+                </span>
                 {product.discount != 0 && (
-                  <span className="ml-2 text-[13px] text-gray-500 line-through">
-                    S/. {(product.price / (1 - parseInt(product.discount) / 100)).toFixed(2)}
-                  </span>
+                  <span className="ml-2 text-[13px] text-gray-500 line-through">S/. {product.price.toFixed(2)}</span>
                 )}
               </div>
 

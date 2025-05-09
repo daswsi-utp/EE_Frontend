@@ -57,7 +57,7 @@ const ProductsContent = () => {
         <img src="./Img/banner-eco.jpg" alt="Productos ecológicos" className="w-full h-full object-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent flex items-center">
           <div className="ml-10 max-w-lg">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 text-shadow-lg/20">Productos Ecológicos</h1>
+            <p className="text-3xl md:text-4xl font-bold text-white mb-4 text-shadow-lg/20">Productos Ecológicos</p>
             <p className="text-white/90 mb-6 font-[500] text-shadow-lg/20">
               Cuida el planeta con nuestra selección de productos sostenibles y respetuosos con el medio ambiente.
             </p>
