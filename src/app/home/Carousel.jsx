@@ -3,9 +3,13 @@
 import { useRef } from 'react';
 import { FaAnglesRight, FaAnglesLeft } from 'react-icons/fa6';
 import { products } from '../data/productData';
+import { useProducts } from '../context/ProductContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Carousel = () => {
+  const { addProduct, updateProductQuantity } = useProducts();
+
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -57,8 +61,12 @@ const Carousel = () => {
             className="w-[250px] h-[350px] flex-shrink-0 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200"
           >
             <div className="relative h-40 bg-gray-100">
-              <img src={product.image} alt={product.name} className="w-full h-full object-cover object-center" />
-              {product.discount && (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
+              />
+              {product.discount != 0 && (
                 <div className="absolute top-2 right-2 bg-red-400 text-white text-xs font-bold px-2 py-1 rounded">
                   -{product.discount}
                 </div>
@@ -66,22 +74,35 @@ const Carousel = () => {
             </div>
 
             <div className="p-4">
-              <h3 className="font-semibold text-[16px] text-primary truncate">{product.name}</h3>
+              <Link href={`/viewproducts/${product.id}`}>
+                <p className="font-semibold text-[16px] text-primary transition-all duration-500 hover:text-secondary truncate">
+                  {product.name}
+                </p>
+              </Link>
 
               <div className="mt-1">
                 <RatingStars rating={product.rating} />
               </div>
 
               <div className="mt-2 flex items-baseline">
-                <span className="text-[18px] font-[600] text-gray-900">S/. {product.price.toFixed(2)}</span>
-                {product.discount && (
-                  <span className="ml-2 text-[13px] text-gray-500 line-through">
-                    S/. {(product.price / (1 - parseInt(product.discount) / 100)).toFixed(2)}
-                  </span>
+                <span className="text-[18px] font-[600] text-gray-900">
+                  S/. {(product.price - product.price * (parseInt(product.discount) / 100)).toFixed(2)}
+                </span>
+                {product.discount != 0 && (
+                  <span className="ml-2 text-[13px] text-gray-500 line-through">S/. {product.price.toFixed(2)}</span>
                 )}
               </div>
 
-              <button className="mt-4 w-full cursor-pointer bg-primary text-white text-[15px] py-2 rounded-md hover:bg-secondary transition-colors font-[700]">
+              <button
+                className="mt-4 w-full cursor-pointer bg-primary text-white text-[15px] py-2 rounded-md hover:bg-secondary transition-colors font-[700]"
+                onClick={() => {
+                  if (product.quantity >= 1) {
+                    updateProductQuantity(product.id, product.quantity + 1);
+                  } else {
+                    addProduct({ ...product, quantity: 1 });
+                  }
+                }}
+              >
                 Añadir al carrito
               </button>
             </div>

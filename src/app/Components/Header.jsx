@@ -3,12 +3,15 @@
 import { Montserrat_Alternates } from 'next/font/google';
 import { FaRegUser } from 'react-icons/fa';
 import { IoCartOutline } from 'react-icons/io5';
+import { CiCalendarDate } from 'react-icons/ci';
+import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import CartSidebar from './Cart/CartSidebar';
 import { useProducts } from '../context/ProductContext';
-import { CiCalendarDate } from 'react-icons/ci';
 import EcoCalendar from './EcoCalendar/EcoCalendar';
+import { LuCalendarRange } from 'react-icons/lu';
+import Image from 'next/image';
 
 const montserrat = Montserrat_Alternates({
   subsets: ['latin'],
@@ -21,86 +24,109 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(3);
   const { products } = useProducts();
+  const [calendar, setCalendar] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const [calendar, setcalendar] = useState(false);
-
-  const toggleCalendar = () => {
-    setcalendar(!calendar);
-  };
-
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
+  const toggleCalendar = () => setCalendar(!calendar);
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
     <>
-      <div className="w-full flex text-text justify-around z-[80] relative h-[12vh] items-center  bg-white shadow-xl/2">
-        <div
-          className={`${montserrat.className} text-text font-[500] text-[30px] pl-6 flex flex-col justify-center w-[310px]`}
-        >
-          <Link href="/" className="sw-fit cursor-pointer">
-            <p className="h-[30px]">
-              <span className="font-[700] text-primary">V</span>erde
-            </p>
-            <p>
-              <span className="font-[700] text-secondary">R</span>aíz
-            </p>
-          </Link>
-        </div>
-
-        <nav className="flex items-center px-10 py-2 rounded-full">
-          <ul className={`${montserrat.className} font-[600] text-text text-[16px] tracking-wide flex gap-8`}>
-            <li className="transition-all ease-out duration-300 hover:scale-105 hover:text-hover-text">
-              <Link href="/products">Productos</Link>
-            </li>
-            <li className="transition-all ease-out duration-300 hover:scale-105 hover:text-hover-text">
-              <Link href="/sustainability">Sostenibilidad</Link>
-            </li>
-            <li className="transition-all ease-out duration-300 hover:scale-105 hover:text-hover-text">
-              <Link href="/blog">Blog</Link>
-            </li>
-            <li className="transition-all ease-out duration-300 hover:scale-105 hover:text-hover-text">
-              <Link href="/us">Nosotros</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div className="flex gap-5 w-[310px] items-center justify-end pr-10">
-          <div className="relative flex justify-center items-center">
-            <button
-              className="text-black text-[30px] transition-all ease-out duration-300 hover:text-hover-text"
-              onClick={toggleCalendar}
-            >
-              <CiCalendarDate />
-            </button>
-            {calendar && (
-              <div className="absolute right-0 top-[100%] z-[200]">
-                <EcoCalendar />
-              </div>
-            )}
+      <header className="w-full bg-white shadow-md z-[80] relative">
+        <div className="flex items-center justify-between px-6 py-4 md:px-10">
+          {/* Logo */}
+          <div className={`${montserrat.className} text-text font-[500] text-[26px]`}>
+            <Link href="/">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Img/logo_header.png`}
+                alt="logo root green"
+                width={150}
+                height={50}
+                className="h-[50px] w-auto"
+              />
+            </Link>
           </div>
-          <Link href="/login">
-            <button
-              className={`transition-all ease-out duration-300 hover:scale-105 w-[50px] h-[50px] flex justify-center items-center text-[20px] text-text rounded-full cursor-pointer hover:text-hover-text`}
-            >
-              <FaRegUser />
-            </button>
-          </Link>
 
-          <button
-            id="cart-button"
-            onClick={toggleCart}
-            className={`bg-primary/80 text-white transition-all ease-out duration-300 hover:scale-105 w-[45px] h-[45px] flex justify-center items-center text-[27px] rounded-full cursor-pointer relative`}
-          >
-            <IoCartOutline />
-            {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#fa4646] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center pt-[1px]">
-                {products.length}
-              </span>
-            )}
-          </button>
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex">
+            <ul className={`${montserrat.className} font-[600] text-text text-[16px] tracking-wide flex gap-6`}>
+              <li className="hover:text-hover-text transition duration-200">
+                <Link href="/products">Productos</Link>
+              </li>
+              <li className="hover:text-hover-text transition duration-200">
+                <Link href="/sustainability">Sostenibilidad</Link>
+              </li>
+              <li className="hover:text-hover-text transition duration-200">
+                <Link href="/blog">Blog</Link>
+              </li>
+              <li className="hover:text-hover-text transition duration-200">
+                <Link href="/us">Nosotros</Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Icons */}
+          <div className="flex items-center gap-6 justify-center">
+            {/* Calendar */}
+            <div className="relative flex">
+              <button onClick={toggleCalendar} className="cursor-pointer text-[27px] text-black hover:text-hover-text">
+                <LuCalendarRange />
+              </button>
+              {calendar && (
+                <div className="absolute right-0 top-[100%] z-[200]">
+                  <EcoCalendar />
+                </div>
+              )}
+            </div>
+
+            {/* User */}
+            <Link href="/login" className="flex">
+              <button className="text-[25px] text-text hover:text-hover-text cursor-pointer">
+                <FaRegUser />
+              </button>
+            </Link>
+
+            {/* Cart */}
+            <button
+              onClick={toggleCart}
+              className="cursor-pointer relative text-white bg-primary/80 p-2 rounded-full text-[22px] hover:scale-105 transition"
+            >
+              <IoCartOutline />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#fa4646] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {products.length}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button onClick={toggleMenu} className="text-[26px] text-black md:hidden" aria-label="Menú">
+              {menuOpen ? <HiOutlineX /> : <HiOutlineMenu />}
+            </button>
+          </div>
         </div>
-      </div>
+
+        {/* Mobile Nav - Ahora posicionado absolutamente */}
+        {menuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-md z-50">
+            <ul className={`${montserrat.className} font-[600] text-text flex flex-col gap-3 px-6 py-4`}>
+              <li>
+                <Link href="/products">Productos</Link>
+              </li>
+              <li>
+                <Link href="/sustainability">Sostenibilidad</Link>
+              </li>
+              <li>
+                <Link href="/blog">Blog</Link>
+              </li>
+              <li>
+                <Link href="/us">Nosotros</Link>
+              </li>
+            </ul>
+          </div>
+        )}
+      </header>
 
       {/* Cart Sidebar Component */}
       <CartSidebar isOpen={isCartOpen} setIsOpen={setIsCartOpen} />

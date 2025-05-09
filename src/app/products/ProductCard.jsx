@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Heart, Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -48,7 +49,7 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
           alt={product.name}
           className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
         />
-        {product.discount && (
+        {product.discount != 0 && (
           <div className="absolute top-3 right-3 bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
             -{product.discount}
           </div>
@@ -64,7 +65,12 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
         <div>
           <div className="text-xs font-semibold text-green-600 uppercase tracking-wide mb-1">{product.category}</div>
 
-          <p className="font-bold text-lg text-gray-800 mb-2 hover:text-primary transition-colors">{product.name}</p>
+          <Link
+            href={`/viewproducts/${product.id}`}
+            className="font-bold text-lg text-gray-800 mb-2 hover:text-primary transition-colors"
+          >
+            {product.name}
+          </Link>
 
           <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
 
@@ -75,7 +81,9 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
 
           <div className="flex items-baseline mb-4">
             <span className="text-xl font-bold text-gray-900">S/. {discountedPrice}</span>
-            {product.discount && <span className="ml-2 text-sm text-gray-500 line-through">S/. {product.price}</span>}
+            {product.discount != 0 && (
+              <span className="ml-2 text-sm text-gray-500 line-through">S/. {product.price}</span>
+            )}
           </div>
 
           {product.stock > 0 ? (
