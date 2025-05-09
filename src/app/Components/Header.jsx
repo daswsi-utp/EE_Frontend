@@ -38,13 +38,7 @@ const Header = () => {
           {/* Logo */}
           <div className={`${montserrat.className} text-text font-[500] text-[26px]`}>
             <Link href="/">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Img/logo_header.png`}
-                alt="logo root green"
-                width={150}
-                height={50}
-                className="h-[50px] w-auto"
-              />
+              <img src="./Img/logo_header.png" alt="logo root green" className="h-[50px] w-auto" />
             </Link>
           </div>
 
