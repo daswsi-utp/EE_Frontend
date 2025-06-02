@@ -8,11 +8,12 @@ import Link from 'next/link';
 export default function CartSidebar({ isOpen, setIsOpen }) {
   const { products } = useProducts();
 
-  useEffect(() => {}, [products]);
+  // No es necesario un useEffect vacío con solo la dependencia de products
+  // useEffect(() => {}, [products]);
 
   const calculateTotal = () => {
     const total = products.reduce((sum, item) => {
-      const discountedPrice = item.price - (item.price * parseInt(item.discount)) / 100;
+      const discountedPrice = item.price - (item.price * parseInt(item.discount || 0)) / 100;
       return parseFloat((sum + discountedPrice * item.quantity).toFixed(2));
     }, 0);
 
@@ -80,7 +81,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
             ) : (
               <ul className="space-y-4">
                 {products.map((item) => (
-                  <CartItem key={item.id} item={item} />
+                  <CartItem key={item.code} item={item} />
                 ))}
               </ul>
             )}

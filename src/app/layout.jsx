@@ -2,6 +2,7 @@ import { Montserrat_Alternates, Nunito } from 'next/font/google';
 import './globals.css';
 import { ProductProvider } from './context/ProductContext';
 import ChatWidget from './Components/chat/ChatWidget';
+import { AuthProvider } from './context/AuthContext';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -21,12 +22,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${montserrat.className} bg-tertiary text-black h-fit`}>
-        <ProductProvider>
-          <main>
-            <ChatWidget />
-            {children}
-          </main>
-        </ProductProvider>
+        <AuthProvider>
+          <ProductProvider>
+            <main>
+              <ChatWidget />
+              {children}
+            </main>
+          </ProductProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -3,24 +3,16 @@
 import {
   MdDashboardCustomize,
   MdCategory,
-  MdInventory,
   MdProductionQuantityLimits,
   MdPeopleAlt,
   MdOutlineDoubleArrow,
-  MdOutlineExitToApp,
-  MdOutlinePolicy,
-  MdSettings,
-  MdOutlineAnalytics,
-  MdMarkEmailUnread,
 } from 'react-icons/md';
 import { BsChatSquareDotsFill, BsBarChartLine, BsClipboardData } from 'react-icons/bs';
 import { FaCalendar } from 'react-icons/fa';
 import { GrUserWorker } from 'react-icons/gr';
-import { BiSolidLeaf } from 'react-icons/bi';
-import { TbReportSearch } from 'react-icons/tb';
-import { PiNotePencilFill } from 'react-icons/pi';
 import { useState } from 'react';
 import ItemMenu from './ItemMenu';
+import Image from 'next/image';
 
 const Sidebar = () => {
   const [toggle, setToggle] = useState(true);
@@ -36,8 +28,10 @@ const Sidebar = () => {
       {/* LOGO */}
       <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200  w-full h-[10vh] relative">
         <div className="flex items-center gap-2">
-          <img
-            src="./Img/logo.png"
+          <Image
+            width={500}
+            height={500}
+            src="/Img/logo.png"
             alt="logo"
             className={`w-[50px] transition-opacity duration-200 ${toggle ? 'opacity-100' : 'opacity-0'}`}
           />

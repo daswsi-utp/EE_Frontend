@@ -1,10 +1,17 @@
+'use client';
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaPaperPlane } from 'react-icons/fa6';
+import { useAuth } from '@/app/context/AuthContext';
+import API_BASE_URL from '@/app/config/apiConfig';
+import axios from 'axios';
 
-const CommentForm = ({ onSubmit, isSubmitting }) => {
+const CommentForm = ({ productCode, onSubmitSuccess, onSubmitError }) => {
   const [userComment, setUserComment] = useState('');
   const [userRating, setUserRating] = useState(5);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { userCode } = useAuth();
 
   const renderSelectableStars = () => {
     const stars = [];
@@ -21,11 +28,44 @@ const CommentForm = ({ onSubmit, isSubmitting }) => {
     return stars;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ comment: userComment, rating: userRating });
-    setUserComment('');
-    setUserRating(5);
+    setIsSubmitting(true);
+
+    if (!userCode) {
+      console.error('User code not found. User must be logged in to leave a review.');
+      if (onSubmitError) {
+        onSubmitError('Debes iniciar sesión para dejar una reseña.');
+      }
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      await axios.post(`${API_BASE_URL}/reviews`, {
+        productCode: productCode,
+        userCode: userCode,
+        rating: userRating,
+        comment: userComment,
+      });
+
+      setUserComment('');
+      setUserRating(5);
+      setIsSubmitting(false);
+      if (onSubmitSuccess) {
+        onSubmitSuccess(); // Llama a la función para recargar comentarios en el padre
+      }
+    } catch (error) {
+      console.error('Error al enviar la reseña:', error);
+      setIsSubmitting(false);
+      let errorMessage = 'Error al enviar la reseña. Intenta nuevamente.';
+      if (error.response && error.response.data && error.response.data.error) {
+        errorMessage = error.response.data.error;
+      }
+      if (onSubmitError) {
+        onSubmitError(errorMessage);
+      }
+    }
   };
 
   return (

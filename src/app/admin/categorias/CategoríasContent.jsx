@@ -1,16 +1,16 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import StatsBar from './StatsBar';
 import CategoryList from './CategoryList';
 import CategoryModal from './CategoryModal';
-import SubcategoriesList from './SubcategoriesList';
 import SubcategoryModal from './SubcategoryModal';
-import { categorias as initialCategorias, subcategorias as initialSubcategorias } from './categoriesData';
+import API_BASE_URL from '@/app/config/apiConfig';
 
 const CategoriasContent = () => {
-  const [categorias, setCategorias] = useState(initialCategorias);
-  const [subcategorias, setSubcategorias] = useState(initialSubcategorias);
+  const [categorias, setCategorias] = useState([]);
+  const [subcategorias, setSubcategorias] = useState({});
 
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [subcategoryModalOpen, setSubcategoryModalOpen] = useState(false);
@@ -29,86 +29,98 @@ const CategoriasContent = () => {
     setCategoryModalOpen(true);
   };
 
-  const handleSaveCategory = (categoryData) => {
-    if (currentCategory) {
-      // Editar existente
-      setCategorias(categorias.map((cat) => (cat.id === categoryData.id ? categoryData : cat)));
-    } else {
-      // Crear nueva
-      setCategorias([...categorias, categoryData]);
+  const handleSaveCategory = async (categoryData) => {
+    try {
+      const method = currentCategory ? 'PUT' : 'POST';
+      const url = currentCategory
+        ? `${API_BASE_URL}/categories/${currentCategory.categoryId}`
+        : `${API_BASE_URL}/categories`;
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: categoryData.nombre,
+          description: categoryData.descripcion,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (currentCategory) {
+        // Editar existente
+        setCategorias(
+          categorias.map((cat) => (cat.categoryId === data.categoryId ? { ...data, activa: cat.activa } : cat))
+        ); // Mantener el estado 'activa'
+      } else {
+        // Crear nueva
+        setCategorias([...categorias, { ...data, activa: true }]); // Nueva categoría activa por defecto
+      }
+
+      setCategoryModalOpen(false);
+      fetchCategorias(); // Recargar las categorías para reflejar los cambios
+    } catch (error) {
+      console.error('Error al guardar la categoría:', error);
     }
-    setCategoryModalOpen(false);
   };
 
-  const handleDeleteCategory = (categoryId) => {
-    // Eliminar categoría
-    setCategorias(categorias.filter((cat) => cat.id !== categoryId));
+  const handleDeleteCategory = async (categoryId) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/categories/${categoryId}`, {
+        method: 'DELETE',
+      });
 
-    // Eliminar subcategorías asociadas
-    const newSubcategorias = { ...subcategorias };
-    delete newSubcategorias[categoryId];
-    setSubcategorias(newSubcategorias);
-  };
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-  const handleToggleStatus = (categoryId) => {
-    setCategorias(categorias.map((cat) => (cat.id === categoryId ? { ...cat, activa: !cat.activa } : cat)));
-  };
-
-  // Gestión de subcategorías
-  const handleAddSubcategory = (categoryId) => {
-    setCurrentSubcategory(null);
-    setSelectedCategoryId(categoryId);
-    setSubcategoryModalOpen(true);
-  };
-
-  const handleEditSubcategory = (categoryId, subcategory) => {
-    setCurrentSubcategory(subcategory);
-    setSelectedCategoryId(categoryId);
-    setSubcategoryModalOpen(true);
-  };
-
-  const handleSaveSubcategory = (subcategoryData) => {
-    const categoryId = parseInt(subcategoryData.categoryId);
-
-    // Crear una copia del estado actual
-    const newSubcategorias = { ...subcategorias };
-
-    // Asegurarse de que existe la clave para esta categoría
-    if (!newSubcategorias[categoryId]) {
-      newSubcategorias[categoryId] = [];
+      setCategorias(categorias.filter((cat) => cat.categoryId !== categoryId));
+    } catch (error) {
+      console.error('Error al eliminar la categoría:', error);
     }
+  };
 
-    if (currentSubcategory) {
-      // Editar existente
-      newSubcategorias[categoryId] = newSubcategorias[categoryId].map((subcat) =>
-        subcat.id === subcategoryData.id ? { ...subcategoryData } : subcat
+  const handleToggleStatus = async (categoryId, currentStatus) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/categories/${categoryId}`, {
+        method: 'PATCH',
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      setCategorias(
+        categorias.map((cat) => (cat.categoryId === categoryId ? { ...cat, activa: !currentStatus } : cat))
       );
-    } else {
-      // Crear nueva
-      newSubcategorias[categoryId] = [
-        ...newSubcategorias[categoryId],
-        {
-          id: subcategoryData.id,
-          nombre: subcategoryData.nombre,
-          productos: 0, // Valor inicial para nuevas subcategorías
-        },
-      ];
+    } catch (error) {
+      console.error('Error al cambiar el estado de la categoría:', error);
     }
-
-    setSubcategorias(newSubcategorias);
-    setSubcategoryModalOpen(false);
   };
 
-  const handleDeleteSubcategory = (categoryId, subcategoryId) => {
-    const newSubcategorias = { ...subcategorias };
-
-    newSubcategorias[categoryId] = newSubcategorias[categoryId].filter((subcat) => subcat.id !== subcategoryId);
-
-    setSubcategorias(newSubcategorias);
+  const fetchCategorias = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/categories`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setCategorias(data);
+    } catch (error) {
+      console.error('Error al obtener las categorías:', error);
+    }
   };
+
+  useEffect(() => {
+    fetchCategorias();
+  }, []);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto bg-tertiary">
+    <div className="p-6  mx-auto bg-tertiary h-full">
       <Header onAddCategory={handleAddCategory} />
 
       <StatsBar categorias={categorias} subcategorias={subcategorias} />
@@ -118,14 +130,6 @@ const CategoriasContent = () => {
         onEdit={handleEditCategory}
         onDelete={handleDeleteCategory}
         onToggleStatus={handleToggleStatus}
-      />
-
-      <SubcategoriesList
-        categorias={categorias}
-        subcategorias={subcategorias}
-        onAddSubcategory={handleAddSubcategory}
-        onEditSubcategory={handleEditSubcategory}
-        onDeleteSubcategory={handleDeleteSubcategory}
       />
 
       {categoryModalOpen && (

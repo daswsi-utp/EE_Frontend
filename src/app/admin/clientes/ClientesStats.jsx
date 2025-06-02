@@ -2,10 +2,10 @@ import { Users, ShoppingBag, CreditCard, UserX } from 'lucide-react';
 
 const ClientesStats = ({ clientes }) => {
   const totalClientes = clientes.length;
-  const clientesActivos = clientes.filter((c) => c.estado === 'activo').length;
-  const clientesInactivos = clientes.filter((c) => c.estado === 'inactivo').length;
-  const totalCompras = clientes.reduce((total, cliente) => total + cliente.compras, 0);
-  const totalGastado = clientes.reduce((total, cliente) => total + cliente.totalGastado, 0);
+  const clientesActivos = clientes.filter((c) => c.active).length;
+  const clientesInactivos = clientes.filter((c) => !c.active).length;
+  const totalCompras = clientes.reduce((total, cliente) => total + cliente.purchaseCount, 0);
+  const totalGastado = clientes.reduce((total, cliente) => total + cliente.totalSpent, 0);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -49,7 +49,7 @@ const ClientesStats = ({ clientes }) => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-500 text-sm">Total Gastado</p>
-            <p className="text-2xl font-bold">S/. {totalGastado.toFixed(2)}</p>
+            <p className="text-2xl font-bold">S/. {totalGastado?.toFixed(2) || '0.00'}</p>
           </div>
           <div className="bg-purple-100 p-3 rounded-full">
             <CreditCard className="h-6 w-6 text-purple-500" />

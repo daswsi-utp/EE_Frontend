@@ -25,18 +25,31 @@ const StatsBar = ({ categorias, subcategorias }) => {
             <Tag size={20} />
           </div>
         </div>
+        <div className="text-sm text-gray-600 mt-2">Total {totalCategorias} categorías</div>
+      </div>
+
+      <div className="bg-white rounded-lg shadow p-4">
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-sm font-medium text-gray-600">Categorías Activas</p>
+            <p className="text-2xl font-bold text-gray-900 mt-1">{categoriasActivas}</p>
+          </div>
+          <div className="p-2 rounded-full bg-green-100 text-green-600">
+            <Leaf size={20} />
+          </div>
+        </div>
         <div className="text-sm text-gray-600 mt-2">
-          {categoriasActivas} activas, {totalCategorias - categoriasActivas} inactivas
+          {categoriasActivas} de {totalCategorias}
         </div>
       </div>
 
       <div className="bg-white rounded-lg shadow p-4">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">Total Subcategorías</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">{totalSubcategorias}</p>
+            <p className="text-sm font-medium text-gray-600">Categorías con Subcategorías</p>
+            <p className="text-2xl font-bold text-gray-900 mt-1">{totalCategorias - categoriasSinSub}</p>
           </div>
-          <div className="p-2 rounded-full bg-green-100 text-green-600">
+          <div className="p-2 rounded-full bg-blue-100 text-blue-600">
             <BoxIcon size={20} />
           </div>
         </div>
@@ -46,27 +59,14 @@ const StatsBar = ({ categorias, subcategorias }) => {
       <div className="bg-white rounded-lg shadow p-4">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">Productos Ecológicos</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">146</p>
-          </div>
-          <div className="p-2 rounded-full bg-blue-100 text-blue-600">
-            <Leaf size={20} />
-          </div>
-        </div>
-        <div className="text-sm text-gray-600 mt-2">Distribuidos en {totalCategorias} categorías</div>
-      </div>
-
-      <div className="bg-white rounded-lg shadow p-4">
-        <div className="flex items-start justify-between">
-          <div>
             <p className="text-sm font-medium text-gray-600">Sin Subcategorías</p>
             <p className="text-2xl font-bold text-gray-900 mt-1">{categoriasSinSub}</p>
           </div>
-          <div className="p-2 rounded-full bg-yellow-100 text-yellow-600">
+          <div className="p-2 rounded-full bg-red-100 text-red-600">
             <AlertTriangle size={20} />
           </div>
         </div>
-        <div className="text-sm text-gray-600 mt-2">Categorías que necesitan subcategorías</div>
+        <div className="text-sm text-gray-600 mt-2">De {totalCategorias} categorías</div>
       </div>
     </div>
   );

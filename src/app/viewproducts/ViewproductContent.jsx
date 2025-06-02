@@ -1,27 +1,69 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { products } from '@/app/data/productData';
+import axios from 'axios';
 import ProductBreadcrumbs from './components/ProductBreadcrumbs';
 import ProductImageGallery from './components/ProductImageGallery';
 import ProductInformation from './components/ProductInformation';
 import ProductTabs from './components/ProductTabs';
 import ProductDetails from './components/ProductDetails';
 import ProductDetailsAdicionales from './components/ProductDetailsAdicionales';
-import RatingSummary from './components/RatingSummary';
 import CommentForm from './components/CommentForm';
 import CommentList from './components/CommentList';
 import ProductNotFound from './components/ProductNotFound';
 import { motion } from 'framer-motion';
 import { FaCheck } from 'react-icons/fa6';
 import ProductHighlights from './components/ProductHighlights';
+import { useProducts } from '../context/ProductContext';
+import AddToCartButton from './components/AddToCartButton'; // Asegúrate de tener este componente
 
-const ViewproductContent = ({ id }) => {
-  const productfind = products.find((p) => p.id == id);
+const ViewproductContent = ({ code }) => {
+  const [productfind, setProductfind] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
   const [wishlistAdded, setWishlistAdded] = useState(false);
-  const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [reviewsData, setReviewsData] = useState([]);
+  const [loadingReviewsData, setLoadingReviewsData] = useState(true);
+  const [errorReviewsData, setErrorReviewsData] = useState(null);
+  const { addProduct, updateProductQuantity, products: cartProducts } = useProducts();
+
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/products/${code}`);
+      setProductfind(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  const fetchReviewsData = async () => {
+    setLoadingReviewsData(true);
+    setErrorReviewsData(null);
+    try {
+      const response = await axios.get(`http://localhost:8080/reviews/product/${code}`);
+      setReviewsData(response.data);
+    } catch (error) {
+      setErrorReviewsData('Error al cargar las reseñas.');
+      console.error('Error fetching reviews:', error);
+    } finally {
+      setLoadingReviewsData(false);
+    }
+  };
+
+  useEffect(() => {
+    if (code) {
+      fetchProduct();
+      fetchReviewsData();
+    } else {
+      setError('No se proporcionó un code de producto.');
+      setLoading(false);
+      setLoadingReviewsData(false);
+    }
+  }, [code]);
 
   useEffect(() => {
     if (addedToCart) {
@@ -30,22 +72,26 @@ const ViewproductContent = ({ id }) => {
     }
   }, [addedToCart]);
 
-  if (!productfind) {
-    return <ProductNotFound />;
-  }
+  const handleCommentSubmitSuccess = () => {
+    fetchReviewsData();
+  };
 
-  const discountAmount = productfind.priceBeforeDiscount - productfind.price;
-  const discountPercentage = Math.round((discountAmount / productfind.priceBeforeDiscount) * 100);
-
-  const handleCommentSubmit = async (commentData) => {
-    setIsSubmittingComment(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    alert(`Comentario enviado con calificación de ${commentData.rating} estrellas: ${commentData.comment}`);
-    setIsSubmittingComment(false);
+  const handleCommentSubmitError = (errorMessage) => {
+    alert(`Error al enviar el comentario: ${errorMessage}`);
   };
 
   const handleAddToCart = () => {
-    setAddedToCart(true);
+    console.log('entro');
+    if (productfind) {
+      const existingProductInCart = cartProducts.find((item) => item.code === productfind.code);
+
+      if (existingProductInCart) {
+        updateProductQuantity(existingProductInCart.code, (existingProductInCart.quantity || 0) + 1);
+      } else {
+        addProduct({ ...productfind, quantity: 1 });
+      }
+      setAddedToCart(true);
+    }
   };
 
   const handleWishlist = () => {
@@ -53,12 +99,27 @@ const ViewproductContent = ({ id }) => {
   };
 
   const handleQuantityIncrement = () => {
-    setQuantity(Math.min(productfind.stock, quantity + 1));
+    setQuantity(Math.min(productfind?.stock || 1, quantity + 1));
   };
 
   const handleQuantityDecrement = () => {
     setQuantity(Math.max(1, quantity - 1));
   };
+
+  if (loading) {
+    return <div>Cargando información del producto...</div>;
+  }
+
+  if (error) {
+    return <ProductNotFound message={`Error al cargar el producto: ${error}`} />;
+  }
+
+  if (!productfind) {
+    return <ProductNotFound />;
+  }
+
+  const discountAmount = productfind.priceBeforeDiscount - productfind.price;
+  const discountPercentage = Math.round((discountAmount / productfind.priceBeforeDiscount) * 100);
 
   return (
     <div className="bg-tertiary min-h-screen px-20 ">
@@ -89,7 +150,6 @@ const ViewproductContent = ({ id }) => {
               quantity={quantity}
               onQuantityIncrement={handleQuantityIncrement}
               onQuantityDecrement={handleQuantityDecrement}
-              onAddToCart={handleAddToCart}
               wishlistAdded={wishlistAdded}
               onToggleWishlist={handleWishlist}
             />
@@ -101,12 +161,22 @@ const ViewproductContent = ({ id }) => {
             <div className="container mx-auto py-8 px-6 lg:px-0 ">
               <div className="bg-white rounded-xl shadow-sm p-6 py-8">
                 <p className="text-2xl font-bold text-gray-800 mb-6 px-4">Valoraciones y comentarios</p>
-                <CommentList reviews={productfind.reviews} />
-                <CommentForm onSubmit={handleCommentSubmit} isSubmitting={isSubmittingComment} />
+                <CommentList
+                  productCode={code}
+                  reviews={reviewsData}
+                  loading={loadingReviewsData}
+                  error={errorReviewsData}
+                />
+                <CommentForm
+                  productCode={code}
+                  onSubmitSuccess={handleCommentSubmitSuccess}
+                  onSubmitError={handleCommentSubmitError}
+                />
               </div>
             </div>
           </div>
         </div>
+        {productfind && <AddToCartButton onAddToCart={handleAddToCart} stock={productfind.stock} />}
       </div>
     </div>
   );

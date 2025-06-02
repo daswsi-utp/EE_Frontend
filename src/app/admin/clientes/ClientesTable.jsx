@@ -1,7 +1,8 @@
-import { Eye, Edit, MailOpen, Phone } from 'lucide-react';
-import EstadoClienteIndicator from './EstadoClienteIndicator';
+'use client';
 
-const ClientesTable = ({ filteredClientes, totalClientes }) => {
+import ClienteRow from './ClienteRow'; // Importa el nuevo componente
+
+const ClientesTable = ({ filteredClientes, totalClientes, onDeleteClient, onEditClient, fetchClientes }) => {
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden">
       <div className="overflow-x-auto">
@@ -12,7 +13,7 @@ const ClientesTable = ({ filteredClientes, totalClientes }) => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                ID
+                Usercode
               </th>
               <th
                 scope="col"
@@ -61,41 +62,13 @@ const ClientesTable = ({ filteredClientes, totalClientes }) => {
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredClientes.length > 0 ? (
               filteredClientes.map((cliente) => (
-                <tr key={cliente.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-teal-600">{cliente.id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{cliente.nombre}</div>
-                    <div className="text-sm text-gray-500">{cliente.email}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex space-x-2">
-                      <button className="text-blue-500 hover:text-blue-700">
-                        <MailOpen className="h-5 w-5" />
-                      </button>
-                      <button className="text-green-500 hover:text-green-700">
-                        <Phone className="h-5 w-5" />
-                      </button>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{cliente.fechaRegistro}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{cliente.compras}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                    S/. {cliente.totalGastado.toFixed(2)}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <EstadoClienteIndicator estado={cliente.estado} />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex space-x-2">
-                      <button className="text-teal-600 hover:text-teal-800">
-                        <Eye className="h-5 w-5" />
-                      </button>
-                      <button className="text-gray-600 hover:text-gray-800">
-                        <Edit className="h-5 w-5" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                <ClienteRow
+                  key={cliente.usercode}
+                  cliente={cliente}
+                  onDelete={onDeleteClient} // Pasar función para eliminar
+                  onEdit={onEditClient} // Pasar función para editar
+                  fetchClientes={fetchClientes}
+                />
               ))
             ) : (
               <tr>

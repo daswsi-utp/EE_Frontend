@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const ProductContext = createContext();
 
@@ -9,7 +9,7 @@ export const ProductProvider = ({ children }) => {
 
   // Cargar productos desde localStorage al iniciar
   useEffect(() => {
-    const stored = localStorage.getItem("cart-products");
+    const stored = localStorage.getItem('cart-products');
     if (stored) {
       setProducts(JSON.parse(stored));
     }
@@ -17,41 +17,38 @@ export const ProductProvider = ({ children }) => {
 
   // Guardar en localStorage cada vez que cambien los productos
   useEffect(() => {
-    localStorage.setItem("cart-products", JSON.stringify(products));
+    localStorage.setItem('cart-products', JSON.stringify(products));
   }, [products]);
 
   const addProduct = (newProduct) => {
     setProducts((prev) => {
-      const existing = prev.find((p) => p.id === newProduct.id);
+      // Usar 'code' en lugar de 'id' para la comparación
+      const existing = prev.find((p) => p.code === newProduct.code);
       if (existing) {
         return prev.map((p) =>
-          p.id === newProduct.id
-            ? { ...p, quantity: p.quantity + newProduct.quantity }
-            : p
+          p.code === newProduct.code ? { ...p, quantity: (p.quantity || 0) + (newProduct.quantity || 1) } : p
         );
       }
-      return [...prev, newProduct];
+      return [...prev, { ...newProduct, quantity: newProduct.quantity || 1 }]; // Asegurar que la cantidad esté definida
     });
   };
 
-  const removeProduct = (id) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
-    console.log("Producto eliminado con id:", id);
+  const removeProduct = (code) => {
+    // Usar 'code' en lugar de 'id' para la filtración
+    setProducts((prev) => prev.filter((p) => p.code !== code));
+    console.log('Producto eliminado con code:', code);
   };
 
-  const updateProductQuantity = (id, quantity) => {
+  const updateProductQuantity = (code, quantity) => {
+    // Usar 'code' en lugar de 'id' para la actualización
     setProducts((prev) =>
-      prev.map((product) =>
-        product.id === id ? { ...product, quantity } : product
-      )
+      prev.map((product) => (product.code === code ? { ...product, quantity: parseInt(quantity, 10) || 1 } : product))
     );
-    console.log("Cantidad actualizada para producto con id:", id);
+    console.log('Cantidad actualizada para producto con code:', code);
   };
 
   return (
-    <ProductContext.Provider
-      value={{ products, addProduct, removeProduct, updateProductQuantity }}
-    >
+    <ProductContext.Provider value={{ products, addProduct, removeProduct, updateProductQuantity }}>
       {children}
     </ProductContext.Provider>
   );

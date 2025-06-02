@@ -2,27 +2,31 @@
 import { useState, useEffect } from 'react';
 import ProductFilters from './ProductFilters';
 import ProductTable from './ProductTable';
-import ProductModal from './ProductModal';
-import { products } from '@/app/data/productData';
+import ProductModal from './ProductModal'; // Modal para crear
+import EditProductModal from './EditProductModal'; // Modal para editar
+import axios from 'axios';
 
 const ProductosContent = () => {
-  // Estado para los productos
-  const [productos, setProductos] = useState(products);
+  //fetch
+  const [products, setProducts] = useState([]);
 
   // Estados para la gestión de la UI
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('Todos');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Estado para el modal de creación
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Estado para el modal de edición
+  const [productToEdit, setProductToEdit] = useState(null); // Estado para almacenar el producto a editar
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Categorías disponibles
   const categories = ['Todos', 'Cocina', 'Baño', 'Hogar'];
 
   // Obtener productos filtrados y paginados
-  const filteredProducts = productos.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     return (
       (categoryFilter === 'Todos' || product.category === categoryFilter) &&
       (product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -30,97 +34,39 @@ const ProductosContent = () => {
     );
   });
 
+  const fetchProducts = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get('http://localhost:8080/products');
+      // Invertir el orden de los productos al recibirlos
+      setProducts(response.data.reverse());
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setError('Error al cargar los productos.');
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  // Estado para nuevo/editando producto
-  const [formData, setFormData] = useState({
-    id: 0,
-    image: '',
-    name: '',
-    description: '',
-    category: 'Cocina',
-    price: 0,
-    discount: '0%',
-    rating: 5.0,
-    reviewCount: 0,
-    stock: 0,
-    isNew: true,
-  });
-
-  // Resetear formulario
-  const resetForm = () => {
-    setFormData({
-      id: 0,
-      image: '',
-      name: '',
-      description: '',
-      category: 'Cocina',
-      price: 0,
-      discount: '0%',
-      rating: 5.0,
-      reviewCount: 0,
-      stock: 0,
-      isNew: true,
-    });
-  };
-
   // Abrir modal para añadir producto
   const handleAddNew = () => {
-    resetForm();
-    setIsEditing(false);
-    setCurrentProduct(null);
-    setIsModalOpen(true);
+    setIsCreateModalOpen(true);
   };
 
   // Abrir modal para editar producto
   const handleEdit = (product) => {
-    setFormData({ ...product });
-    setCurrentProduct(product);
-    setIsEditing(true);
-    setIsModalOpen(true);
-  };
-
-  // Manejar cambios en el formulario
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === 'checkbox') {
-      setFormData({ ...formData, [name]: checked });
-    } else if (name === 'price' || name === 'stock') {
-      setFormData({ ...formData, [name]: parseFloat(value) || 0 });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  // Guardar producto (crear nuevo o actualizar existente)
-  const handleSave = () => {
-    if (isEditing) {
-      // Actualizar producto existente
-      const updatedProducts = productos.map((product) => (product.id === formData.id ? formData : product));
-      setProductos(updatedProducts);
-    } else {
-      // Crear nuevo producto
-      const newProduct = {
-        ...formData,
-        id: Date.now(), // Generar ID único
-        reviewCount: 0,
-        rating: 5.0,
-      };
-      setProductos([...productos, newProduct]);
-    }
-    setIsModalOpen(false);
-  };
-
-  // Eliminar producto
-  const handleDelete = (productId) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-      const updatedProducts = productos.filter((product) => product.id !== productId);
-      setProductos(updatedProducts);
-    }
+    setProductToEdit(product);
+    setIsEditModalOpen(true);
   };
 
   // Cambiar página
@@ -162,9 +108,6 @@ const ProductosContent = () => {
 
       {/* Tabla de productos */}
       <ProductTable
-        currentProducts={currentProducts}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
         filteredProducts={filteredProducts}
         currentPage={currentPage}
         totalPages={totalPages}
@@ -173,18 +116,28 @@ const ProductosContent = () => {
         prevPage={prevPage}
         nextPage={nextPage}
         paginate={paginate}
+        loading={loading}
+        error={error}
+        fetchProducts={fetchProducts}
+        handleEdit={handleEdit} // Pasar la función handleEdit a la tabla
       />
 
-      {/* Modal para Añadir/Editar producto */}
-      {isModalOpen && (
+      {/* Modal para Añadir producto */}
+      {isCreateModalOpen && (
         <ProductModal
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          isEditing={isEditing}
-          formData={formData}
-          handleChange={handleChange}
-          handleSave={handleSave}
-          categories={categories.filter((c) => c !== 'Todos')}
+          isModalOpen={isCreateModalOpen}
+          setIsModalOpen={setIsCreateModalOpen}
+          fetchProducts={fetchProducts}
+        />
+      )}
+
+      {/* Modal para Editar producto */}
+      {isEditModalOpen && (
+        <EditProductModal
+          isModalOpen={isEditModalOpen}
+          setIsModalOpen={setIsEditModalOpen}
+          initialFormData={productToEdit}
+          fetchProducts={fetchProducts}
         />
       )}
     </div>

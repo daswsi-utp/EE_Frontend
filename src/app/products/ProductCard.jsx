@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Heart, Star } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
@@ -45,7 +44,7 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
     <div className="w-full max-w-sm h-[585px] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-xl">
       <div className="relative h-64 bg-gray-100 overflow-hidden">
         <img
-          src={product.image}
+          src={`http://localhost:8080${product.imageUrl}`}
           alt={product.name}
           className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
         />
@@ -66,7 +65,7 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
           <div className="text-xs font-semibold text-green-600 uppercase tracking-wide mb-1">{product.category}</div>
 
           <Link
-            href={`/viewproducts/${product.id}`}
+            href={`/viewproducts/${product.code}`}
             className="font-bold text-lg text-gray-800 mb-2 hover:text-primary transition-colors"
           >
             {product.name}

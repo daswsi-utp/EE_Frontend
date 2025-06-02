@@ -16,10 +16,11 @@ const ProductImageGallery = ({ product, selectedImage }) => {
       <motion.img
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.3 }}
-        src={`.${product.image}`}
+        src={`http://localhost:8080${product.imageUrl}`}
         alt={product.name}
         className="w-full rounded-lg object-cover"
       />
+      {console.log(`http://localhost:8080${product.imageUrl}`)}
     </div>
   );
 };

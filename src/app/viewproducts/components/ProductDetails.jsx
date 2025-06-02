@@ -1,4 +1,3 @@
-// components/viewProduct/ProductDetails.js
 import QuantityCounter from './QuantityCounter';
 import AddToCartButton from './AddToCartButton';
 import WishlistButton from './WishlistButton';
