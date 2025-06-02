@@ -1,15 +1,16 @@
+import React from 'react';
 import RatingStars from './RatingStars';
-import { FaThumbsUp } from 'react-icons/fa';
 
 const CommentItem = ({ review }) => {
   return (
     <div className="py-6 first:pt-0">
       <div className="flex flex-col sm:flex-row sm:justify-between">
         <div>
-          <h4 className="font-medium text-gray-800">{review.user}</h4>
+          <p className="font-medium text-gray-800">{review.userName || 'Anónimo'}</p> {/* Usar review.userName */}
           <div className="flex items-center mt-1 mb-2">
             <RatingStars rating={review.rating} />
-            <span className="ml-2 text-sm text-gray-500">{review.date}</span>
+            {review.date && <span className="ml-2 text-sm text-gray-500">{review.date}</span>}{' '}
+            {/* Renderizar fecha si existe */}
           </div>
         </div>
       </div>

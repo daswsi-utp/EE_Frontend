@@ -28,11 +28,6 @@ const ClientesSearch = ({ searchTerm, setSearchTerm, estadoFilter, setEstadoFilt
             </select>
             <ChevronDown className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
           </div>
-
-          <button className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg flex items-center gap-2">
-            <PlusCircle className="h-5 w-5" />
-            <span>Nuevo Cliente</span>
-          </button>
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import API_BASE_URL from '../config/apiConfig';
+
 const ResumenCompra = ({ productos, subtotal, envio, total }) => {
   return (
     <div className="md:w-2/5 bg-gray-50 p-8 px-10 rounded-lg mb-6 md:mb-0 flex flex-col justify-between">
@@ -6,7 +8,10 @@ const ResumenCompra = ({ productos, subtotal, envio, total }) => {
         <div className="space-y-4 mb-6 h-[41vh] overflow-y-auto pr-4 ">
           {productos.map((producto) => (
             <div key={producto.id} className="flex items-center space-x-3">
-              <img src={producto.image} className="bg-gray-200 rounded-md w-12 h-12 flex-shrink-0" />
+              <img
+                src={`${API_BASE_URL}${producto.imageUrl}`}
+                className="bg-gray-200 rounded-md w-12 h-12 flex-shrink-0"
+              />
               <div className="flex-grow">
                 <h3 className="font-medium">{producto.name}</h3>
                 <div className="flex justify-between text-sm text-gray-500">

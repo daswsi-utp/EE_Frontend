@@ -3,30 +3,34 @@ import { X, Save } from 'lucide-react';
 import axios from 'axios';
 import API_BASE_URL from '@/app/config/apiConfig';
 
-const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    longDescription: '',
-    category: '',
-    price: '',
-    discount: '',
-    rating: '',
-    reviewCount: '',
-    stock: '',
-    isNew: false,
-    isActive: true,
-    materialInfo: '',
-    dimensions: '',
-    weight: '',
-    capacity: '',
-    care: '',
-    warranty: '',
-    origin: '',
-    tags: '',
-    highlights: '',
-  });
-  const [image, setImage] = useState(null);
+const EditProductModal = ({ isModalOpen, setIsModalOpen, initialFormData, fetchProducts }) => {
+  const [formData, setFormData] = useState(
+    initialFormData || {
+      name: '',
+      description: '',
+      longDescription: '',
+      category: '',
+      price: '',
+      discount: '',
+      rating: '',
+      reviewCount: '',
+      stock: '',
+      isNew: false,
+      isActive: true,
+      materialInfo: '',
+      dimensions: '',
+      weight: '',
+      capacity: '',
+      care: '',
+      warranty: '',
+      origin: '',
+      tags: '',
+      highlights: '',
+      imageUrl: '', // Para mostrar la imagen existente
+      code: '', // Necesario para la actualización
+    }
+  );
+  const [image, setImage] = useState(null); // Para la nueva imagen que se va a subir
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -51,6 +55,41 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    if (initialFormData) {
+      setFormData(initialFormData);
+      // Si estamos editando y hay una URL de imagen inicial, la mostramos
+      setImage(initialFormData.imageUrl || null);
+    } else {
+      // Esto no debería ocurrir si solo estamos editando
+      setFormData({
+        name: '',
+        description: '',
+        longDescription: '',
+        category: '',
+        price: '',
+        discount: '',
+        rating: '',
+        reviewCount: '',
+        stock: '',
+        isNew: false,
+        isActive: true,
+        materialInfo: '',
+        dimensions: '',
+        weight: '',
+        capacity: '',
+        care: '',
+        warranty: '',
+        origin: '',
+        tags: '',
+        highlights: '',
+        imageUrl: '',
+        code: '',
+      });
+      setImage(null);
+    }
+  }, [initialFormData, isModalOpen]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevState) => ({
@@ -66,56 +105,84 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
   const prepareFormDataToSend = () => {
     const formDataToSendObject = { ...formData };
 
+    // Manejo de tags
     if (formDataToSendObject.tags) {
-      formDataToSendObject.tags = formDataToSendObject.tags
-        .split(',')
-        .map((tag) => tag.trim())
-        .filter((tag) => tag !== '');
+      if (typeof formDataToSendObject.tags === 'string') {
+        formDataToSendObject.tags = formDataToSendObject.tags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter((tag) => tag !== '');
+      } else if (Array.isArray(formDataToSendObject.tags)) {
+        // Si ya es un array, simplemente lo usamos
+        formDataToSendObject.tags = formDataToSendObject.tags.map((tag) => tag.trim()).filter((tag) => tag !== '');
+      } else {
+        formDataToSendObject.tags = []; // Si no es ni string ni array, lo inicializamos como array vacío
+      }
     } else {
       formDataToSendObject.tags = [];
     }
 
+    // Manejo de highlights (lógica similar a tags)
     if (formDataToSendObject.highlights) {
-      formDataToSendObject.highlights = formDataToSendObject.highlights
-        .split(',')
-        .map((highlight) => highlight.trim())
-        .filter((highlight) => highlight !== '');
+      if (typeof formDataToSendObject.highlights === 'string') {
+        formDataToSendObject.highlights = formDataToSendObject.highlights
+          .split(',')
+          .map((highlight) => highlight.trim())
+          .filter((highlight) => highlight !== '');
+      } else if (Array.isArray(formDataToSendObject.highlights)) {
+        formDataToSendObject.highlights = formDataToSendObject.highlights
+          .map((highlight) => highlight.trim())
+          .filter((highlight) => highlight !== '');
+      } else {
+        formDataToSendObject.highlights = [];
+      }
     } else {
       formDataToSendObject.highlights = [];
     }
 
     const formDataToSend = new FormData();
     formDataToSend.append('product', JSON.stringify(formDataToSendObject));
-    if (image) {
+    if (image && typeof image !== 'string') {
       formDataToSend.append('image', image);
     }
 
     return formDataToSend;
   };
 
-  const handleCreateProduct = async () => {
+  const handleUpdateProduct = async () => {
     setUploading(true);
     setUploadError(null);
+
+    if (!formData?.code) {
+      console.error('Error: No se proporcionó el código del producto para actualizar.');
+      setUploading(false);
+      setUploadError('Error interno: Código de producto no encontrado.');
+      return;
+    }
 
     const formDataToSend = prepareFormDataToSend();
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/products`, formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.put(
+        `${API_BASE_URL}/products/${formData.code}`, // Corrección aquí
+        formDataToSend,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
-      console.log('Producto creado exitosamente', response.data);
+      console.log('Producto actualizado exitosamente', response.data);
       setUploading(false);
       setIsModalOpen(false);
       if (fetchProducts) {
-        fetchProducts(); // Recargar la lista de productos
+        fetchProducts();
       }
     } catch (error) {
-      console.error('Error al crear el producto:', error);
+      console.error('Error al actualizar el producto:', error);
       setUploading(false);
-      setUploadError('Error al crear el producto. Por favor, intenta nuevamente.');
+      setUploadError('Error al actualizar el producto. Por favor, intenta nuevamente.');
       if (error.response) {
         console.error('Detalles del error:', error.response.data);
         setUploadError(`Error: ${error.response.data.message || 'Error desconocido'}`);
@@ -130,7 +197,7 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
   };
 
   const handleSubmit = () => {
-    handleCreateProduct();
+    handleUpdateProduct();
   };
 
   if (!isModalOpen) {
@@ -141,7 +208,7 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
     <div className="fixed inset-0 bg-[rgba(0,0,0,0.7)] bg-opacity-50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center border-b px-6 py-3">
-          <h3 className="text-lg font-medium text-teal-800">Añadir Nuevo Producto</h3>
+          <h3 className="text-lg font-medium text-teal-800">Editar Producto</h3>
           <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-500">
             <X size={20} />
           </button>
@@ -188,7 +255,7 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
                       htmlFor="image"
                       className="relative cursor-pointer bg-white rounded-md font-medium text-teal-600 hover:text-teal-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-teal-500"
                     >
-                      <span className=" w-50 block">Subir un archivo</span>
+                      <span className=" w-50 block">Subir una nueva imagen</span>
                       <input id="image" name="image" type="file" className="sr-only" onChange={handleImageChange} />
                     </label>
                   </div>
@@ -197,8 +264,28 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
               </div>
               {image && (
                 <div className="mt-2">
-                  <p className="text-gray-700 text-sm">Imagen seleccionada:</p>
-                  <img src={URL.createObjectURL(image)} alt="Vista previa" className="max-h-20 rounded-md" />
+                  <p className="text-gray-700 text-sm">
+                    {typeof image === 'string' ? 'Imagen actual:' : 'Nueva imagen seleccionada:'}
+                  </p>
+                  {typeof image === 'string' ? (
+                    <img
+                      src={`${API_BASE_URL}${image}`} // Elimina la sintaxis LaTeX
+                      alt="Imagen actual"
+                      className="max-h-20 rounded-md"
+                    />
+                  ) : (
+                    <img src={URL.createObjectURL(image)} alt="Vista previa" className="max-h-20 rounded-md" />
+                  )}
+                </div>
+              )}
+              {formData.imageUrl && typeof formData.imageUrl === 'string' && !image && (
+                <div className="mt-2">
+                  <p className="text-gray-500 text-xs">Imagen actual: {formData.imageUrl}</p>
+                  <img
+                    src={`${API_BASE_URL}${formData.imageUrl}`} // Elimina la sintaxis LaTeX
+                    alt="Imagen actual"
+                    className="max-h-20 rounded-md"
+                  />
                 </div>
               )}
             </div>
@@ -416,7 +503,7 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
                 disabled={uploading || loadingCategories}
               >
                 <Save size={16} className="mr-2" />
-                {uploading ? 'Guardando...' : 'Guardar'}
+                {uploading ? 'Guardando cambios...' : 'Guardar cambios'}
               </button>
             </div>
           </form>
@@ -426,4 +513,4 @@ const ProductModal = ({ isModalOpen, setIsModalOpen, fetchProducts }) => {
   );
 };
 
-export default ProductModal;
+export default EditProductModal;

@@ -7,7 +7,7 @@ const ProductRow = ({ product, handleEdit, handleDelete }) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10 relative">
-            <img className="h-10 w-10 rounded-md object-cover" src={`${'./.'}${product.image}`} alt={product.name} />
+            <img className="h-10 w-10 rounded-md object-cover" src={product.imageUrl} alt={product.name} />
             {product.isNew && (
               <div className="absolute -top-2 -right-2 h-5 w-5 rounded-full flex items-center justify-center text-xs font-bold text-white bg-teal-600">
                 N

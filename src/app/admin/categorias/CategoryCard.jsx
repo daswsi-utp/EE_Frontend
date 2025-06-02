@@ -25,69 +25,66 @@ const CategoryCard = ({ categoria, onEdit, onDelete, onToggleStatus }) => {
     <div className="bg-white rounded-lg shadow-md overflow-visible">
       <div className="h-32 bg-gray-200 flex items-center justify-center overflow-hidden">
         <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">
-          <img src="./../Img/bambu.jpg" className="h-full w-full object-cover" alt="Categoria" />
+          <img src="./../Img/bambu.jpg" className="h-full w-full object-cover" alt={categoria.name} />
         </div>
       </div>
       <div className="p-4">
         <div className="flex justify-between items-start">
-          <h3 className="text-lg font-medium text-gray-900">{categoria.nombre}</h3>
-          <div className="relative" ref={menuRef}>
+          <h3 className="text-lg font-medium text-gray-900">{categoria.name}</h3>
+          <div className="relative">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowMenu(!showMenu);
-              }}
-              className="p-1 rounded-full hover:bg-gray-100"
+              onClick={() => setShowMenu(!showMenu)}
+              className="text-gray-500 hover:text-gray-700 focus:outline-none"
             >
-              <MoreVertical size={18} className="text-gray-500" />
+              <MoreVertical className="h-5 w-5" />
             </button>
 
             {showMenu && (
               <div
-                className="absolute right-0 mt-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
-                style={{ zIndex: 9999 }}
+                ref={menuRef}
+                className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl z-10"
+                role="menu"
+                aria-label="Opciones"
               >
-                <div className="py-1" role="menu" aria-orientation="vertical">
-                  <button
-                    onClick={() => {
-                      onEdit(categoria);
-                      setShowMenu(false);
-                    }}
-                    className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    <Edit className="mr-2" size={16} />
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => {
-                      onToggleStatus(categoria.id);
-                      setShowMenu(false);
-                    }}
-                    className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    {categoria.activa ? <EyeOff className="mr-2" size={16} /> : <Eye className="mr-2" size={16} />}
-                    {categoria.activa ? 'Desactivar' : 'Activar'}
-                  </button>
-                  <button
-                    onClick={() => {
-                      onDelete(categoria.id);
-                      setShowMenu(false);
-                    }}
-                    className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    <Trash2 className="mr-2" size={16} />
-                    Eliminar
-                  </button>
-                </div>
+                <button
+                  onClick={() => {
+                    onEdit(categoria);
+                    setShowMenu(false);
+                  }}
+                  className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  <Edit className="mr-2" size={16} />
+                  Editar
+                </button>
+                <button
+                  onClick={() => {
+                    onToggleStatus(categoria.categoryId, categoria.activa);
+                    setShowMenu(false);
+                  }}
+                  className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  {categoria.activa ? <EyeOff className="mr-2" size={16} /> : <Eye className="mr-2" size={16} />}
+                  {categoria.activa ? 'Desactivar' : 'Activar'}
+                </button>
+                <button
+                  onClick={() => {
+                    onDelete(categoria.categoryId);
+                    setShowMenu(false);
+                  }}
+                  className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  <Trash2 className="mr-2" size={16} />
+                  Eliminar
+                </button>
               </div>
             )}
           </div>
         </div>
 
-        <p className="text-sm text-gray-600 mt-1">{categoria.descripcion}</p>
+        <p className="text-sm text-gray-600 mt-1">{categoria.description}</p>
 
         <div className="mt-4 flex items-center justify-between">
           <span className="text-sm font-medium text-gray-600">{categoria.productos} productos</span>

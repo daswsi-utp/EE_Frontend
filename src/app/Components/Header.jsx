@@ -5,13 +5,14 @@ import { FaRegUser } from 'react-icons/fa';
 import { IoCartOutline } from 'react-icons/io5';
 import { CiCalendarDate } from 'react-icons/ci';
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import CartSidebar from './Cart/CartSidebar';
 import { useProducts } from '../context/ProductContext';
 import EcoCalendar from './EcoCalendar/EcoCalendar';
 import { LuCalendarRange } from 'react-icons/lu';
 import Image from 'next/image';
+import { useAuth } from '../context/AuthContext';
 
 const montserrat = Montserrat_Alternates({
   subsets: ['latin'],
@@ -26,10 +27,33 @@ const Header = () => {
   const { products } = useProducts();
   const [calendar, setCalendar] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout, token } = useAuth();
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
   const toggleCalendar = () => setCalendar(!calendar);
   const toggleCart = () => setIsCartOpen(!isCartOpen);
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
+
+  const handleLogout = () => {
+    logout();
+    setIsUserMenuOpen(false); // Close the user menu after logout
+  };
+
+  // Close user menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [userMenuRef]);
 
   return (
     <>
@@ -38,7 +62,13 @@ const Header = () => {
           {/* Logo */}
           <div className={`${montserrat.className} text-text font-[500] text-[26px]`}>
             <Link href="/">
-              <img src="./Img/logo_header.png" alt="logo root green" className="h-[50px] w-auto" />
+              <Image
+                width={500}
+                height={500}
+                src="/Img/logo_header.png"
+                alt="logo root green"
+                className="h-[50px] w-auto"
+              />
             </Link>
           </div>
 
@@ -75,11 +105,35 @@ const Header = () => {
             </div>
 
             {/* User */}
-            <Link href="/login" className="flex">
-              <button className="text-[25px] text-text hover:text-hover-text cursor-pointer">
-                <FaRegUser />
+            <div className="relative" ref={userMenuRef}>
+              <button
+                onClick={toggleUserMenu}
+                className="flex items-center gap-2 cursor-pointer text-text hover:text-hover-text"
+              >
+                <FaRegUser className="text-[25px]" />
+                {token && user && <span className={`${montserrat.className} text-[16px] font-semibold`}>{user}</span>}
+                {!token && <span className={`${montserrat.className} text-[16px] font-semibold`}>Login</span>}
               </button>
-            </Link>
+              {isUserMenuOpen && token && (
+                <div className="absolute right-0 top-[100%] mt-2 bg-white shadow-md rounded-md z-50 w-32">
+                  <ul className="py-2">
+                    <li className="px-4 py-2 hover:bg-gray-100 transition duration-150">
+                      <button
+                        onClick={handleLogout}
+                        className={`${montserrat.className} text-sm text-gray-700 w-full text-left`}
+                      >
+                        Cerrar Sesión
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
+              {!token && (
+                <Link href="/login" className="absolute inset-0 flex items-center justify-center w-full h-full">
+                  <span className="sr-only">Ir a Login</span>
+                </Link>
+              )}
+            </div>
 
             {/* Cart */}
             <button
@@ -87,7 +141,7 @@ const Header = () => {
               className="cursor-pointer relative text-white bg-primary/80 p-2 rounded-full text-[22px] hover:scale-105 transition"
             >
               <IoCartOutline />
-              {cartItemCount > 0 && (
+              {products.length > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#fa4646] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {products.length}
                 </span>
@@ -117,6 +171,17 @@ const Header = () => {
               <li>
                 <Link href="/us">Nosotros</Link>
               </li>
+              {token ? (
+                <li>
+                  <button onClick={handleLogout} className="w-full text-left">
+                    Cerrar Sesión
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <Link href="/login">Login</Link>
+                </li>
+              )}
             </ul>
           </div>
         )}

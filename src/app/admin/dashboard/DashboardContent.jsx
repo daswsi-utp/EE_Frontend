@@ -32,7 +32,7 @@ const DashboardContent = () => {
         />
         <StatCard
           title="Ingresos"
-          value="$24,500"
+          value="s/. 24,500"
           change="↑ 8% desde el mes pasado"
           icon={DollarSign}
           color="var(--color-Quaternary)"

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const FilterSidebar = ({ categories, onFilterChange }) => {
   const [priceRange, setPriceRange] = useState([0, 500]);
@@ -45,25 +45,6 @@ const FilterSidebar = ({ categories, onFilterChange }) => {
             </label>
           </div>
         ))}
-      </div>
-
-      {/* Rango de precio */}
-      <div className="mb-6">
-        <h4 className="font-semibold text-gray-700 mb-2">
-          Precio máximo: S/. {priceRange[1]}
-        </h4>
-        <input
-          type="range"
-          min="0"
-          max="500"
-          value={priceRange[1]}
-          onChange={handlePriceChange}
-          className="w-full"
-        />
-        <div className="flex justify-between text-xs text-gray-500 mt-1">
-          <span>S/. 0</span>
-          <span>S/. 500</span>
-        </div>
       </div>
 
       {/* Botón aplicar */}

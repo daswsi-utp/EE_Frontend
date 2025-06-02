@@ -2,12 +2,12 @@ import Header from '@/app/Components/Header';
 import ViewproductContent from '../ViewproductContent';
 
 export default async function Page({ params }) {
-  const { id } = params;
-  console.log(id);
+  const { code } = params;
+  console.log(code);
   return (
     <div>
       <Header />
-      <ViewproductContent id={id} />
+      <ViewproductContent code={code} />
     </div>
   );
 }

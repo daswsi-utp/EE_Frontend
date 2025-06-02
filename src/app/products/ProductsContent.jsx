@@ -1,15 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import FilterSidebar from './FilterSidebar';
 import ProductsHeader from './ProductsHeader';
-import { categories, products } from '../data/productData.js';
 import { useProducts } from '../context/ProductContext';
 import Image from 'next/image';
 
 const ProductsContent = () => {
   const { addProduct, updateProductQuantity } = useProducts();
+
+  const [products, setProducts] = useState([]); // Estado para almacenar los productos de la API
+  const [loading, setLoading] = useState(true); // Estado para manejar la carga
+  const [error, setError] = useState(null); // Estado para manejar errores
 
   const [activeFilters, setActiveFilters] = useState({
     categories: [],
@@ -18,30 +21,53 @@ const ProductsContent = () => {
 
   const [sortOption, setSortOption] = useState('popularity');
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null); // Limpiar errores previos
+      try {
+        const response = await fetch('http://localhost:8080/products');
+        if (!response.ok) {
+          throw new Error('No se pudo obtener los productos');
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []); // El array vacío asegura que esto solo se ejecute una vez al montar el componente
+
   const filteredProducts = products
-    .filter((product) => {
-      if (activeFilters.categories.length > 0 && !activeFilters.categories.includes(product.category)) {
-        return false;
-      }
+    ? products.filter((product) => {
+        if (activeFilters.categories.length > 0 && !activeFilters.categories.includes(product.category)) {
+          return false;
+        }
 
-      if (product.price > activeFilters.priceRange[1]) {
-        return false;
-      }
+        if (product.price > activeFilters.priceRange[1]) {
+          return false;
+        }
 
-      return true;
-    })
-    .sort((a, b) => {
-      switch (sortOption) {
-        case 'price-asc':
-          return a.price - b.price;
-        case 'price-desc':
-          return b.price - a.price;
-        case 'newest':
-          return b.isNew ? 1 : -1;
-        default:
-          return b.reviewCount - a.reviewCount;
-      }
-    });
+        return true;
+      })
+    : [];
+
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    switch (sortOption) {
+      case 'price-asc':
+        return a.price - b.price;
+      case 'price-desc':
+        return b.price - a.price;
+      case 'newest':
+        return b.isNew ? 1 : -1;
+      default:
+        return b.reviewCount - a.reviewCount;
+    }
+  });
 
   const handleFilterChange = (filters) => {
     setActiveFilters(filters);
@@ -50,6 +76,14 @@ const ProductsContent = () => {
   const handleSortChange = (option) => {
     setSortOption(option);
   };
+
+  if (loading) {
+    return <div>Cargando productos...</div>; // O un componente de carga más sofisticado
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto py-8 px-4">
@@ -79,17 +113,20 @@ const ProductsContent = () => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Barra lateral de filtros */}
         <aside className="lg:w-64 flex-shrink-0">
-          <FilterSidebar categories={categories} onFilterChange={handleFilterChange} />
+          <FilterSidebar
+            categories={Array.from(new Set(products.map((product) => product.category)))}
+            onFilterChange={handleFilterChange}
+          />
         </aside>
 
         <main className="flex-1">
-          <ProductsHeader total={filteredProducts.length} onSortChange={handleSortChange} />
+          <ProductsHeader total={sortedProducts.length} onSortChange={handleSortChange} />
 
           {/* Cuadrícula de productos */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product) => (
+            {sortedProducts.map((product) => (
               <ProductCard
-                key={product.id}
+                key={product.code}
                 product={product}
                 addProduct={addProduct}
                 updateProductQuantity={updateProductQuantity}

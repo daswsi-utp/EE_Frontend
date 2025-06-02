@@ -1,16 +1,41 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FaAnglesRight, FaAnglesLeft } from 'react-icons/fa6';
-import { products } from '../data/productData';
 import { useProducts } from '../context/ProductContext';
-import Image from 'next/image';
 import Link from 'next/link';
+import API_BASE_URL from '../config/apiConfig';
 
 const Carousel = () => {
   const { addProduct, updateProductQuantity } = useProducts();
-
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`${API_BASE_URL}/products`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        // Ordena los productos por su ID de forma descendente y toma los últimos 6
+        const last6Products = data.sort((a, b) => b.id - a.id).slice(0, 6);
+        // **Reverse the order to show what were the "last" added of the 6**
+        setProducts([...last6Products].reverse()); // Create a new reversed array
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const scroll = (direction) => {
     const container = scrollRef.current;
@@ -41,13 +66,21 @@ const Carousel = () => {
     );
   };
 
+  if (loading) {
+    return <div>Cargando productos...</div>; // O un componente de carga más sofisticado
+  }
+
+  if (error) {
+    return <div>Error al cargar productos: {error.message}</div>; // Manejo de errores
+  }
+
   return (
     <div className="w-full flex px-10 py-6 justify-center items-center">
       <div className="flex justify-center items-center">
         <button
           onClick={() => scroll('left')}
           className="z-10 bg-white text-primary cursor-pointer p-2 rounded-full w-10 h-10 hover:bg-gray-100 shadow-md
-                    flex justify-center items-center"
+                   flex justify-center items-center"
           aria-label="Desplazar a la izquierda"
         >
           <FaAnglesLeft />
@@ -57,12 +90,12 @@ const Carousel = () => {
       <div ref={scrollRef} className="flex gap-4 overflow-x-hidden scroll-smooth no-scrollbar mx-5 py-2">
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product.code}
             className="w-[250px] h-[350px] flex-shrink-0 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200"
           >
             <div className="relative h-40 bg-gray-100">
               <img
-                src={product.image}
+                src={`http://localhost:8080${product.imageUrl}`}
                 alt={product.name}
                 className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
               />
@@ -74,7 +107,7 @@ const Carousel = () => {
             </div>
 
             <div className="p-4">
-              <Link href={`/viewproducts/${product.id}`}>
+              <Link href={`/viewproducts/${product.code}`}>
                 <p className="font-semibold text-[16px] text-primary transition-all duration-500 hover:text-secondary truncate">
                   {product.name}
                 </p>
@@ -114,7 +147,7 @@ const Carousel = () => {
         <button
           onClick={() => scroll('right')}
           className="z-10 bg-white text-primary cursor-pointer p-2 rounded-full w-10 h-10 hover:bg-gray-100 shadow-md
-                    flex justify-center items-center"
+                   flex justify-center items-center"
           aria-label="Desplazar a la derecha"
         >
           <FaAnglesRight />
