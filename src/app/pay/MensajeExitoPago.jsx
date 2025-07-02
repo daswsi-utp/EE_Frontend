@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-const MensajeExitoPago = () => {
+// Acepta una nueva prop 'orderNumber'
+const MensajeExitoPago = ({ orderNumber }) => {
   return (
     <div className="fixed inset-0 bg-white min-h-screen flex items-center justify-center">
       <div className="container max-w-lg px-4">
@@ -23,7 +24,8 @@ const MensajeExitoPago = () => {
           <div className="bg-gray-100 rounded-lg p-4 w-full mb-6">
             <div className="flex justify-between font-semibold">
               <span>Número de pedido:</span>
-              <span>#AB12345678</span>
+              {/* Muestra el número de pedido dinámico */}
+              <span># {orderNumber}</span>
             </div>
           </div>
           <Link
