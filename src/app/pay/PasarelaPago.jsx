@@ -13,6 +13,10 @@ import { useProducts } from '../context/ProductContext';
 import { useState } from 'react';
 import Link from 'next/link';
 import InformacionPagoEfectivo from './InformacionPagoEfectivo';
+import axios from 'axios';
+import API_BASE_URL from '../config/apiConfig';
+import { jwtDecode } from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 
 const PasarelaPago = () => {
   const { products } = useProducts();
@@ -22,6 +26,9 @@ const PasarelaPago = () => {
   const [direccion, setDireccion] = useState({ calle: '', ciudad: '', codigoPostal: '', pais: '' });
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
+  const [numeroSerieFactura, setNumeroSerieFactura] = useState('');
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
   const subtotal = products.reduce((total, producto) => total + producto.price * producto.quantity, 0);
   const envio = 4.99;
@@ -43,17 +50,67 @@ const PasarelaPago = () => {
     setDireccion(data);
   };
 
-  const procesarPago = (e) => {
+  const procesarPago = async (e) => {
     e.preventDefault();
     setCargando(true);
-    setTimeout(() => {
+    setError(null);
+
+    const token = localStorage.getItem('token');
+
+    console.log('token: ' + token);
+
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+
+    let decoded;
+
+    try {
+      decoded = jwtDecode(token);
+    } catch (err) {
+      router.push('/login');
+      return;
+    }
+
+    if (!decoded.userCode) {
+      router.push('/login');
+      return;
+    }
+
+    const invoicePayload = {
+      customerCode: decoded.usercode,
+      shippingAddress: `${direccion.calle}, ${direccion.ciudad}, ${direccion.pais}, ${direccion.codigoPostal}`,
+      details: products.map((product) => ({
+        productCode: product.code,
+        quantity: product.quantity,
+      })),
+    };
+
+    try {
+      const response = await axios.post(`${API_BASE_URL}/invoices`, invoicePayload, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200) {
+        setNumeroSerieFactura(response.data.seriesNumber);
+        setExito(true);
+      } else {
+        setError('Hubo un problema al procesar tu pago. Por favor, inténtalo de nuevo.');
+      }
+    } catch (apiError) {
+      setError('No se pudo conectar con el servidor. Verifica tu conexión e inténtalo de nuevo.');
+    } finally {
       setCargando(false);
-      setExito(true);
-    }, 2000);
+    }
   };
 
+  // Renderiza el componente de éxito si el pago fue exitoso
   if (exito) {
-    return <MensajeExitoPago />;
+    // Pasa el número de serie de la factura al componente de éxito.
+    return <MensajeExitoPago orderNumber={numeroSerieFactura} />;
   }
 
   return (
@@ -110,7 +167,6 @@ const PasarelaPago = () => {
                   </div>
                 </div>
               )}
-
               {paso === 3 && (
                 <ConfirmarPedido
                   direccion={direccion}
@@ -120,9 +176,18 @@ const PasarelaPago = () => {
                   total={total}
                   formularioTarjeta={formularioTarjeta}
                   onBack={() => handleCambioPaso(2)}
-                  onConfirm={procesarPago}
+                  onConfirm={procesarPago} // Llama a la función procesarPago al confirmar
                   cargando={cargando}
                 />
+              )}
+              {/* Muestra un mensaje de error si existe */}
+              {error && (
+                <div
+                  className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4"
+                  role="alert"
+                >
+                  <span className="block sm:inline">{error}</span>
+                </div>
               )}
             </div>
           </div>

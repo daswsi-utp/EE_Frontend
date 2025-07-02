@@ -22,6 +22,7 @@ const ClientesContent = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/orchestrator/clients`);
       setClientes(response.data);
+      console.log(response.data);
       setLoading(false);
     } catch (e) {
       setError(e);

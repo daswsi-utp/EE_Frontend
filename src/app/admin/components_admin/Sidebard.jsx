@@ -7,13 +7,14 @@ import {
   MdPeopleAlt,
   MdOutlineDoubleArrow,
 } from 'react-icons/md';
+import { GiTrafficLightsOrange } from 'react-icons/gi';
+
 import { BsChatSquareDotsFill, BsBarChartLine, BsClipboardData } from 'react-icons/bs';
 import { FaCalendar } from 'react-icons/fa';
 import { GrUserWorker } from 'react-icons/gr';
 import { useState } from 'react';
 import ItemMenu from './ItemMenu';
 import Image from 'next/image';
-
 const Sidebar = () => {
   const [toggle, setToggle] = useState(true);
 
@@ -66,6 +67,7 @@ const Sidebar = () => {
         <ItemMenu Icono={FaCalendar} nombre="Calendario" togle={toggle} url="/admin/calendario" />
         <ItemMenu Icono={GrUserWorker} nombre="Empleados" togle={toggle} url="/admin/empleados" />
         <ItemMenu Icono={BsBarChartLine} nombre="Reportes" togle={toggle} url="/admin/reportes" />
+        <ItemMenu Icono={GiTrafficLightsOrange} nombre="Role" togle={toggle} url="/admin/role" />
       </div>
     </aside>
   );

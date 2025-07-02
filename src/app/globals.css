@@ -42,3 +42,48 @@
 .scroll-container:hover {
   scrollbar-width: thin;
 }
+/* Animación para el indicador de escritura */
+.dot-flashing {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #9ca3af; /* gray-400 */
+  color: #9ca3af;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #9ca3af;
+  color: #9ca3af;
+  animation: dot-flashing 1s infinite alternate;
+}
+
+.dot-flashing::before {
+  left: -12px;
+  animation-delay: 0.2s;
+}
+
+.dot-flashing::after {
+  left: 12px;
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #9ca3af;
+  }
+  50%,
+  100% {
+    background-color: rgba(156, 163, 175, 0.2);
+  }
+}

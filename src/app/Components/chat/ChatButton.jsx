@@ -1,15 +1,16 @@
-"use client";
+'use client';
+import { FaComments } from 'react-icons/fa';
 
-import { FaCommentDots } from "react-icons/fa";
-
-const ChatButton = ({ toggleChat }) => (
-  <button
-    onClick={toggleChat}
-    className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white shadow-lg hover:bg-Quaternary transition-colors duration-300"
-    aria-label="Abrir chat"
-  >
-    <FaCommentDots className="w-8 h-8" />
-  </button>
-);
+const ChatButton = ({ toggleChat }) => {
+  return (
+    <button
+      onClick={toggleChat}
+      className="bg-teal-500 text-white rounded-full shadow-lg p-4 hover:bg-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-500/50 transition-all duration-300"
+      aria-label="Abrir chat"
+    >
+      <FaComments className="w-8 h-8" />
+    </button>
+  );
+};
 
 export default ChatButton;

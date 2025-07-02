@@ -1,37 +1,19 @@
 'use client';
 
-import { User, ArrowLeft, Clock, MoreVertical } from 'lucide-react';
-import { customerInfo } from './data';
+import { User } from 'lucide-react';
 
-const ChatHeader = () => {
+const ChatHeader = ({ activeTicket }) => {
   return (
-    <div className="bg-teal-50 p-4 flex justify-between items-center h-[9vh] text-black">
+    <div className="bg-teal-100 p-4 h-[11vh] border-b border-teal-200 flex justify-between items-center text-teal-900">
       <div className="flex items-center">
-        <button className="mr-2 md:hidden">
-          <ArrowLeft size={20} />
-        </button>
-        <div className="w-8 h-8 bg-white text-primary-admin rounded-full flex items-center justify-center">
-          <User size={20} />
+        <div className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0">
+          <User size={24} className="text-white" />
         </div>
         <div className="ml-3">
-          <div className="flex items-center">
-            <h2 className="font-medium">{customerInfo.name}</h2>
-            <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-800">Prioridad Alta</span>
-          </div>
-          <div className="flex items-center text-xs text-black">
-            <span>Pedido #{customerInfo.currentOrder.orderNumber}</span>
-            <span className="mx-1">•</span>
-            <span>En conversación</span>
-          </div>
+          {/* Muestra el ID del ticket y el número de mensajes */}
+          <h2 className="font-semibold text-lg">{`${activeTicket?.customerName || 'N/A'}`}</h2>
+          <span className="text-sm text-teal-700">{`${activeTicket?.customerEmail} mensajes`}</span>
         </div>
-      </div>
-      <div className="flex gap-4">
-        <button className="p-2 rounded-full hover:bg-teal-300" title="Ver historial de conversaciones">
-          <Clock size={20} />
-        </button>
-        <button className="p-2 rounded-full hover:bg-teal-300" title="Más opciones">
-          <MoreVertical size={20} />
-        </button>
       </div>
     </div>
   );
