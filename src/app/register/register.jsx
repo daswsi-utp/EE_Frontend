@@ -16,7 +16,6 @@ export default function Register() {
     password: '',
     confirmPassword: '',
     address: '',
-    rol: 'USER',
   });
 
   const [error, setError] = useState('');
