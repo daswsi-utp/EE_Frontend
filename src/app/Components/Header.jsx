@@ -13,6 +13,7 @@ import EcoCalendar from './EcoCalendar/EcoCalendar';
 import { LuCalendarRange } from 'react-icons/lu';
 import Image from 'next/image';
 import { useAuth } from '../context/AuthContext';
+import { jwtDecode } from 'jwt-decode';
 
 const montserrat = Montserrat_Alternates({
   subsets: ['latin'],
@@ -27,9 +28,27 @@ const Header = () => {
   const { products } = useProducts();
   const [calendar, setCalendar] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, logout, token } = useAuth();
+  const { logout } = useAuth();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef(null);
+
+  const [user, setUser] = useState('');
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
+
+    if (storedToken) {
+      try {
+        const decoded = jwtDecode(storedToken);
+        setUser(decoded.sub);
+      } catch (error) {
+        console.error('Error al decodificar el token:', error);
+        setUser('');
+      }
+    }
+  }, []);
 
   const toggleCalendar = () => setCalendar(!calendar);
   const toggleCart = () => setIsCartOpen(!isCartOpen);
@@ -38,7 +57,10 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    setIsUserMenuOpen(false); // Close the user menu after logout
+    localStorage.removeItem('token');
+    setToken(null);
+    setUser('');
+    setIsUserMenuOpen(false);
   };
 
   // Close user menu on outside click
@@ -111,18 +133,21 @@ const Header = () => {
                 className="flex items-center gap-2 cursor-pointer text-text hover:text-hover-text"
               >
                 <FaRegUser className="text-[25px]" />
-                {token && user && <span className={`${montserrat.className} text-[16px] font-semibold`}>{user}</span>}
-                {!token && <span className={`${montserrat.className} text-[16px] font-semibold`}>Login</span>}
+                <span className={`${montserrat.className} text-[16px] font-semibold`}>
+                  {token === null ? 'Login' : user}
+                </span>
               </button>
               {isUserMenuOpen && token && (
                 <div className="absolute right-0 top-[100%] mt-2 bg-white shadow-md rounded-md z-50 w-32">
                   <ul className="py-2">
                     <li className="px-4 py-2 hover:bg-gray-100 transition duration-150">
-                      <button
-                        onClick={handleLogout}
-                        className={`${montserrat.className} text-sm text-gray-700 w-full text-left`}
-                      >
+                      <button onClick={handleLogout} className={`text-sm text-gray-700 w-full text-left text-nowrap`}>
                         Cerrar Sesión
+                      </button>
+                    </li>
+                    <li className="px-4 py-2 hover:bg-gray-100 transition duration-150">
+                      <button className={`text-sm text-gray-700 w-full text-left`}>
+                        <Link href="/orders">Ver pedidos</Link>
                       </button>
                     </li>
                   </ul>
