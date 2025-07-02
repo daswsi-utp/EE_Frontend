@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Client } from '@stomp/stompjs';
 import ChatButton from './ChatButton';
 import ChatHeader from './ChatHeader';
 import ChatForm from './ChatForm';
@@ -13,49 +14,92 @@ const ChatWidget = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [messages, setMessages] = useState([{ id: 1, text: '¡Hola! ¿En qué podemos ayudarte hoy?', sender: 'bot' }]);
+  const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
-  const [isSubmittingEmail, setIsSubmittingEmail] = useState(false);
+
+  const stompClient = useRef(null);
 
   const toggleChat = () => setIsOpen(!isOpen);
   const closeFloatingWidget = () => setIsVisible(false);
 
   const handleEmailSubmit = (e) => {
     e.preventDefault();
-    setIsSubmittingEmail(true);
-    setTimeout(() => {
-      setIsAuthenticated(true);
-      setIsSubmittingEmail(false);
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: prev.length + 1,
-          text: `¡Hola ${name}! Bienvenido/a a nuestro chat de soporte de Verde Raíz. ¿Cómo podemos ayudarte?`,
-          sender: 'bot',
-        },
-      ]);
-    }, 1000);
+    if (!name.trim() || !email.trim()) return;
+
+    setIsAuthenticated(true);
+    setMessages([]);
   };
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const socketUrl = `ws://localhost:8080/ws-chat?email=${encodeURIComponent(email)}&username=${encodeURIComponent(
+      name
+    )}&rol=CLIENT`;
+    const emailSafe = email.replace('@', '_at_');
+
+    const client = new Client({
+      brokerURL: socketUrl,
+      reconnectDelay: 5000,
+      onConnect: () => {
+        console.log('✅ Conectado al WebSocket');
+
+        // 1. Escuchamos el topic que envía el ticketId
+        client.subscribe(`/topic/ticket/${emailSafe}`, (message) => {
+          const ticketIdFromServer = message.body;
+          console.log('🎫 Ticket recibido:', ticketIdFromServer);
+
+          // 2. Cuando lo recibimos, nos suscribimos directamente al topic del ticket
+          client.subscribe(`/topic/ticket/${ticketIdFromServer}`, (message) => {
+            const body = JSON.parse(message.body);
+            console.log(body);
+            const incoming = {
+              id: `msg-${Date.now()}`,
+              text: body.content,
+              sender: body.sender === name ? 'user' : 'agent',
+              timestamp: Date.now(),
+            };
+            setMessages((prev) => [...prev, incoming]);
+          });
+        });
+
+        // 3. Emitimos eventos iniciales
+        client.publish({
+          destination: '/app/init',
+          body: JSON.stringify({
+            email,
+            username: name,
+          }),
+        });
+
+        client.publish({ destination: '/app/view' });
+      },
+      onStompError: (frame) => {
+        console.error('❌ STOMP error:', frame);
+      },
+    });
+
+    client.activate();
+    stompClient.current = client;
+
+    return () => {
+      stompClient.current?.deactivate();
+    };
+  }, [isAuthenticated, name, email]);
 
   const sendMessage = (e) => {
     e.preventDefault();
-    if (!inputMessage.trim()) return;
+    if (!inputMessage.trim() || !stompClient.current?.connected) return;
 
-    const newMessages = [...messages, { id: messages.length + 1, text: inputMessage, sender: 'user' }];
+    stompClient.current.publish({
+      destination: '/app/send',
+      body: JSON.stringify({
+        content: inputMessage,
+        type: 'CHAT',
+      }),
+    });
 
-    setMessages(newMessages);
     setInputMessage('');
-
-    setTimeout(() => {
-      setMessages([
-        ...newMessages,
-        {
-          id: newMessages.length + 1,
-          text: 'Gracias por tu mensaje. Nuestro equipo está revisando tu consulta y te responderemos a la brevedad.',
-          sender: 'bot',
-        },
-      ]);
-    }, 1000);
   };
 
   if (!isVisible) return null;
@@ -67,7 +111,7 @@ const ChatWidget = () => {
           <ChatButton toggleChat={toggleChat} />
           <button
             onClick={closeFloatingWidget}
-            className="absolute -top-2 -right-2 rounded-full text-[15px] text-gray-400 hover:text-red-500  p-0 flex justify-center items-center "
+            className="absolute -top-2 -right-2 rounded-full text-[15px] text-gray-400 hover:text-red-500 p-0 flex justify-center items-center"
             title="Cerrar"
           >
             <span className="font-extrabold">X</span>
@@ -84,7 +128,7 @@ const ChatWidget = () => {
                 setName={setName}
                 email={email}
                 setEmail={setEmail}
-                isSubmitting={isSubmittingEmail}
+                isSubmitting={false}
                 onSubmit={handleEmailSubmit}
               />
             ) : (
