@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import API_BASE_URL from '../config/apiConfig';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -34,11 +35,25 @@ export default function Login() {
         password: formData.password,
       });
 
-      const { token, user, userCode } = response.data;
+      const { token } = response.data;
 
-      login(token, user, userCode);
+      localStorage.setItem('token', token);
 
-      router.push('/products');
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+      const role = decoded.role;
+
+      //login(token, user, userCode);
+
+      if (role === 'ROLE_ADMIN') {
+        router.push('/roleSelector');
+      } else if (role === 'ROLE_USER') {
+        router.push('/');
+      } else if (role === 'ROLE_EMPLOYEE') {
+        router.push('/');
+      } else {
+        setError('Rol no reconocido');
+      }
     } catch (err) {
       if (err.response) {
         const status = err.response.status;
