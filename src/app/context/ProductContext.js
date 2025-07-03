@@ -15,6 +15,10 @@ export const ProductProvider = ({ children }) => {
     }
   }, []);
 
+  const clearCart = () => {
+    setProducts([]);
+  };
+
   // Guardar en localStorage cada vez que cambien los productos
   useEffect(() => {
     localStorage.setItem('cart-products', JSON.stringify(products));
@@ -48,7 +52,7 @@ export const ProductProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider value={{ products, addProduct, removeProduct, updateProductQuantity }}>
+    <ProductContext.Provider value={{ products, addProduct, removeProduct, updateProductQuantity, clearCart }}>
       {children}
     </ProductContext.Provider>
   );
