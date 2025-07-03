@@ -5,9 +5,10 @@ import { FaAnglesRight, FaAnglesLeft } from 'react-icons/fa6';
 import { useProducts } from '../context/ProductContext';
 import Link from 'next/link';
 import API_BASE_URL from '../config/apiConfig';
+import { toast } from 'react-hot-toast';
 
 const Carousel = () => {
-  const { addProduct, updateProductQuantity } = useProducts();
+  const { addProduct } = useProducts();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,10 +24,8 @@ const Carousel = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        // Ordena los productos por su ID de forma descendente y toma los últimos 6
         const last6Products = data.sort((a, b) => b.id - a.id).slice(0, 6);
-        // **Reverse the order to show what were the "last" added of the 6**
-        setProducts([...last6Products].reverse()); // Create a new reversed array
+        setProducts([...last6Products].reverse());
       } catch (err) {
         setError(err);
       } finally {
@@ -40,11 +39,7 @@ const Carousel = () => {
   const scroll = (direction) => {
     const container = scrollRef.current;
     const scrollAmount = container.offsetWidth / 1.2;
-    if (direction === 'left') {
-      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    } else {
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
+    container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
   };
 
   const RatingStars = ({ rating }) => {
@@ -66,21 +61,15 @@ const Carousel = () => {
     );
   };
 
-  if (loading) {
-    return <div>Cargando productos...</div>; // O un componente de carga más sofisticado
-  }
-
-  if (error) {
-    return <div>Error al cargar productos: {error.message}</div>; // Manejo de errores
-  }
+  if (loading) return <div>Cargando productos...</div>;
+  if (error) return <div>Error al cargar productos: {error.message}</div>;
 
   return (
     <div className="w-full flex px-10 py-6 justify-center items-center">
       <div className="flex justify-center items-center">
         <button
           onClick={() => scroll('left')}
-          className="z-10 bg-white text-primary cursor-pointer p-2 rounded-full w-10 h-10 hover:bg-gray-100 shadow-md
-                   flex justify-center items-center"
+          className="z-10 bg-white text-primary cursor-pointer p-2 rounded-full w-10 h-10 hover:bg-gray-100 shadow-md flex justify-center items-center"
           aria-label="Desplazar a la izquierda"
         >
           <FaAnglesLeft />
@@ -129,11 +118,8 @@ const Carousel = () => {
               <button
                 className="mt-4 w-full cursor-pointer bg-primary text-white text-[15px] py-2 rounded-md hover:bg-secondary transition-colors font-[700]"
                 onClick={() => {
-                  if (product.quantity >= 1) {
-                    updateProductQuantity(product.id, product.quantity + 1);
-                  } else {
-                    addProduct({ ...product, quantity: 1 });
-                  }
+                  addProduct({ ...product, quantity: 1 });
+                  toast.success(`${product.name} añadido al carrito`);
                 }}
               >
                 Añadir al carrito
@@ -146,8 +132,7 @@ const Carousel = () => {
       <div className="flex justify-center items-center">
         <button
           onClick={() => scroll('right')}
-          className="z-10 bg-white text-primary cursor-pointer p-2 rounded-full w-10 h-10 hover:bg-gray-100 shadow-md
-                   flex justify-center items-center"
+          className="z-10 bg-white text-primary cursor-pointer p-2 rounded-full w-10 h-10 hover:bg-gray-100 shadow-md flex justify-center items-center"
           aria-label="Desplazar a la derecha"
         >
           <FaAnglesRight />
