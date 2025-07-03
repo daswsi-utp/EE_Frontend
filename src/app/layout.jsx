@@ -3,6 +3,7 @@ import './globals.css';
 import { ProductProvider } from './context/ProductContext';
 import ChatWidget from './Components/chat/ChatWidget';
 import { AuthProvider } from './context/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -24,6 +25,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.className} bg-tertiary text-black h-fit bg-[url(/back/fondo_pedidos2.svg)] bg-cover bg-no-repeat bg-center`}
       >
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: 'white',
+              color: 'black',
+            },
+          }}
+        />
         <AuthProvider>
           <ProductProvider>
             <main>
