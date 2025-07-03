@@ -2,68 +2,55 @@ import React from 'react';
 
 const Bentos = () => {
   return (
-    <section className="h-auto lg:h-[88vh] max-w-[1280px] mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 grid-rows-6 gap-4 md:gap-6 p-4 md:p-6 h-full text-white">
-        {/* Banner principal */}
-        <div
-          className="lg:col-span-4 col-span-1 row-span-3 lg:row-span-4 bg-cover bg-center rounded-lg relative transition-transform duration-500 hover:scale-[1.02] h-72 sm:h-80 md:h-96 lg:h-auto"
-          style={{ backgroundImage: "url('./Img/Ecologia.jpg')" }}
-        >
-          <div className="z-10 absolute h-full w-full bg-linear-to-r from-black to-transparent rounded-lg opacity-70"></div>
-          <div className="z-20 relative flex justify-center items-center h-full w-full pl-4 lg:pl-20">
-            <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-[3.5rem] text-center lg:text-left">
-              Transforma tu vida con productos 100% ecológicos
+    <section className="h-auto lg:h-[88vh] max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 mt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 grid-rows-none lg:grid-rows-6 gap-4 md:gap-6 h-full text-white px-1">
+        <div className="lg:col-span-4 col-span-1 row-span-3 lg:row-span-4 bg-[url('/Img/Ecologia.jpg')] bg-cover bg-center rounded-lg relative transition-transform duration-500 hover:scale-[1.02] min-h-[300px] sm:min-h-[350px] lg:h-auto flex items-center justify-center">
+          <div className="z-10 absolute inset-0 bg-gradient-to-r from-black to-transparent rounded-lg opacity-70"></div>
+          <div className="z-20 relative p-4 text-start px-10">
+            <p className="text-white text-[2rem] xs:text-2xl sm:text-3xl md:text-4xl lg:text-[3.5rem] leading-tight">
+              Transforma tu <span className="text-orange-200 font-semibold">vida</span> con productos{' '}
+              <span className="text-pink-200 font-semibold">100% ecológicos</span>
             </p>
           </div>
         </div>
 
-        {/* Bote */}
-        <div className="col-span-1 row-span-2 lg:col-span-2 lg:col-start-1 lg:row-start-5 rounded-lg overflow-hidden relative transition-transform duration-500 hover:scale-[1.05] h-60 sm:h-auto">
-          <div className="z-10 absolute h-full w-full bg-linear-to-r from-black to-transparent rounded-lg opacity-85"></div>
-          <img
-            className="absolute bottom-0 right-0 w-1/2 lg:w-auto h-full object-contain object-right"
-            src="./Img/Bote.png"
-            alt="Bote de Basura"
-          />
-          <div className="z-20 relative h-full w-[60%] lg:w-[40%] ml-4 lg:ml-12 text-sm sm:text-base lg:text-[1.2rem] flex justify-center items-center">
-            <p>Tu estilo de vida también puede salvar el planeta.</p>
+        <div className="col-span-1 row-span-2 lg:col-span-2 lg:col-start-1 bg-[#DDD9DF] lg:row-start-5 rounded-lg overflow-hidden lg:min-h-[180px] relative transition-transform duration-500 hover:scale-[1.03] min-h-[200px] bg-[url('/Img/Bote.png')] bg-contain bg-no-repeat bg-center flex items-center">
+          <div className="z-10 absolute inset-0 bg-gradient-to-r from-black to-transparent rounded-lg opacity-85"></div>
+          <div className="z-20 relative p-4 w-full text-start px-10 lg:mb-10">
+            <p className="text-[1.8rem] sm:text-base lg:text-[1.2rem] leading-tight">
+              Tu <span className="text-orange-200 font-medium">estilo de vida</span> también puede{' '}
+              <span className="text-pink-200 font-medium">salvar el planeta</span>.
+            </p>
           </div>
         </div>
 
-        {/* Plástico */}
-        <div
-          className="relative row-span-2 lg:row-span-3 lg:col-start-5 lg:row-start-1 rounded-lg bg-no-repeat bg-center transition-transform duration-500 hover:scale-[1.05] h-60 sm:h-auto"
-          style={{
-            backgroundImage: "url('./Img/plastico.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="z-10 absolute h-full w-full bg-linear-to-b from-black to-transparent rounded-lg opacity-70"></div>
-          <div className="relative h-full w-full z-20 flex pt-6 px-4 text-sm sm:text-base lg:text-[1.2rem] text-center">
-            <p>Cada producto reutiliza hasta 12 botellas de plástico.</p>
+        <div className="relative row-span-2 lg:row-span-3 lg:col-start-5 lg:row-start-1 rounded-lg bg-[url('/Img/plastico.jpg')] bg-cover bg-no-repeat bg-center transition-transform duration-500 hover:scale-[1.03] min-h-[430px] sm:min-h-[250px] flex items-start justify-center">
+          <div className="z-10 absolute inset-0 bg-gradient-to-b from-black to-transparent rounded-lg opacity-70"></div>
+          <div className="relative z-20 p-4 text-center mt-10 lg:mt-5 px-10">
+            <p className="text-[1.8rem] sm:text-base lg:text-[1.1rem] leading-tight px-10S">
+              Cada producto <span className="text-pink-200 font-medium">reutiliza</span> hasta{' '}
+              <span className="text-orange-200 font-semibold">12 botellas</span> de plástico.
+            </p>
           </div>
         </div>
 
-        {/* Botella */}
-        <div
-          className="relative row-span-2 lg:row-span-3 lg:col-start-5 lg:row-start-4 bg-black rounded-lg bg-cover bg-center flex items-end transition-transform duration-500 hover:scale-[1.05] h-60 sm:h-auto"
-          style={{ backgroundImage: "url('./Img/BotellaEcologica.png')" }}
-        >
-          <div className="z-10 absolute h-full w-full bg-linear-to-t from-black to-transparent rounded-lg opacity-85"></div>
-          <div className="relative z-20 text-sm sm:text-base lg:text-[1.2rem] text-center px-4 pb-6">
-            <p>Elige entre una gran variedad de productos sostenibles.</p>
+        <div className="relative row-span-3 lg:row-span-3 lg:col-start-5 lg:row-start-4 bg-[#DFCBB5] rounded-lg bg-[url('/Img/BotellaEcologica.png')] bg-center bg-contain bg-no-repeat flex items-end justify-center transition-transform duration-500 hover:scale-[1.03] min-h-[400px] sm:min-h-[250px]">
+          <div className="z-10 absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-lg opacity-85"></div>
+          <div className="relative z-20 p-4 text-center mb-12 lg:mb-6 px-10">
+            <p className="text-[1.8rem] sm:text-base lg:text-[1.1rem] leading-tight">
+              Elige entre una <span className="text-orange-200 font-medium">gran variedad</span> de productos{' '}
+              <span className="text-pink-200 font-medium">sostenibles</span>.
+            </p>
           </div>
         </div>
 
-        {/* Productos ecológicos */}
-        <div
-          className="relative col-span-1 lg:col-span-2 row-span-2 lg:col-start-3 lg:row-start-5 rounded-lg bg-cover flex items-end transition-transform duration-500 hover:scale-[1.05] h-60 sm:h-auto"
-          style={{ backgroundImage: "url('./Img/ProductosEcologicos2.png')" }}
-        >
-          <div className="z-10 absolute h-full w-full bg-linear-to-t from-black to-transparent rounded-lg opacity-85"></div>
-          <div className="relative z-20 py-6 w-full text-center text-sm sm:text-base lg:text-[1.2rem]">
-            <p>Tu rutina, ahora más ecológica.</p>
+        <div className="relative col-span-1 lg:col-span-2 row-span-2 lg:col-start-3 lg:row-start-5 rounded-lg bg-[url('/Img/ProductosEcologicos2.png')] bg-cover flex items-end justify-center transition-transform duration-500 lg:min-h-[180px] hover:scale-[1.03] min-h-[200px] h-full ">
+          <div className="z-10 absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-lg opacity-85"></div>
+          <div className="relative z-20 p-4 w-full text-center mb-3 px-10">
+            <p className="text-[1.8rem] sm:text-base lg:text-[1.2rem] leading-tight">
+              Tu <span className="text-pink-200 font-medium">rutina</span>, ahora más{' '}
+              <span className="text-orange-200 font-medium">ecológica</span>.
+            </p>
           </div>
         </div>
       </div>

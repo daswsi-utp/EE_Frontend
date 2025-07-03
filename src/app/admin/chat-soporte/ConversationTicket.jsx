@@ -70,7 +70,7 @@ const ConversationTicket = ({ ticket, isActive, onSelect }) => {
 
   return (
     <div
-      className={`flex items-center p-4 cursor-pointer hover:bg-gray-50 transition-all duration-200 ${
+      className={`flex items-center p-4 cursor-pointer bg-white hover:bg-gray-50 transition-all duration-200 ${
         isActive ? 'bg-teal-50 border-l-4 border-teal-500' : ''
       }`}
       onClick={handleClick}

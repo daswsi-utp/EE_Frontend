@@ -21,7 +21,9 @@ const montserrat = Montserrat_Alternates({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} bg-tertiary text-black h-fit`}>
+      <body
+        className={`${montserrat.className} bg-tertiary text-black h-fit bg-[url(/back/fondo_pedidos2.svg)] bg-cover bg-no-repeat bg-center`}
+      >
         <AuthProvider>
           <ProductProvider>
             <main>

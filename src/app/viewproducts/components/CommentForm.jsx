@@ -3,15 +3,16 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaPaperPlane } from 'react-icons/fa6';
-import { useAuth } from '@/app/context/AuthContext';
-import API_BASE_URL from '@/app/config/apiConfig';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import API_BASE_URL from '@/app/config/apiConfig';
 
 const CommentForm = ({ productCode, onSubmitSuccess, onSubmitError }) => {
+  const router = useRouter();
   const [userComment, setUserComment] = useState('');
   const [userRating, setUserRating] = useState(5);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { userCode } = useAuth();
 
   const renderSelectableStars = () => {
     const stars = [];
@@ -32,39 +33,47 @@ const CommentForm = ({ productCode, onSubmitSuccess, onSubmitError }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (!userCode) {
-      console.error('User code not found. User must be logged in to leave a review.');
-      if (onSubmitError) {
-        onSubmitError('Debes iniciar sesión para dejar una reseña.');
-      }
-      setIsSubmitting(false);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      if (onSubmitError);
+      router.push('/login');
+      return;
+    }
+
+    let userCode = null;
+    try {
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+      userCode = decoded.userCode;
+    } catch (error) {
+      console.error('Token inválido:', error);
+      if (onSubmitError) onSubmitError('Sesión inválida. Inicia sesión nuevamente.');
+      router.push('/login');
       return;
     }
 
     try {
       await axios.post(`${API_BASE_URL}/reviews`, {
-        productCode: productCode,
-        userCode: userCode,
+        productCode,
+        userCode,
         rating: userRating,
         comment: userComment,
       });
 
       setUserComment('');
       setUserRating(5);
-      setIsSubmitting(false);
-      if (onSubmitSuccess) {
-        onSubmitSuccess(); // Llama a la función para recargar comentarios en el padre
-      }
+      if (onSubmitSuccess) onSubmitSuccess();
     } catch (error) {
       console.error('Error al enviar la reseña:', error);
-      setIsSubmitting(false);
       let errorMessage = 'Error al enviar la reseña. Intenta nuevamente.';
-      if (error.response && error.response.data && error.response.data.error) {
+      if (error.response?.data?.error) {
         errorMessage = error.response.data.error;
       }
       if (onSubmitError) {
         onSubmitError(errorMessage);
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

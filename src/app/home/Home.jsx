@@ -6,10 +6,10 @@ import Footer from './Footer';
 
 const Home = () => {
   return (
-    <div className="bg-tertiary">
+    <div className="">
       <Header />
       <Bentos />
-      <div className="h-[120vh] flex flex-col justify-center items-center">
+      <div className="h-fit flex flex-col justify-center items-center my-20">
         <span className="text-primary font-[700] text-[35px] block text-center">¿Cómo lo hacemos?</span>
         <Info />
       </div>

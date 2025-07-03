@@ -9,7 +9,7 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, initialFormData, fetchP
       name: '',
       description: '',
       longDescription: '',
-      category: '',
+      categoryId: '',
       price: '',
       discount: '',
       rating: '',
@@ -66,7 +66,7 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, initialFormData, fetchP
         name: '',
         description: '',
         longDescription: '',
-        category: '',
+        categoryId: '',
         price: '',
         discount: '',
         rating: '',
@@ -145,7 +145,6 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, initialFormData, fetchP
     if (image && typeof image !== 'string') {
       formDataToSend.append('image', image);
     }
-
     return formDataToSend;
   };
 
@@ -324,8 +323,8 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, initialFormData, fetchP
                   <div className="text-red-500">{errorLoadingCategories}</div>
                 ) : (
                   <select
-                    name="category"
-                    value={formData.category}
+                    name="categoryId"
+                    value={formData.categoryId}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-teal-600 rounded-md"
                     required

@@ -1,30 +1,18 @@
-"use client";
+'use client';
 
-import { useEcoCalendar } from "./useEcoCalendar";
-import CalendarHeader from "./CalendarHeader";
-import CalendarGrid from "./CalendarGrid";
-import EventList from "./EventList";
+import { useEcoCalendar } from './useEcoCalendar';
+import CalendarHeader from './CalendarHeader';
+import CalendarGrid from './CalendarGrid';
+import EventList from './EventList';
 
 export default function EcoCalendar() {
-  const {
-    currentMonth,
-    setCurrentMonth,
-    selectedDate,
-    setSelectedDate,
-    events,
-  } = useEcoCalendar();
+  const { currentMonth, setCurrentMonth, selectedDate, setSelectedDate, events } = useEcoCalendar();
 
-  const previousMonth = () =>
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
-    );
-  const nextMonth = () =>
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
-    );
+  const previousMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+  const nextMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
 
   return (
-    <div className="w-[448px] mx-auto bg-white rounded-lg shadow-xl overflow-hidden text-black">
+    <div className="w-[350px] mx-auto bg-white rounded-lg shadow-xl overflow-hidden text-black">
       <CalendarHeader
         currentMonth={currentMonth}
         selectedDate={selectedDate}

@@ -107,8 +107,8 @@ const ProductTable = ({
                           <img className="h-10 w-10 rounded-full object-cover" src={imageUrl} alt={product.name} />
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                          <div className="text-sm text-gray-500">{product.description}</div>
+                          <div className="text-sm font-medium text-gray-900 truncate max-w-[350px]">{product.name}</div>
+                          <div className="text-sm text-gray-500 truncate max-w-[350px]">{product.description}</div>
                         </div>
                       </div>
                     </td>

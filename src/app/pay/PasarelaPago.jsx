@@ -17,6 +17,7 @@ import axios from 'axios';
 import API_BASE_URL from '../config/apiConfig';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
+import { Codesandbox } from 'lucide-react';
 
 const PasarelaPago = () => {
   const { products } = useProducts();
@@ -78,8 +79,10 @@ const PasarelaPago = () => {
       return;
     }
 
+    console.log(decoded);
     const invoicePayload = {
-      customerCode: decoded.usercode,
+      customerCode: decoded.userCode,
+      estate: 'procesando',
       shippingAddress: `${direccion.calle}, ${direccion.ciudad}, ${direccion.pais}, ${direccion.codigoPostal}`,
       details: products.map((product) => ({
         productCode: product.code,
@@ -87,6 +90,7 @@ const PasarelaPago = () => {
       })),
     };
 
+    console.log(invoicePayload);
     try {
       const response = await axios.post(`${API_BASE_URL}/invoices`, invoicePayload, {
         headers: {

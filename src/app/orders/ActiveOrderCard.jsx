@@ -1,11 +1,10 @@
 import React from 'react';
 import { Package, MapPin, Download } from 'lucide-react';
-import OrderTimeline from './OrderTimeline';
+import OrderTimeline from './OrderTimeline'; // Ajusta la ruta según tu estructura
 
 const ActiveOrderCard = ({ order, onDownloadPDF }) => {
   const statusColors = {
     Procesando: 'bg-yellow-100 text-yellow-800',
-    Enviado: 'bg-blue-100 text-blue-800',
     Entregado: 'bg-green-100 text-green-800',
   };
 
@@ -28,9 +27,12 @@ const ActiveOrderCard = ({ order, onDownloadPDF }) => {
           {order.estate}
         </span>
       </div>
+
       <div className="mb-6">
+        <h4 className="text-md font-medium text-gray-700 mb-3">Estado del Pedido:</h4>
         <OrderTimeline order={order} />
       </div>
+
       <div className="space-y-3">
         <div className="flex items-center text-sm text-gray-600">
           <MapPin className="w-4 h-4 mr-2 text-teal-500" />

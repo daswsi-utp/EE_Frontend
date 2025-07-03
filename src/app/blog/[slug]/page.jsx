@@ -1,7 +1,7 @@
-import Header from "../../Components/Header";
+import Header from '../../Components/Header';
 import posts from '../../data/blogPosts';
 
-import { Facebook, Twitter, Instagram } from "lucide-react"; 
+import { Facebook, Twitter, Instagram } from 'lucide-react';
 
 export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
@@ -13,16 +13,12 @@ export default function BlogDetailPage({ params }) {
   if (!post) return <div className="p-6 text-center">Contenido no encontrado</div>;
 
   return (
-    <div className="min-h-screen bg-tertiary">
+    <div className="min-h-screen ">
       <Header />
 
       <div className="max-w-4xl mx-auto mt-24 py-12 px-4 sm:px-6 lg:px-8 bg-white shadow-xl rounded-xl">
         {/* Imagen destacada */}
-        <img
-          src={post.image1}
-          alt={post.title}
-          className="w-full rounded-lg mb-8 shadow-md"
-        />
+        <img src={post.image1} alt={post.title} className="w-full rounded-lg mb-8 shadow-md" />
 
         {/* Título */}
         <h1 className="text-4xl font-extrabold text-primary mb-4">{post.title}</h1>
@@ -30,8 +26,8 @@ export default function BlogDetailPage({ params }) {
         {/* Contenido formateado */}
         <article className="prose prose-lg text-gray-800 prose-img:rounded-lg prose-img:mx-auto">
           {post.content
-            .split("\n")
-            .filter((p) => p.trim() !== "")
+            .split('\n')
+            .filter((p) => p.trim() !== '')
             .map((p, i) => (
               <p key={i}>{p}</p>
             ))}

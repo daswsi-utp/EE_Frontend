@@ -11,7 +11,7 @@ const ChatSidebar = ({ tickets, activeTicket, onSelectTicket }) => {
   });
 
   return (
-    <aside className="w-[25vw] flex-none bg-white border-r border-gray-200 overflow-y-auto shadow-sm relative z-20">
+    <aside className="w-[25vw] flex-none bg-tertiary border-r border-gray-200 overflow-y-auto shadow-sm relative z-20">
       <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-teal-50 to-teal-100">
         <h2 className="text-2xl font-bold text-gray-800 flex items-center">
           <span className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center text-white text-sm font-bold mr-3">

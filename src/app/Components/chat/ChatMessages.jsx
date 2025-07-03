@@ -84,10 +84,10 @@ const ChatMessages = ({ messages = [], isAgentTyping }) => {
   );
 
   return (
-    <div className="h-80 overflow-y-auto bg-gradient-to-b from-gray-50 to-white">
+    <div className="h-80 overflow-y-auto bg-[url(/back/garras.svg)] ">
       <div className="p-4 space-y-1">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+          <div className="flex flex-col items-center justify-center h-64 text-black">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
               <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path

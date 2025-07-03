@@ -319,7 +319,7 @@ const RootGreenReceipt = ({ order }) => {
           <View style={styles.header}>
             <View style={styles.logoSection}>
               <View style={styles.logoContainer}>
-                <Image src="Img/logo_header.png" style={styles.logo} />
+                <Image src="/Img/logo_header.png" style={styles.logo} />
               </View>
             </View>
             <View style={styles.documentType}>

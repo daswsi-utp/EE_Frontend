@@ -1,13 +1,7 @@
-import { Leaf, Scale } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Leaf, Scale } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-export function ProductCarbonCard({
-  name,
-  image,
-  carbonFootprint,
-  savings,
-  delay = 50,
-}) {
+export function ProductCarbonCard({ name, image, carbonFootprint, savings, delay = 50 }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     let interval;
@@ -28,7 +22,7 @@ export function ProductCarbonCard({
   }, [carbonFootprint]);
   return (
     <div
-      className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-700 transform opacity-100 translate-y-0"
+      className="rounded-xl shadow-lg overflow-hidden transition-all duration-700 transform opacity-100 translate-y-0"
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="h-48 relative overflow-hidden">
@@ -46,15 +40,11 @@ export function ProductCarbonCard({
       <div className="p-6">
         <div className="flex items-center gap-2 mb-4">
           <Scale className="w-5 h-5 text-teal-600" />
-          <span className="text-lg font-semibold text-gray-800">
-            {count} kg CO₂e
-          </span>
+          <span className="text-lg font-semibold text-gray-800">{count} kg CO₂e</span>
         </div>
         <div className="flex items-center gap-2 text-teal-600">
           <Leaf className="w-5 h-5" />
-          <span className="font-medium">
-            {savings}% menos que el promedio de la industria
-          </span>
+          <span className="font-medium">{savings}% menos que el promedio de la industria</span>
         </div>
       </div>
     </div>

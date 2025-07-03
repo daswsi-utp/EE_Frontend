@@ -76,18 +76,6 @@ const CategoryModal = ({ isOpen, onClose, category, onSave }) => {
             ></textarea>
           </div>
 
-          {/* Imagen (Fija) */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Imagen</label>
-            <input
-              type="text"
-              value="./../Img/bambu.jpg" // URL fija
-              readOnly
-              className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
-            />
-            <p className="text-xs text-gray-500">La imagen es fija por ahora.</p>
-          </div>
-
           <div className="mt-6 flex justify-end space-x-3">
             <button
               type="button"
