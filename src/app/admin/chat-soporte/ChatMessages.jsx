@@ -94,13 +94,7 @@ const ChatMessages = ({ ticketId, activeTicket, onSendMessage }) => {
   return (
     <div className="flex flex-col w-full">
       <ChatHeader activeTicket={activeTicket} />
-      <div
-        className="flex-1 bg-gray-50 p-6 overflow-y-auto relative z-20"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #cbd5e1 2px, transparent 2px)',
-          backgroundSize: '30px 30px',
-        }}
-      >
+      <div className="flex-1 p-6 overflow-y-auto relative z-2 bg-[url(/back/garras.svg)]">
         <div className="space-y-4">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.sender === 'AGENT' ? 'justify-end' : 'justify-start'}`}>
