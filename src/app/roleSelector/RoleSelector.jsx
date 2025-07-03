@@ -16,7 +16,7 @@ const RoleSelector = () => {
       title: 'Administrador',
       description: 'Gestiona todo el sistema',
       icon: Shield,
-      path: '/admin', // Add the specific path for the role
+      path: '/admin',
       bgColor: '#e0f2f1',
       textColor: '#004d40',
       iconColor: '#00796b',
@@ -28,7 +28,7 @@ const RoleSelector = () => {
       title: 'Cliente',
       description: 'Accede a servicios',
       icon: User,
-      path: '/', // Path for client
+      path: '/',
       bgColor: '#e0f7fa',
       textColor: '#006064',
       iconColor: '#0097a7',
@@ -40,7 +40,7 @@ const RoleSelector = () => {
       title: 'Empleado',
       description: 'Gestiona operaciones',
       icon: Briefcase,
-      path: '/', // Path for employee (can be changed if needed)
+      path: '/admin',
       bgColor: '#e8f5e9',
       textColor: '#2e7d32',
       iconColor: '#43a047',
@@ -50,7 +50,6 @@ const RoleSelector = () => {
   ];
 
   const handleRoleSelect = (roleId) => {
-    // Prevent selection if already animating
     if (isAnimating) return;
 
     setSelectedRole(roleId);
@@ -58,19 +57,16 @@ const RoleSelector = () => {
 
     const role = roles.find((r) => r.id === roleId);
 
-    // Allow animation to play for a moment before navigating
     setTimeout(() => {
-      // Navigate to the role's specific path
       if (role && role.path) {
         router.push(role.path);
       } else {
-        // Fallback or default path if no specific path is defined
         router.push('/');
       }
-      // Reset state after initiating navigation (or if navigation fails)
+
       setIsAnimating(false);
       setSelectedRole(null);
-    }, 600); // Adjust this delay to match your desired animation duration
+    }, 600);
   };
 
   return (
@@ -106,10 +102,10 @@ const RoleSelector = () => {
                 `}
                 style={{
                   backgroundColor: role.bgColor,
-                  // Use a more dynamic shadow for selected state
+
                   boxShadow: isSelected ? `0 15px 30px -8px ${role.shadowColor}` : '0 10px 20px -5px rgba(0,0,0,0.05)',
                 }}
-                onClick={() => handleRoleSelect(role.id)} // Removed !isAnimating check here, it's inside the handler now
+                onClick={() => handleRoleSelect(role.id)}
               >
                 <div
                   className={`
