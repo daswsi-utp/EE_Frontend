@@ -42,6 +42,7 @@ const Header = () => {
     if (storedToken) {
       try {
         const decoded = jwtDecode(storedToken);
+        console.log(decoded);
         setUser(decoded.sub);
       } catch (error) {
         console.error('Error al decodificar el token:', error);
@@ -120,14 +121,14 @@ const Header = () => {
                 <LuCalendarRange />
               </button>
               {calendar && (
-                <div className="absolute right-0 top-[100%] z-[200]">
+                <div className="absolute right-[-125px] top-[100%] z-[200]">
                   <EcoCalendar />
                 </div>
               )}
             </div>
 
             {/* User */}
-            <div className="relative" ref={userMenuRef}>
+            <div className="relative hidden sm:block" ref={userMenuRef}>
               <button
                 onClick={toggleUserMenu}
                 className="flex items-center gap-2 cursor-pointer text-text hover:text-hover-text"
@@ -154,7 +155,7 @@ const Header = () => {
                 </div>
               )}
               {!token && (
-                <Link href="/login" className="absolute inset-0 flex items-center justify-center w-full h-full">
+                <Link href="/login" className=" absolute inset-0 flex items-center justify-center w-full h-full">
                   <span className="sr-only">Ir a Login</span>
                 </Link>
               )}
