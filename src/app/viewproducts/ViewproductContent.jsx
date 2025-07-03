@@ -176,7 +176,6 @@ const ViewproductContent = ({ code }) => {
             </div>
           </div>
         </div>
-        {productfind && <AddToCartButton onAddToCart={handleAddToCart} stock={productfind.stock} />}
       </div>
     </div>
   );

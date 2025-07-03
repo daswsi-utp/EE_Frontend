@@ -3,6 +3,7 @@ import AddToCartButton from './AddToCartButton';
 import WishlistButton from './WishlistButton';
 
 const ProductDetails = ({
+  handleAddToCart,
   product,
   quantity,
   onQuantityIncrement,
@@ -20,7 +21,8 @@ const ProductDetails = ({
           onDecrement={onQuantityDecrement}
           stock={product.stock}
         />
-        <AddToCartButton onAddToCart={onAddToCart} stock={product.stock} />
+        <AddToCartButton product={product} />
+
         <WishlistButton isAdded={wishlistAdded} onToggleWishlist={onToggleWishlist} />
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Eye, Edit, MailOpen, Phone, UserX } from 'lucide-react';
-import EstadoClienteIndicator from './EstadoClienteIndicator';
+import EstadoEmpleIndicator from './EstadoEmpleIndicator';
 import axios from 'axios';
 import API_BASE_URL from '@/app/config/apiConfig';
 
@@ -78,7 +78,7 @@ const ClienteRow = ({ cliente, onEdit, fetchClientes }) => {
         S/. {cliente.totalSpent?.toFixed(2) || '0.00'}
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <EstadoClienteIndicator estado={cliente.active ? 'activo' : 'inactivo'} />
+        <EstadoEmpleIndicator estado={cliente.active ? 'activo' : 'inactivo'} />
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
         <div className="flex justify-center items-center">

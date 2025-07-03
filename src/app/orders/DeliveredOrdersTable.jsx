@@ -82,7 +82,7 @@ const DeliveredOrdersTable = ({ orders = [], onDownloadPDF }) => {
                       <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
                         <MapPin className="w-4 h-4 text-purple-600" />
                       </div>
-                      <div className="max-w-xs">
+                      <div className="max-w-[200px]">
                         <div className="text-sm text-gray-900 truncate" title={order.shippingAddress}>
                           {order.shippingAddress}
                         </div>
@@ -98,9 +98,7 @@ const DeliveredOrdersTable = ({ orders = [], onDownloadPDF }) => {
                   </td>
                   <td className="px-6 py-5 text-right">
                     <div className="text-right">
-                      <div className="text-lg font-bold text-teal-600 text-nowrap">
-                        S/ {order.totalAmount.toFixed(2)}
-                      </div>
+                      <div className="text-lg text-teal-600 text-nowrap">S/ {order.totalAmount.toFixed(2)}</div>
                     </div>
                   </td>
                   <td className="px-6 py-5 text-center">

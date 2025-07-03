@@ -1,12 +1,20 @@
 import { Edit, Trash, Clock } from 'lucide-react';
 
+const parseLocalDateString = (dateString) => {
+  if (!dateString) return null;
+  const [year, month, day] = dateString.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
+
 const EventList = ({ events, selectedDate, handleEditEvent, handleDeleteEvent }) => {
-  const dateString = selectedDate.toISOString().split('T')[0];
+  const dateString = selectedDate.toLocaleDateString('en-CA');
+
   const dayEvents = events.filter((event) => event.date === dateString);
 
-  // Formato de fecha para mostrar
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('es-ES', {
+  const formatDate = (dateStr) => {
+    const localDate = parseLocalDateString(dateStr);
+    if (!localDate) return '';
+    return localDate.toLocaleDateString('es-ES', {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -15,8 +23,9 @@ const EventList = ({ events, selectedDate, handleEditEvent, handleDeleteEvent })
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg border border-gray-200 p-4">
+    <div className="bg-gray-50 rounded-lg border border-gray-200 p-4 overflow-y-scroll h-[365px]">
       <div className="flex items-center mb-4">
+        {/* Aquí pasamos el dateString (e.g., "2025-07-03") a formatDate */}
         <h3 className="text-lg font-semibold text-gray-700">Eventos para {formatDate(dateString)}</h3>
       </div>
 

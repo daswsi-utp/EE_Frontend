@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ClientesHeader from './ClientesHeader';
-import ClientesSearch from './ClientesSearch';
-import ClientesStats from './ClientesStats';
-import ClientesTable from './ClientesTable';
-import EditarClienteModal from './EditarClienteModal'; // Importar el modal
+import EmpleHeader from './EmpleHeader';
+import EmpleSearch from './EmpleSearch';
+import EmpleStats from './EmpleStats';
+import EmpleTable from './EmpleTable';
+import EditarEmpleModal from './EditarEmpleModal';
 import axios from 'axios';
 import API_BASE_URL from '@/app/config/apiConfig';
 
@@ -22,7 +22,7 @@ const ClientesContent = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/orchestrator/clients`);
 
-      const rolesPermitidos = ['ROLE_USER'];
+      const rolesPermitidos = ['ROLE_EMPLOYEE'];
       const clientesFiltrados = response.data.filter((cliente) => rolesPermitidos.includes(cliente.rol));
 
       setClientes(clientesFiltrados);
@@ -78,24 +78,24 @@ const ClientesContent = () => {
   };
 
   if (loading) {
-    return <div>Cargando clientes...</div>;
+    return <div>Cargando empleados...</div>;
   }
 
   if (error) {
-    return <div>Error al cargar los clientes: {error.message}</div>;
+    return <div>Error al cargar los empleados: {error.message}</div>;
   }
 
   return (
     <div className="p-6 h-full bg-tertiary overflow-y-auto">
-      <ClientesHeader />
-      <ClientesSearch
+      <EmpleHeader />
+      <EmpleSearch
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         estadoFilter={estadoFilter}
         setEstadoFilter={setEstadoFilter}
       />
-      <ClientesStats clientes={clientes} />
-      <ClientesTable
+      <EmpleStats clientes={clientes} />
+      <EmpleTable
         filteredClientes={filteredClientes}
         totalClientes={clientes.length}
         onEditClient={openEditModal}
@@ -103,7 +103,7 @@ const ClientesContent = () => {
       />
 
       {isEditModalOpen && editingClient && (
-        <EditarClienteModal
+        <EditarEmpleModal
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
           client={editingClient}

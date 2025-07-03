@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react'; // Agregamos useCallback
 import { Plus, Search } from 'lucide-react';
 import CalendarHeader from './CalendarHeader';
 import CalendarGrid from './CalendarGrid';
@@ -9,10 +9,12 @@ import EventList from './EventList';
 import DeleteConfirmation from './DeleteConfirmation';
 import EventStats from './EventStats';
 import EventTable from './EventTable';
-import { demoEvents } from './calendarData';
+// Importamos las funciones de la API
+import { getAllEvents, createEvent, updateEvent, updateEventStatus, deleteEvent } from './eventApi'; // Ajusta la ruta si es necesario
 
 const CalendarioContent = () => {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
@@ -29,24 +31,30 @@ const CalendarioContent = () => {
     status: 'Activo',
   });
 
-  useEffect(() => {
-    const stored = localStorage.getItem('calendar-events');
-    if (stored) {
-      setEvents(JSON.parse(stored));
-    } else {
-      setEvents(demoEvents);
-      localStorage.setItem('calendar-events', JSON.stringify(demoEvents));
+  // Función para cargar eventos desde la API
+  const fetchEvents = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await getAllEvents();
+      setEvents(data);
+    } catch (error) {
+      console.error('No se pudieron cargar los eventos:', error);
+      // Aquí podrías mostrar un mensaje de error al usuario
+    } finally {
+      setLoading(false);
     }
-  }, []);
+  }, []); // El array vacío asegura que esta función se memorice y no cambie en cada render
 
+  // Cargar eventos al montar el componente
   useEffect(() => {
-    localStorage.setItem('calendar-events', JSON.stringify(events));
-  }, [events]);
+    fetchEvents();
+  }, [fetchEvents]); // Incluimos fetchEvents como dependencia
 
   const handleAddEvent = () => {
     setIsEditing(false);
+    // Generar un ID temporal, el backend generará el definitivo
     setNewEvent({
-      id: `EVT-${new Date().getFullYear()}-${String(events.length + 1).padStart(3, '0')}`,
+      id: `TEMP-${Date.now()}`, // ID temporal para el formulario
       title: '',
       description: '',
       date: selectedDate.toISOString().split('T')[0],
@@ -59,7 +67,7 @@ const CalendarioContent = () => {
   const handleEditEvent = (event) => {
     setIsEditing(true);
     setCurrentEvent(event);
-    setNewEvent({ ...event });
+    setNewEvent({ ...event }); // Copia los datos del evento para editar
     setShowModal(true);
   };
 
@@ -68,22 +76,50 @@ const CalendarioContent = () => {
     setShowDelete(true);
   };
 
-  const confirmDelete = () => {
-    setEvents(events.filter((event) => event.id !== currentEvent.id));
-    setShowDelete(false);
-  };
-
-  const handleSaveEvent = (eventData) => {
-    if (isEditing) {
-      setEvents(events.map((event) => (event.id === currentEvent.id ? { ...eventData } : event)));
-    } else {
-      setEvents([...events, eventData]);
+  const confirmDelete = async () => {
+    if (currentEvent && currentEvent.id) {
+      try {
+        await deleteEvent(currentEvent.id);
+        fetchEvents(); // Recargar la lista de eventos después de eliminar
+        setShowDelete(false);
+      } catch (error) {
+        console.error('Error al eliminar el evento:', error);
+        // Manejar error, quizás mostrar una notificación
+      }
     }
-    setShowModal(false);
   };
 
-  const toggleEventStatus = (id) => {
-    setEvents(events.map((e) => (e.id === id ? { ...e, status: e.status === 'Activo' ? 'Inactivo' : 'Activo' } : e)));
+  const handleSaveEvent = async (eventData) => {
+    try {
+      let savedEvent;
+      if (isEditing) {
+        // Llama al endpoint PUT para actualizar
+        savedEvent = await updateEvent(eventData.id, eventData);
+      } else {
+        // Llama al endpoint POST para crear
+        savedEvent = await createEvent(eventData);
+      }
+      fetchEvents(); // Recargar la lista de eventos después de guardar/actualizar
+      setShowModal(false);
+    } catch (error) {
+      console.error('Error al guardar el evento:', error);
+      // Manejar error, quizás mostrar una notificación
+    }
+  };
+
+  const toggleEventStatus = async (id) => {
+    const eventToUpdate = events.find((e) => e.id === id);
+    if (!eventToUpdate) return;
+
+    const newStatus = eventToUpdate.status === 'Activo' ? 'Inactivo' : 'Activo';
+    try {
+      // Llama al endpoint PATCH para actualizar el estado
+      await updateEventStatus(id, newStatus);
+      fetchEvents(); // Recargar la lista de eventos para reflejar el cambio
+    } catch (error) {
+      console.error('Error al cambiar el estado del evento:', error);
+      // Manejar error
+    }
   };
 
   const filteredEvents = events.filter(
@@ -124,37 +160,47 @@ const CalendarioContent = () => {
           </button>
         </div>
 
-        <EventStats {...stats} />
-        <EventTable
-          events={filteredEvents}
-          handleEdit={handleEditEvent}
-          handleToggle={toggleEventStatus}
-          handleDelete={handleDeleteEvent}
-        />
+        {loading ? (
+          <div className="text-center text-gray-500 py-8">Cargando eventos...</div>
+        ) : (
+          <>
+            <EventStats {...stats} />
+            <EventTable
+              events={filteredEvents}
+              handleEdit={handleEditEvent}
+              handleToggle={toggleEventStatus}
+              handleDelete={handleDeleteEvent}
+            />
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          <div className="lg:col-span-3">
-            <CalendarHeader
-              currentMonth={currentMonth}
-              prevMonth={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
-              nextMonth={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
-            />
-            <CalendarGrid
-              currentMonth={currentMonth}
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-              events={events}
-            />
-          </div>
-          <div className="lg:col-span-2">
-            <EventList
-              events={events}
-              selectedDate={selectedDate}
-              handleEditEvent={handleEditEvent}
-              handleDeleteEvent={handleDeleteEvent}
-            />
-          </div>
-        </div>
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              <div className="lg:col-span-3">
+                <CalendarHeader
+                  currentMonth={currentMonth}
+                  prevMonth={() =>
+                    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))
+                  }
+                  nextMonth={() =>
+                    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))
+                  }
+                />
+                <CalendarGrid
+                  currentMonth={currentMonth}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  events={events}
+                />
+              </div>
+              <div className="lg:col-span-2">
+                <EventList
+                  events={events}
+                  selectedDate={selectedDate}
+                  handleEditEvent={handleEditEvent}
+                  handleDeleteEvent={handleDeleteEvent}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {showModal && (

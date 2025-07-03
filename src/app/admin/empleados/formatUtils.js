@@ -1,9 +1,7 @@
-export const formatEstadoEmpleado = (estado) => {
+export const formatEstadoCliente = (estado) => {
   const estadoMap = {
     activo: 'Activo',
     inactivo: 'Inactivo',
-    vacaciones: 'En Vacaciones',
-    baja: 'De Baja',
   };
   return estadoMap[estado] || estado;
 };
