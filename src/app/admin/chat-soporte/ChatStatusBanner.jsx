@@ -5,7 +5,7 @@ const ChatStatusBanner = ({ connectionStatus, activeTicket }) => {
     <>
       {/* Estado de conexión WebSocket */}
       <div
-        className={`absolute top-6 right-4 z-10 px-3 py-1 rounded-full text-xs font-medium transition-colors duration-300 ${
+        className={`absolute top-6 right-4 z-5 px-3 py-1 rounded-full text-xs font-medium transition-colors duration-300 ${
           connectionStatus === 'connected'
             ? 'bg-green-100 text-green-800'
             : connectionStatus === 'error'
@@ -20,7 +20,7 @@ const ChatStatusBanner = ({ connectionStatus, activeTicket }) => {
 
       {/* Estado del ticket activo */}
       {activeTicket && (
-        <div className="absolute top-6 right-32 z-10 px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+        <div className="absolute top-6 right-32 z-5 px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
           🔔 Ticket #{activeTicket.id}
         </div>
       )}
