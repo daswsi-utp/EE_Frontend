@@ -12,7 +12,7 @@ const EventModal = ({ newEvent, setNewEvent, isEditing, handleSaveEvent, setShow
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-semibold text-gray-800">{isEditing ? 'Editar Evento' : 'Nuevo Evento'}</h3>
@@ -23,16 +23,6 @@ const EventModal = ({ newEvent, setNewEvent, isEditing, handleSaveEvent, setShow
 
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">ID</label>
-              <input
-                type="text"
-                value={newEvent.id}
-                disabled
-                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-500"
-              />
-            </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
               <input
