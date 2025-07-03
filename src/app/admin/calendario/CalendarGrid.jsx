@@ -12,19 +12,16 @@ const CalendarGrid = ({ currentMonth, selectedDate, setSelectedDate, events }) =
 
     const days = [];
 
-    // Días vacíos al principio para alinear el primer día correctamente
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="p-2 h-12"></div>);
     }
 
-    // Días del mes
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
-      const dateString = date.toISOString().split('T')[0];
+      const dateString = date.toLocaleDateString('en-CA');
       const isSelected = selectedDate.toDateString() === date.toDateString();
       const isToday = new Date().toDateString() === date.toDateString();
 
-      // Verificar si hay eventos para este día
       const dayEvents = events.filter((event) => event.date === dateString);
       const activeEvents = dayEvents.filter((event) => event.status === 'Activo');
 
@@ -34,7 +31,7 @@ const CalendarGrid = ({ currentMonth, selectedDate, setSelectedDate, events }) =
           onClick={() => setSelectedDate(date)}
           className={`p-1 h-12 text-center relative cursor-pointer border hover:border-teal-300 transition-colors ${
             isSelected ? 'bg-teal-50 border-teal-500' : 'border-transparent'
-          } ${isToday ? 'font-bold' : ''}`}
+          } ${isToday ? 'font-bold text-pink-600' : ''}`}
         >
           <span
             className={`inline-block w-6 h-6 rounded-full text-sm items-center justify-center ${
@@ -44,10 +41,8 @@ const CalendarGrid = ({ currentMonth, selectedDate, setSelectedDate, events }) =
             {day}
           </span>
           {activeEvents.length > 0 && (
-            <div className="absolute bottom-1 left-0 right-0 flex justify-center">
-              <div className="h-1 w-1 rounded-full bg-teal-600"></div>
-              {activeEvents.length > 1 && <div className="h-1 w-1 rounded-full bg-teal-600 ml-1"></div>}
-              {activeEvents.length > 2 && <div className="h-1 w-1 rounded-full bg-teal-600 ml-1"></div>}
+            <div className="absolute bottom-1 left-0 right-0 flex justify-center ">
+              <div className="h-1 w-1 rounded-full border-amber-300 border-5 "></div>
             </div>
           )}
         </div>
