@@ -40,7 +40,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
       {/* Sidebar del Carrito */}
       <div
         id="cart-sidebar"
-        className={`text-text z-[100] fixed top-0 right-0 h-full w-full sm:w-[550px] bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`text-text z-[100] fixed top-0 right-0 h-full w-full sm:w-[550px] shadow-lg transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -59,7 +59,7 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
           </div>
 
           {/* Elementos del Carrito */}
-          <div className="flex-1 overflow-y-auto p-4 bg-tertiary">
+          <div className="flex-1 overflow-y-auto p-4 bg-[url(/back/patternb.svg)]">
             {products.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-gray-500">
                 <svg className="h-16 w-16 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
