@@ -39,7 +39,7 @@ const SUPPLIERS = [
 
 export default function MaterialSuppliers() {
   return (
-    <section className="py-16 bg-white px-15">
+    <section className="py-16 px-15">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-extrabold text-center mb-14 text-teal-800 drop-shadow-lg tracking-tight">
           Proveedores &amp; Trazabilidad de Materiales
