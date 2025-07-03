@@ -5,18 +5,16 @@ import ProductCard from './ProductCard';
 import FilterSidebar from './FilterSidebar';
 import ProductsHeader from './ProductsHeader';
 import { useProducts } from '../context/ProductContext';
-import Image from 'next/image';
 
 const ProductsContent = () => {
   const { addProduct, updateProductQuantity } = useProducts();
 
-  const [products, setProducts] = useState([]); // Estado para almacenar los productos de la API
-  const [loading, setLoading] = useState(true); // Estado para manejar la carga
-  const [error, setError] = useState(null); // Estado para manejar errores
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [activeFilters, setActiveFilters] = useState({
     categories: [],
-    priceRange: [0, 500],
   });
 
   const [sortOption, setSortOption] = useState('popularity');
@@ -24,7 +22,7 @@ const ProductsContent = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      setError(null); // Limpiar errores previos
+      setError(null);
       try {
         const response = await fetch('http://localhost:8080/products');
         if (!response.ok) {
@@ -40,21 +38,14 @@ const ProductsContent = () => {
     };
 
     fetchProducts();
-  }, []); // El array vacío asegura que esto solo se ejecute una vez al montar el componente
+  }, []);
 
-  const filteredProducts = products
-    ? products.filter((product) => {
-        if (activeFilters.categories.length > 0 && !activeFilters.categories.includes(product.category)) {
-          return false;
-        }
-
-        if (product.price > activeFilters.priceRange[1]) {
-          return false;
-        }
-
-        return true;
-      })
-    : [];
+  const filteredProducts = products.filter((product) => {
+    if (activeFilters.categories.length > 0 && !activeFilters.categories.includes(product.category)) {
+      return false;
+    }
+    return true;
+  });
 
   const sortedProducts = filteredProducts.sort((a, b) => {
     switch (sortOption) {
@@ -77,13 +68,8 @@ const ProductsContent = () => {
     setSortOption(option);
   };
 
-  if (loading) {
-    return <div>Cargando productos...</div>; // O un componente de carga más sofisticado
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Cargando productos...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="max-w-7xl mx-auto py-8 px-4">
@@ -91,11 +77,11 @@ const ProductsContent = () => {
         <img src="./Img/banner-eco.jpg" alt="Productos ecológicos" className="w-full h-full object-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent flex items-center">
           <div className="ml-10 max-w-lg">
-            <p className="text-3xl md:text-4xl font-bold text-white mb-4 text-shadow-lg/20">Productos Ecológicos</p>
-            <p className="text-white/90 mb-6 font-[500] text-shadow-lg/20">
+            <p className="text-3xl md:text-4xl font-bold text-white mb-4">Productos Ecológicos</p>
+            <p className="text-white/90 mb-6">
               Cuida el planeta con nuestra selección de productos sostenibles y respetuosos con el medio ambiente.
             </p>
-            <button className="cursor-pointer bg-white text-primary hover:bg-gray-100 font-bold py-2 px-6 rounded-md transition-colors">
+            <button className="cursor-pointer bg-white text-primary hover:bg-gray-100 font-bold py-2 px-6 rounded-md">
               Ver ofertas
             </button>
           </div>
@@ -111,7 +97,6 @@ const ProductsContent = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Barra lateral de filtros */}
         <aside className="lg:w-64 flex-shrink-0">
           <FilterSidebar
             categories={Array.from(new Set(products.map((product) => product.category)))}
@@ -122,9 +107,8 @@ const ProductsContent = () => {
         <main className="flex-1">
           <ProductsHeader total={sortedProducts.length} onSortChange={handleSortChange} />
 
-          {/* Cuadrícula de productos */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedProducts.map((product) => (
+            {sortedProducts.reverse().map((product) => (
               <ProductCard
                 key={product.code}
                 product={product}
@@ -134,37 +118,15 @@ const ProductsContent = () => {
             ))}
           </div>
 
-          {/* Mensaje si no hay resultados */}
           {filteredProducts.length === 0 && (
             <div className="text-center py-16">
               <p className="text-lg text-gray-600">No se encontraron productos que coincidan con tu búsqueda.</p>
               <button
-                className="mt-4 bg-primary hover:bg-secondary text-white font-bold py-2 px-6 rounded-md transition-colors"
-                onClick={() => setActiveFilters({ categories: [], priceRange: [0, 100] })}
+                className="mt-4 bg-primary hover:bg-secondary text-white font-bold py-2 px-6 rounded-md"
+                onClick={() => setActiveFilters({ categories: [] })}
               >
                 Borrar filtros
               </button>
-            </div>
-          )}
-
-          {/* Paginación */}
-          {filteredProducts.length > 0 && (
-            <div className="mt-10 flex justify-center">
-              <div className="flex space-x-2">
-                <button className="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 hover:bg-gray-50">
-                  &lt; Anterior
-                </button>
-                <button className="px-4 py-2 border border-primary bg-primary text-white rounded-md">1</button>
-                <button className="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 hover:bg-gray-50">
-                  2
-                </button>
-                <button className="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 hover:bg-gray-50">
-                  3
-                </button>
-                <button className="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 hover:bg-gray-50">
-                  Siguiente &gt;
-                </button>
-              </div>
             </div>
           )}
         </main>
