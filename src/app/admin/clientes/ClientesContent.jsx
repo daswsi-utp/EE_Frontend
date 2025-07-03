@@ -21,8 +21,12 @@ const ClientesContent = () => {
   const fetchClientes = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/orchestrator/clients`);
-      setClientes(response.data);
-      console.log(response.data);
+
+      const rolesPermitidos = ['ROLE_USER'];
+      const clientesFiltrados = response.data.filter((cliente) => rolesPermitidos.includes(cliente.rol));
+
+      setClientes(clientesFiltrados);
+      console.log(clientesFiltrados);
       setLoading(false);
     } catch (e) {
       setError(e);
