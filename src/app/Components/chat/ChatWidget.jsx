@@ -119,9 +119,9 @@ const ChatWidget = () => {
         </div>
       )}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-lg shadow-xl/20 overflow-hidden flex flex-col text-[15px]">
+        <div className="absolute bottom-20 right-0 w-96 rounded-lg shadow-xl/20 overflow-hidden flex flex-col text-[15px]">
           <ChatHeader toggleChat={toggleChat} />
-          <div className="flex-1 max-h-96 bg-tertiary">
+          <div className="flex-1 max-h-[450px] bg-transparent overflow-auto">
             {!isAuthenticated ? (
               <ChatForm
                 name={name}
