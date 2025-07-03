@@ -81,39 +81,10 @@ const ClienteRow = ({ cliente, onEdit, fetchClientes }) => {
         <EstadoClienteIndicator estado={cliente.active ? 'activo' : 'inactivo'} />
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-        <div className="flex space-x-2">
+        <div className="flex justify-center items-center">
           <button onClick={handleEditClick} className="text-gray-600 hover:text-gray-800">
             <Edit className="h-5 w-5" />
           </button>
-          <div className="relative">
-            <button
-              onClick={handleToggleActive}
-              className={`${
-                cliente.active ? 'text-red-600 hover:text-red-800' : 'text-green-600 hover:text-green-800'
-              } ${toggleLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
-              disabled={toggleLoading}
-              title={cliente.active ? 'Desactivar usuario' : 'Activar usuario'}
-            >
-              <UserX className="h-5 w-5" />
-            </button>
-
-            {/* Indicador de carga */}
-            {toggleLoading && (
-              <div className="absolute -bottom-6 left-0 text-xs text-blue-500 whitespace-nowrap">Procesando...</div>
-            )}
-
-            {/* Mensaje de éxito */}
-            {successMessage && (
-              <div className="absolute -bottom-6 left-0 text-xs text-green-500 whitespace-nowrap max-w-32">✓ Éxito</div>
-            )}
-
-            {/* Mensaje de error */}
-            {toggleError && (
-              <div className="absolute -bottom-8 left-0 text-xs text-red-500 whitespace-nowrap max-w-40 break-words">
-                {toggleError}
-              </div>
-            )}
-          </div>
         </div>
       </td>
     </tr>
