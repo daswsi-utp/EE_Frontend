@@ -191,15 +191,6 @@ export default function Login() {
                     <span>Iniciar sesión</span>
                   </span>
                 </button>
-
-                <Link href="/admin">
-                  <button
-                    type="button"
-                    className="cursor-pointer w-full flex justify-center py-3 px-6 border-2 border-primary rounded-xl shadow-sm text-sm font-semibold text-primary bg-white/50 backdrop-blur-sm hover:bg-secondary hover:text-white hover:border-secondary focus:outline-none focus:ring-4 focus:ring-primary/50 transition-all duration-300 transform hover:scale-[1.02]"
-                  >
-                    Modo admin
-                  </button>
-                </Link>
               </div>
             </form>
           </div>
@@ -214,7 +205,6 @@ export default function Login() {
   );
 }
 
-// Componente mejorado de entrada
 function Input({ label, name, type = 'text', value, onChange }) {
   return (
     <div className="group">
@@ -248,7 +238,6 @@ function Input({ label, name, type = 'text', value, onChange }) {
   );
 }
 
-// Componente específico para contraseñas con toggle de visibilidad
 function PasswordInput({ label, name, value, onChange, showPassword, toggleShow }) {
   return (
     <div className="group">
