@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { IoClipboardOutline } from 'react-icons/io5';
-import { IoLocationOutline } from 'react-icons/io5';
+import { IoClipboardOutline, IoLocationOutline } from 'react-icons/io5';
 import { MdPayment } from 'react-icons/md';
 import { RiShoppingBagLine } from 'react-icons/ri';
 
 const ConfirmarPedido = ({
-  direccion = { calle: '', ciudad: '', codigoPostal: '', pais: '' },
+  direccion = {},
   metodoPago = '',
   subtotal = 0,
   envio = 0,
@@ -23,8 +22,19 @@ const ConfirmarPedido = ({
     return () => clearTimeout(timer);
   }, [total]);
 
-  const tieneDireccionValida =
-    direccion && direccion.calle && direccion.ciudad && direccion.codigoPostal && direccion.pais;
+  // Unir dirección como un solo texto
+  const direccionCompleta = [
+    direccion.calle,
+    direccion.distrito,
+    direccion.provincia,
+    direccion.region,
+    direccion.codigoPostal,
+  ]
+    .map((campo) => campo?.trim())
+    .filter((campo) => campo && campo.length > 0)
+    .join(', ');
+
+  const tieneDireccionValida = direccionCompleta.length > 0;
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-6 space-y-6 border border-gray-200 transition-all hover:shadow-xl">
@@ -39,12 +49,7 @@ const ConfirmarPedido = ({
           Dirección de envío
         </p>
         {tieneDireccionValida ? (
-          <div className="pl-7 space-y-1 text-gray-700">
-            <p>{direccion.calle}</p>
-            <p>
-              {direccion.ciudad}, {direccion.codigoPostal}, {direccion.pais}
-            </p>
-          </div>
+          <p className="pl-7 text-gray-700">{direccionCompleta}</p>
         ) : (
           <p className="pl-7 text-amber-600 italic">Dirección no disponible</p>
         )}
@@ -87,7 +92,7 @@ const ConfirmarPedido = ({
           </div>
           <div className="flex justify-between items-center">
             <span>Envío</span>
-            <span>S/. {envio.toFixed(2)}</span>
+            <span>S/. 0</span>
           </div>
           <div
             className={`flex justify-between font-bold pt-3 border-t border-gray-200 text-gray-900 ${
@@ -100,27 +105,19 @@ const ConfirmarPedido = ({
         </div>
       </div>
 
-      <div className=" flex flex-col sm:flex-row gap-4 justify-end items-center">
+      <div className="flex flex-col sm:flex-row gap-4 justify-end items-center">
         <button
           onClick={onBack}
           disabled={cargando}
-          className=" bg-gray-100 text-gray-800 py-2 px-4 rounded-xl font-medium hover:bg-gray-200 transition-all hover:shadow-md disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-gray-300"
-          aria-label="Volver atrás"
+          className="bg-gray-100 text-gray-800 py-2 px-4 rounded-xl font-medium hover:bg-gray-200 transition-all hover:shadow-md disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
-          <span className="flex items-center justify-center">Atrás</span>
+          Atrás
         </button>
         <button
           onClick={onConfirm}
-          className=" bg-teal-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-teal-700 transition-all hover:shadow-md disabled:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
-          aria-label="Confirmar pedido y proceder al pago"
+          className="bg-teal-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-teal-700 transition-all hover:shadow-md disabled:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
         >
-          {cargando ? (
-            <div className="flex items-center justify-center space-x-2">
-              <span>Procesando...</span>
-            </div>
-          ) : (
-            <span className="flex items-center justify-center">Confirmar y pagar</span>
-          )}
+          {cargando ? 'Procesando...' : 'Confirmar y pagar'}
         </button>
       </div>
 
