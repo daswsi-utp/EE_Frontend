@@ -3,7 +3,7 @@ import React from 'react';
 
 const Card = ({ url, titule, context }) => {
   return (
-    <div className="w-[280px] rounded-lg overflow-hidden shadow-md h-[560px] bg-white">
+    <div className="w-[280px] rounded-lg overflow-hidden shadow-md h-[560px] bg-white m-auto">
       <img className="w-full transition-transform duration-500 hover:scale-110" src={`./Img/${url}`} alt={titule} />
       <div className="text-black px-6 pt-3 pb-2 items-center flex flex-col gap-2 justify-between h-[355px]">
         <div className="mb-2">
