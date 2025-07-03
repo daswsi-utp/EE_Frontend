@@ -3,9 +3,12 @@
 import React, { useState } from 'react';
 import { Heart, Star } from 'lucide-react';
 import Link from 'next/link';
+import { useProducts } from '@/app/context/ProductContext';
+import { toast } from 'react-hot-toast';
 
-const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
+const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { addProduct } = useProducts();
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -38,6 +41,11 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
         </svg>
       </div>
     );
+  };
+
+  const handleAddToCart = () => {
+    addProduct({ ...product, quantity: 1 });
+    toast.success(`${product.name} añadido al carrito`);
   };
 
   return (
@@ -95,13 +103,7 @@ const ProductCard = ({ product, addProduct, updateProductQuantity }) => {
         <div className="flex gap-2">
           <button
             className="cursor-pointer flex-1 bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-md transition-colors"
-            onClick={() => {
-              if (product.quantity >= 1) {
-                updateProductQuantity(product.id, product.quantity + 1);
-              } else {
-                addProduct({ ...product, quantity: 1 });
-              }
-            }}
+            onClick={handleAddToCart}
           >
             Añadir al carrito
           </button>
