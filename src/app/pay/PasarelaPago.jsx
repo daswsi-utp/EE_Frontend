@@ -17,10 +17,9 @@ import axios from 'axios';
 import API_BASE_URL from '../config/apiConfig';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
-import { Codesandbox } from 'lucide-react';
 
 const PasarelaPago = () => {
-  const { products } = useProducts();
+  const { products, clearCart } = useProducts();
   const [paso, setPaso] = useState(1);
   const [metodoPago, setMetodoPago] = useState('yape');
   const [formularioTarjeta, setFormularioTarjeta] = useState({ numero: '', nombre: '', fechaExp: '', cvv: '' });
@@ -32,7 +31,7 @@ const PasarelaPago = () => {
   const router = useRouter();
 
   const subtotal = products.reduce((total, producto) => total + producto.price * producto.quantity, 0);
-  const envio = 4.99;
+  const envio = 0;
   const total = subtotal + envio;
 
   const handleCambioPaso = (nuevoPaso) => {
@@ -80,10 +79,21 @@ const PasarelaPago = () => {
     }
 
     console.log(decoded);
+    const shippingAddress = [
+      direccion.calle,
+      direccion.distrito,
+      direccion.provincia,
+      direccion.region,
+      direccion.codigoPostal,
+    ]
+      .map((campo) => campo?.trim())
+      .filter(Boolean) // Elimina campos vacíos
+      .join(', ');
+
     const invoicePayload = {
       customerCode: decoded.userCode,
       estate: 'procesando',
-      shippingAddress: `${direccion.calle}, ${direccion.ciudad}, ${direccion.pais}, ${direccion.codigoPostal}`,
+      shippingAddress,
       details: products.map((product) => ({
         productCode: product.code,
         quantity: product.quantity,
@@ -100,6 +110,7 @@ const PasarelaPago = () => {
 
       if (response.status === 200) {
         setNumeroSerieFactura(response.data.seriesNumber);
+        clearCart();
         setExito(true);
       } else {
         setError('Hubo un problema al procesar tu pago. Por favor, inténtalo de nuevo.');
